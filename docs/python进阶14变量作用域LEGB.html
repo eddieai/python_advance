@@ -1,0 +1,670 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶14变量作用域LEGB · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶15多继承与Mixin.html" />
+    
+    
+    <link rel="prev" href="python进阶13并发之九多进程和数据共享.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶14变量作用域LEGB</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶14变量作用域legb">python进阶14变量作用域LEGB</h1>
+<h2 id="作用域">作用域</h2>
+<p>“作用域”定义了Python在哪一个层次上查找某个“变量名”对应的对象。接下来的问题就是：“Python在查找‘名称-对象’映射时，是按照什么顺序对命名空间的不同层次进行查找的？”</p>
+<p>答案就是：使用的是LEGB规则，表示的是Local -&gt; Enclosed -&gt; Global -&gt; Built-in，其中的箭头方向表示的是搜索顺序。</p>
+<pre><code>L: 先在局部变量中找，如果找不到
+E：则去闭包变量中找，如果找不到
+G：则去局部变量中找，如果找不到
+B: 去内置变量中找，如果找不到，才报错 dir(__builtins__)
+</code></pre><p>其中</p>
+<pre><code>Local 可能是在一个函数或者类方法内部。
+Enclosed 可能是嵌套函数内，比如说 一个函数包裹在另一个函数内部。
+Global 代表的是执行脚本自身的最高层次。
+Built-in 是Python为自身保留的特殊名称。
+</code></pre><p><strong>python作用域是以函数、类、模块来区分的，而不是块</strong></p>
+<p>也就是说if、while，for并不会影响变量的作用域！！！,python中没有块作用域。</p>
+<p>这就能解释python的if <strong>name</strong>=='<strong>mian</strong>'中声明的变量同样是全局变量</p>
+<h2 id="练习01">练习01</h2>
+<pre><code>a_var = 'global value'
+
+def outer():
+       a_var = 'local value'
+       print('outer before:', a_var)
+       def inner():
+           nonlocal a_var
+           a_var = 'inner value'
+           print('in inner():', a_var)
+       inner()
+       print("outer after:", a_var)
+outer()
+</code></pre><p>结果:</p>
+<pre><code>outer before: local value
+in inner(): inner value
+outer after: inner value
+</code></pre><p>分析:</p>
+<p><img src="./images/20200603230943341_2133827143.png" alt=""></img></p>
+<h2 id="练习02">练习02</h2>
+<pre><code>a = 'global'
+
+def outer():
+
+    def len(in_var):
+        print('called my len() function: ', end="")
+        l = 0
+        for i in in_var:
+            l += 1
+        return l
+
+    a = 'local'
+
+    def inner():
+        global len
+        nonlocal a
+        a += ' variable'
+    inner()
+    print('a is', a)
+    print(len(a))
+
+
+outer()
+
+print(len(a))
+print('a is', a)
+</code></pre><p>结果:</p>
+<pre><code>a is local variable
+called my len() function: 14
+6
+a is global
+</code></pre><p>可自行分析试试</p>
+<h2 id="注意点">注意点</h2>
+<p>01：在<strong>函数作用域内修改全局变量通常是个坏主意</strong>，因为这经常造成混乱或者很难调试的奇怪错误。如果你想要通过一个函数来修改一个全局变量，建议把它<strong>作为一个变量传入，然后重新指定返回值</strong>。</p>
+<p>02：如果我们提前在全局命名空间中明确定义了for循环变量，也是同样的结果！在这种情况下，它会重新绑定已有的变量：
+<strong>For循环变量“泄漏”到全局命名空间</strong></p>
+<pre><code>b = 1
+for b in range(5):
+    if b == 4:
+        print(b, '-&gt; b in for-loop')
+print(b, '-&gt; b in global')
+
+结果：
+4 -&gt; b in for-loop
+4 -&gt; b in global
+</code></pre><p>在Python 3.x中，我们可以使用闭包来防止for循环变量进入全局命名空间。下面是一个例子（在Python 3.4中执行）：</p>
+<pre><code>i = 1
+print([i for i in range(5)])
+print(i, '-&gt; i in global')
+
+结果
+[0, 1, 2, 3, 4]
+1 -&gt; i in global
+</code></pre><p>为何for里面会有如此奇怪的规则？闭包本身具有独立作用域，所以这里的i对父域不会形成干扰。</p>
+<p>还有另一个副作用就是</p>
+<pre><code>for i in range(5):
+    print(i)
+    i = 10
+</code></pre><p>结果:</p>
+<pre><code>0
+1
+2
+3
+4
+</code></pre><p>而不是直观理解的执行一次就退出</p>
+<p>代码;</p>
+<pre><code>for i in range(5):
+    i += 5
+    print(i)
+print(i)
+</code></pre><p>结果:</p>
+<pre><code>5
+6
+7
+8
+9
+9
+</code></pre><p>第一：成功污染外面的i</p>
+<p>第二：内部i+5只进行了1次，说明i=i+5,右侧的i,是真正的for里面的i,左侧的i是外部的i，但是却未报错unbounderror的错误！(内部的i有赋值，所以理论上外部的i应该是被屏蔽的，应该报错unbound才对，但是没报。即使勉强接受这一点，最终外面的i=9而非4，也很奇怪)</p>
+<p>原因:<strong>for循环不会引入新的作用域</strong>，所以，循环结束后，继续执行print(i)，可以正常输出i，原理上与情况3中的if相似。这一点Python就比较坑了，因此写代码时切忌for循环名字要与其他名字不重名才行。</p>
+<p>上式中,for里面i+5,到外面的for那里又重新赋值为原有的i(无视了内部对i的修改)，所以<strong>每次都+5了</strong>，而最终结果依然+5，是由于<strong>最后一次的i并未被成功赋值</strong>，所以最终结果看起来比较奇.</p>
+<pre><code>list_1 = [i for i in range(5)]
+print(i)
+
+结果:  
+NameError: name 'i' is not defined
+</code></pre><p>情况3中说到过，for循环不会引入新的作用域，那么为什么输出报错呢？真相只有一个：列表生成式会引入新的作用域，for循环是在Local作用域里面的。事实上，lambda、生成器表达式、列表解析式也是函数，都会引入新作用域。</p>
+<h2 id="参考">参考</h2>
+<p>Python中的LEGB规则：<a href="https://www.cnblogs.com/GuoYaxiang/p/6405814.html" target="_blank">https://www.cnblogs.com/GuoYaxiang/p/6405814.html</a></p>
+<p>Python中命名空间与作用域使用总结：<a href="https://www.cnblogs.com/chenhuabin/p/10123009.html" target="_blank">https://www.cnblogs.com/chenhuabin/p/10123009.html</a></p>
+<p>一道题看Python的LEGB规则:<a href="https://www.ucloud.cn/yun/45499.html" target="_blank">https://www.ucloud.cn/yun/45499.html</a></p>
+<p>Python LEGB规则:<a href="https://www.jianshu.com/p/3b72ba5a209c" target="_blank">https://www.jianshu.com/p/3b72ba5a209c</a></p>
+<p>python中的LEGB 规则:<a href="https://blog.csdn.net/xun527/article/details/76795328" target="_blank">https://blog.csdn.net/xun527/article/details/76795328</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶13并发之九多进程和数据共享.html" class="navigation navigation-prev " aria-label="Previous page: python进阶13并发之九多进程和数据共享">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶15多继承与Mixin.html" class="navigation navigation-next " aria-label="Next page: python进阶15多继承与Mixin">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶14变量作用域LEGB","level":"1.15","depth":1,"next":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"path":"python进阶15多继承与Mixin.md","ref":"python进阶15多继承与Mixin.md","articles":[]},"previous":{"title":"python进阶13并发之九多进程和数据共享","level":"1.14","depth":1,"path":"python进阶13并发之九多进程和数据共享.md","ref":"python进阶13并发之九多进程和数据共享.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶14变量作用域LEGB.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,781 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶19装饰器和闭包 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶20之actor.html" />
+    
+    
+    <link rel="prev" href="python进阶18垃圾回收GC.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶19装饰器和闭包</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶19装饰器和闭包">python进阶19装饰器和闭包</h1>
+<h2 id="nested-functions">Nested functions</h2>
+<p>Python允许创建嵌套函数，这意味着我们可以在函数内声明函数并且所有的作用域和声明周期规则也同样适用。</p>
+<pre><code>&gt;&gt;&gt; def outer():
+...     x = 1
+...     def inner():
+...         print x # 1
+...     inner() # 2
+...
+&gt;&gt;&gt; outer()
+</code></pre><p>这看起来稍显复杂，但其行为仍相当直接，易于理解。考虑一下在#1处发生了什么——Python寻找一个名为x的local变量，失败了，然后在最邻近的外层作用域里搜寻，这个作用域是另一个函数！变量x是函数outer的local变量，但是和前文提到的一样，inner函数拥有对外层作用域的访问权限（最起码有读和修改的权限）。在#2处我们调用了inner函数。请记住inner也只是一个变量名，它也遵从Python的变量查找规则——Python首先在outer的作用域里查找之，找到了一个名为inner的local变量。</p>
+<h2 id="closures">Closures</h2>
+<p>让我们不从定义而是从另一个代码示例开始。如果我们将上一个例子稍加修改会怎样呢？</p>
+<pre><code>&gt;&gt;&gt; def outer():
+...     x = 1
+...     def inner():
+...         print x # 1
+...     return inner
+&gt;&gt;&gt; foo = outer()
+&gt;&gt;&gt; foo.func_closure # doctest: +ELLIPSIS
+(\&lt;cell at 0x.... int object at 0x...&gt;,)
+</code></pre><p>从上一个例子中我们看到inner是一个由outer返回的函数，存储于一个名为foo的变量，我们可以通过foo()调用它。但是它能运行吗？让我们先来考虑一下作用域规则。</p>
+<p>一切都依照Python的作用域规则而运行——x是outer函数了一个local变量。当inner在#1处打印x时，Python在inner中寻找一个local变量，没有找到；然后它在外层作用域即outer函数中寻找并找到了它。</p>
+<p>但是自此处从变量生命周期的角度来看又会如何呢？变量x是函数outer的local变量，这意味着只有当outer函数运行时它才存在。只有当outer返回后我们才能调用inner，因此依照我们关于Python如何运作的模型来看，在我们调用inner的时候x已经不复存在了，  那么某个运行时错误可能会出现。
+事实与我们的预想并不一致，返回的inner函数的确正常运行。Python支持一种称为闭包(function closures)的特性，这意味着定义于非全局作用域的inner函数在定义时记得记得它们的外层作用域长什么样儿。这可以通过查看inner函数的func_closure属性来查看，它包含了外层作用域里的变量。</p>
+<p>请记住，每次当outer函数被调用时inner函数都被重新定义一次。目前x的值没有改变，因此我们得到的每个inner函数和其它的inner函数拥有相同的行为，但是如果我们将它做出一点改变呢？</p>
+<pre><code>&gt;&gt;&gt; def outer(x):
+...     def inner():
+...         print x # 1
+...     return inner
+&gt;&gt;&gt; print1 = outer(1)
+&gt;&gt;&gt; print2 = outer(2)
+&gt;&gt;&gt; print1()
+1
+&gt;&gt;&gt; print2()
+2
+</code></pre><p>从这个例子中你可以看到closures——函数记住他们的外层作用域的事实——可以用来构建本质上有一个硬编码参数的自定义函数。我们没有将数字1或者2传递给我们的inner函数但是构建了能"记住"其应该打印数字的自定义版本。</p>
+<p>closures独自就是一个强有力的技术——你甚至想到在某些方面它有点类似于面向对象技术：outer是inner的构造函数，x扮演着一个类似私有成员变量的角色。它的作用有很多，如果你熟悉Python的sorted函数的key参数，你可能已经写过一个lambda函数通过第二项而不是第一项来排序一些列list。也许你现在可以写一个itemgetter函数，它接收一个用于检索的索引并返回一个函数，这个函数适合传递给key参数。</p>
+<p>但是让我们不要用闭包做任何噩梦般的事情！相反，让我们重新从头开始来写一个decorator!</p>
+<h2 id="闭包之坑延迟绑定">闭包之坑_延迟绑定</h2>
+<p>这是一个经（很）典（大）的问题（坑）</p>
+<pre><code>def multipliers():
+    return [lambda x: i * x for i in range(4)]
+print([m(2) for m in multipliers()])
+</code></pre><p>以上代码会输出什么？</p>
+<p>答案:[6,6,6,6]</p>
+<p>为何?闭包的延迟绑定！</p>
+<p>有解药么？有4种，分别如下</p>
+<pre><code>#生成器
+def multipliers():
+    return (lambda x: i * x for i in range(4))
+print([m(2) for m in multipliers()])  
+
+#匿名函数的入参绑定
+def multipliers():
+    return [lambda x, j=i: j * x for i in range(4)]
+print([m(2) for m in multipliers()])  
+
+# 偏函数
+from functools import partial
+def multipliers_ch2():
+    return [partial(lambda m, x: m * x, i) for i in range(4)]
+print([m(2) for m in multipliers()])  
+
+# yield生成器
+def multipliers_ch3():
+    for m in range(4):
+        yield lambda x: m * x
+print([m(2) for m in multipliers()])
+</code></pre><p>其实这里最难理解的是第一个生成器，为何·[]改成()就对了？</p>
+<p>其实第一个和第四个(yield生成器)是同一个道理，都是“依次执行”，依次执行时i会“挨个”，“真实的取得”0123。熟悉yield的应该深有体会。至于第二种的入参绑定和偏函数其实相对容易理解。</p>
+<h2 id="decorators">Decorators!</h2>
+<p>一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。我们将从简单的开始一直到写出有用的decorators。</p>
+<pre><code>&gt;&gt;&gt; def outer(some_func):  
+...     def inner():  
+...         print "before some_func"  
+...         ret = some_func() # 1  
+...         return ret + 1  
+...     return inner  
+&gt;&gt;&gt; def foo():  
+...     return 1  
+&gt;&gt;&gt; decorated = outer(foo) # 2  
+&gt;&gt;&gt; decorated()  
+before some_func  
+2
+</code></pre><p>请仔细看我们的decorator实例。我们定义了一个接受单个参数some_func的名为outer的函数。在outer内部我们定义了一个名为inner的嵌套函数。inner函数打印一个字符串然后调用some_func，在#1处缓存它的返回值。some_func的值可能在每次outer被调用时不同，但是无论它是什么我们都将调用它。最终，inner返回some_func的返回值加1，并且我们可以看到，当我们调用存储于<code>#2</code>处decorated里的返回函数时我们得到了输出的文本和一个返回值2而不是我们期望的调用foo产生的原始值1.</p>
+<p>我们可以说“装饰”的变量是foo的一个装饰版本——由foo加上一些东西构成。实际上，如果我们写了一个有用的decorator，我们可能想用装饰了的版本一起来替换foo，从而我们可以总是得到foo的“增添某些东西”的版本。我们可以不用学习任何新语法而做到这一点——重新将包含我们函数的变量进行赋值：</p>
+<pre><code class="lang-Python">
+<span class="hljs-meta">&gt;&gt;&gt; </span>foo = outer(foo)
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>foo <span class="hljs-comment"># doctest: +ELLIPSIS</span>
+
+&lt;function inner at 0x...&gt;
+</code></pre>
+<p>现在任何对foo()的调用都不会得到原始的foo，而是会得到我们经过装饰的版本！领悟到了一些decorator的思想吗？让我们写一个更加有用的装饰器。<br></br>假设我们有一个提供坐标对象的库，它们可能只是由x, y两个坐标对组成。令人沮丧的是，这个坐标对象并不支持算术运算，并且我们无法修改这个库的源代码，因此我们不能添加这些对运算的支持。我们将做大量的运算，但是我们现在只想实现加、减函数，它们可以带两个坐标最想作为参数并做相应的算术运算。这些函数可能很容易写（为了描述我将提供一个简单的Coordinate类。  </p>
+<pre><code>&gt;&gt;&gt; class Coordinate(object):
+
+...     def __init__(self, x, y):
+
+...         self.x = x
+
+...         self.y = y
+
+...     def __repr__(self)
+
+...         return "Coord:" + str(self.__dict__)
+
+&gt;&gt;&gt; def add(a, b):
+
+...     return Coordinate(a.x + b.x, a.y + b.y)
+
+&gt;&gt;&gt; def sub(a, b):
+
+...      return Coordinate(a.x - b.x, a.y - b.y)
+
+&gt;&gt;&gt; one = Coordinate(100, 200)
+
+&gt;&gt;&gt; two = Coordinate(300, 200)
+
+&gt;&gt;&gt; add(one, two)
+
+Coord:{'y': 400, 'x': 400}
+</code></pre><p>但是，我们想当one和two都是{x: 0, y: 0},one和three的和为{x: 100, y: 200}，在不修改one, two, three的前提下结果有所不同（实在没弄明白原作者此处是什么意思^ ^）。让我们写一个边界检查decorator而不用为每个函数添加一个对输入参数做边界检查然后返回函数值！  </p>
+<pre><code>&gt;&gt;&gt; def wrapper(func):
+
+...     def checker(a, b): # 1
+
+...         if a.x &lt; 0 or a.y &lt; 0:
+
+...             a = Coordinate(a.x if a.x &gt; 0 else 0, a.y if a.y &gt; 0 else 0)
+
+...         if b.x &lt; 0 or b.y &lt; 0:
+
+...             b = Coordinate(b.x if b.x &gt; 0 else 0, b.y if b.y &gt; 0 else 0)
+
+...         ret = func(a, b)
+
+...         if ret.x &lt; 0 or ret.y &lt; 0:
+
+...             ret = Coordinate(ret.x if ret.x &gt; 0 else 0, ret.y if re&gt; 0 else 0)
+
+...         return ret
+
+...     return checker
+
+&gt;&gt;&gt; add = wrapper(add)
+
+&gt;&gt;&gt; sub = wrapper(sub)
+
+&gt;&gt;&gt; sub(one, two)
+
+Coord: {'y': 0, 'x': 0}
+
+&gt;&gt;&gt; add(one, three)
+
+Coord: {'y': 200, 'x': 100}
+</code></pre><p>这个装饰器的效果和前面实例的一样——返回一个修改过了的函数，只是在上例中对输入参数和返回值做了一些有用的检查和规范化，至于这样做是否让我们的代码变得更加简洁是一件可选择的事情：将边界检查隔绝在它自己的函数里，然后将其应用到通过用一个decorator包装将我们所关心的函数上。另一个可能的方法是每次调用算数函数时对每一个输入参数和输出结果前对参数或者结果做边界检查，毫无疑问的是使用decorator至少在对一个函数进行边界检查的代码量上重复更少。实际上，如果是装饰我们自己的函数，我们可以将装饰器应用程序写的更明显一点。</p>
+<h2 id="含参装饰器">含参装饰器</h2>
+<p>可以在装饰器里传入一个参数，指明国籍，并在函数执行前，用自己国家的母语打一个招呼。  </p>
+<pre><code># 小明，中国人
+@say_hello("china")
+def xiaoming():
+    pass
+
+# jack，美国人
+@say_hello("america")
+def jack():
+    pass
+那我们如果实现这个装饰器，让其可以实现 传参 呢？
+
+会比较复杂，需要两层嵌套。
+
+def say_hello(contry):
+    def wrapper(func):
+        def deco(*args, **kwargs):
+            if contry == "china":
+                print("你好!")
+            elif contry == "america":
+                print('hello.')
+            else:
+                return
+
+            # 真正执行函数的地方
+            func(*args, **kwargs)
+        return deco
+    return wrapper
+
+来执行一下
+
+xiaoming()
+print("------------")
+jack()
+</code></pre><p>看看输出结果。  </p>
+<pre><code>你好!
+------------
+hello.
+</code></pre><h2 id="用偏函数与类实现装饰器">用偏函数与类实现装饰器</h2>
+<p>绝大多数装饰器都是基于函数和闭包实现的，但这并非制造装饰器的唯一方式。<br></br>事实上，Python 对某个对象是否能通过装饰器（ @decorator）形式使用只有一个要求：decorator 必须是一个“可被调用（callable）的对象。<br></br>对于这个 callable 对象，我们最熟悉的就是函数了。<br></br>除函数之外，类也可以是 callable 对象，只要实现了<strong>call</strong> 函数（上面几个例子已经接触过了）。<br></br>还有容易被人忽略的偏函数其实也是 callable 对象。  </p>
+<pre><code>import time
+import functools
+
+class DelayFunc:
+    def __init__(self,  duration, func):
+        self.duration = duration
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        print(f'Wait for {self.duration} seconds...')
+        time.sleep(self.duration)
+        return self.func(*args, **kwargs)
+
+    def eager_call(self, *args, **kwargs):
+        print('Call without delay')
+        return self.func(*args, **kwargs)
+
+def delay(duration):
+    """
+    装饰器：推迟某个函数的执行。
+    同时提供 .eager_call 方法立即执行
+    """
+    # 此处为了避免定义额外函数，
+    # 直接使用 functools.partial 帮助构造 DelayFunc 实例
+    return functools.partial(DelayFunc, duration)
+我们的业务函数很简单，就是相加
+
+@delay(duration=2)
+def add(a, b):
+    return a+b
+</code></pre><p>来看一下执行过程  </p>
+<pre><code>&gt;&gt;&gt; add    # 可见 add 变成了 Delay 的实例
+&lt;__main__.DelayFunc object at 0x107bd0be0&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; add(3,5)  # 直接调用实例，进入 __call__
+Wait for 2 seconds...
+8
+&gt;&gt;&gt;
+&gt;&gt;&gt; add.func # 实现实例方法
+&lt;function add at 0x107bef1e0&gt;
+</code></pre><h2 id="参考">参考</h2>
+<p>【翻译】12步理解Python Decorators：<a href="https://harveyqing.gitbooks.io/python-read-and-write/content/python_advance/python_decorator_in_12_steps.html" target="_blank">https://harveyqing.gitbooks.io/python-read-and-write/content/python_advance/python_decorator_in_12_steps.html</a><br></br>装饰器进阶用法详解：python.iswbm.com/en/latest/c03/c03_01.html<br></br>python中的闭包:<a href="https://blog.csdn.net/weixin_44141532/article/details/87116038" target="_blank">https://blog.csdn.net/weixin_44141532/article/details/87116038</a>  </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶18垃圾回收GC.html" class="navigation navigation-prev " aria-label="Previous page: python进阶18垃圾回收GC">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶20之actor.html" class="navigation navigation-next " aria-label="Next page: python进阶20之actor">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶19装饰器和闭包","level":"1.20","depth":1,"next":{"title":"python进阶20之actor","level":"1.21","depth":1,"path":"python进阶20之actor.md","ref":"python进阶20之actor.md","articles":[]},"previous":{"title":"python进阶18垃圾回收GC","level":"1.19","depth":1,"path":"python进阶18垃圾回收GC.md","ref":"python进阶18垃圾回收GC.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶19装饰器和闭包.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

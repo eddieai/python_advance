@@ -1,0 +1,618 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶04IO的同步异步,阻塞非阻塞 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶05并发之一基本概念.html" />
+    
+    
+    <link rel="prev" href="python进阶03UnboundLocalError和NameError错误.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶04IO的同步异步,阻塞非阻塞</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶04io的同步异步阻塞非阻塞">python进阶04IO的同步异步,阻塞非阻塞</h1>
+<h2 id="同步和异步">同步和异步</h2>
+<p>同步和异步关注的是<strong>消息通信机制</strong>。</p>
+<p>所谓同步，就是在发出一个<strong>调用</strong>时，在没有得到结果之前，该<em>调用</em>就不返回。但是一旦调用返回，就得到返回值了。
+换句话说，就是由<em>调用者</em>主动等待这个<em>调用</em>的结果。</p>
+<p>而异步则是相反，<strong>调用</strong>在发出之后，这个调用就直接返回了，所以没有返回结果。换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在<strong>调用</strong>发出后，<strong>被调用者</strong>通过状态、通知来通知调用者，或通过回调函数处理这个调用。</p>
+<p>举个通俗的例子：你打电话问书店老板有没有《分布式系统》这本书，如果是同步通信机制，书店老板会说，你稍等，”我查一下"，然后开始查啊查，等查好了（可能是5秒，也可能是一天）告诉你结果（返回结果）。而异步通信机制，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。</p>
+<p>同步的整个流程就1部分,1问答，异步模式2部分，1问空答复+无问1答复。</p>
+<h2 id="阻塞和非阻塞">阻塞和非阻塞</h2>
+<p>阻塞和非阻塞关注的是程序在<strong>等待调用结果（消息，返回值）时的状态.</strong>
+阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</p>
+<p>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+<p>你打电话问书店老板有没有《分布式系统》这本书，你如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果，如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了， 当然你也要偶尔过几分钟check一下老板有没有返回结果。在这里阻塞与非阻塞与是否同步异步无关。跟老板通过什么方式回答你结果无关。</p>
+<p>还是上面的例子，你打电话问书店老板有没有《分布式系统》这本书，你如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果，如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了， 当然你也要偶尔过几分钟check一下老板有没有返回结果。在这里阻塞与非阻塞与是否同步异步无关。跟老板通过什么方式回答你结果无关。如果是关心阻塞 IO/ 异步 IO, 参考  Unix Network Programming View Book--还是2014年写的以解释概念为主，主要是同步异步 阻塞和非阻塞会被用在不同层面上，可能会有不准确的地方，并没有针对 阻塞 IO/ 异步 IO 等进行讨论，大家可以后续看看这两个回答：</p>
+<p>作者：Yi Lu</p>
+<p>链接：<a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank">https://www.zhihu.com/question/19732473/answer/20851256</a></p>
+<h2 id="例子老张水壶">例子:老张水壶</h2>
+<p>老张爱喝茶，废话不说，煮开水。</p>
+<p>出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。</p>
+<p>1 老张把水壶放到火上，立等水开。（同步阻塞）</p>
+<p>2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）</p>
+<p>老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。</p>
+<p>3 老张把响水壶放到火上，立等水开。（异步阻塞）</p>
+<p>4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）</p>
+<p>所谓同步异步，只是对于水壶而言。</p>
+<p>普通水壶，同步；响水壶，异步。虽然都能干活，但响水壶可以在自己完工之后，提示老张水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成老张效率的低下。</p>
+<p>所谓阻塞非阻塞，仅仅对于老张而言。</p>
+<p>立等的老张，阻塞；看电视的老张，非阻塞。情况1和情况3中老张就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的老张没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。</p>
+<p>作者：愚抄</p>
+<p>链接：<a href="https://www.zhihu.com/question/19732473/answer/23434554" target="_blank">https://www.zhihu.com/question/19732473/answer/23434554</a></p>
+<h2 id="同步异步，阻塞非阻塞">同步异步，阻塞非阻塞</h2>
+<p>二者其实是不同维度的东西，但是的确容易搞混，</p>
+<table>
+<thead>
+<tr>
+<th>你</th>
+<th>客服</th>
+<th>做法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td>做法A(同步，阻塞)</td>
+<td>啥也不做，假装没听到他问话，电话不挂机，就呆呆放那</td>
+</tr>
+<tr>
+<td>打电话：请问特朗普给我留言了么？</td>
+<td>扫了一眼小本本，发现没留言</td>
+<td>做法B(同步，非阻塞)</td>
+<td>告诉你，啥也没有(None)，然后挂掉电话</td>
+</tr>
+<tr>
+<td>通话期间（手持话筒）你不能一心二用</td>
+<td></td>
+<td>做法C(异步，非阻塞)</td>
+<td>告诉你，请留下电话，回头收到消息第一时间通知你</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>做法D(异步，阻塞)</td>
+<td>没想到现实场景，理论上应该不存在</td>
+</tr>
+</tbody>
+</table>
+<p>代码特征：</p>
+<p> 做法A(同步，阻塞) :开单独线程（进程）处理，线程内一般是循环接收消息。</p>
+<p> 做法B(同步，非阻塞) :主线程循环处理,但一般搭配sleep函数(释放时间片,自身状态运行转就绪再等待时间片)，避免完全的cpu空转</p>
+<p>做法C(异步，非阻塞):函数参数包含函数(回调函数)，或url地址，类似的东西，对方有消息就推送给你，所以还需要新开一个接口(or功能)用来接受信息。</p>
+<p>至于Ａ,B实例可参考本博客的 "django进阶系列02websocket" ，C实例就不多说了，js中非常常见。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.zhihu.com/question/19732473" target="_blank">怎样理解阻塞非阻塞与同步异步的区别</a></p>
+<p><a href="https://blog.csdn.net/qq_21125183/article/details/83831495" target="_blank">NIO详解（二）： BIO 浅谈 同步 异步与阻塞 非阻塞</a></p>
+<p><a href="https://www.jianshu.com/p/9fa26b0b22a0" target="_blank">怎样理解同步异步和阻塞非阻塞</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶03UnboundLocalError和NameError错误.html" class="navigation navigation-prev " aria-label="Previous page: python进阶03UnboundLocalError和NameError错误">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶05并发之一基本概念.html" class="navigation navigation-next " aria-label="Next page: python进阶05并发之一基本概念">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"next":{"title":"python进阶05并发之一基本概念","level":"1.6","depth":1,"path":"python进阶05并发之一基本概念.md","ref":"python进阶05并发之一基本概念.md","articles":[]},"previous":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"path":"python进阶03UnboundLocalError和NameError错误.md","ref":"python进阶03UnboundLocalError和NameError错误.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶04IO的同步异步,阻塞非阻塞.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,555 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶21再识单例模式 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="python进阶20之actor.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶21再识单例模式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶21再识单例模式">python进阶21再识单例模式</h1>
+<p>父子进程内部变量是否可以直接共享，当然不是，需要“特殊加工"下才行。</p>
+<p>那么在web开发中的单例模式，是<strong>真正的全局唯一的单例</strong>么？自然也是<strong>否</strong></p>
+<p>惭愧，自己用单例还是比较多的，还真是第一次注意到这一点。之前使用时，<strong>想当然的以为就是(应用程序级别)全局唯一的，譬如java的类里的static，python模块中的定义的对象</strong>(只会加载一次)，但严格说，<strong>都是错误的用法</strong>（侥幸的是，尚未出现由此导致的Bug，大概率因为自己用单例大多是为了保存静态内容（只查，不改）,加速查询而已。并未用来做全局性统计）。</p>
+<h2 id="如何理解单例模式中的唯一性？">如何理解单例模式中的唯一性？</h2>
+<p>根据定义，一个类只允许创建唯一的一个对象，对象的唯一作用范围是什么？是指<strong>进程内只允许创建一个</strong>，还是线程内只允许创建一个？答案是前者，也就是说单例创建的对象是进程内唯一的。怎么理解呢，我们编写的程序最终执行时，都是操作系统先启动一个进程，然后将程序（可执行文件）加载到内存地址空间，一条一条执行其中的指令，遇到类的实例化时就分配内存地址给新的对象，如果该进程 fork 了另外的新进程，操作系统会分配新的地址空间，并将原来的进程空间的所有内容全部复制到新的地址空间，包括已经实例化的对象，单例类在老进程内只有一个，在新进程内也只有一个，也就是说<strong>进程内唯一，进程间不唯一</strong>。</p>
+<h2 id="如何实现线程唯一的单例？">如何实现线程唯一的单例？</h2>
+<p>单例类默认是进程内只存在唯一的对象，进程又包含一个或多个线程，这也意味着在线程间也是唯一的，那么如何改进，实现线程内唯一，线程间不唯一的单例呢？其实也非常简单，我们只需借助一个字典，将线程 ID 作为键，单例类对象作为值进行存储，这样就可以做到相同的线程对应相同的单例对象。</p>
+<h2 id="如何在集群环境中实现单例？">如何在集群环境中实现单例？</h2>
+<p>刚才说了进程内唯一，线程内唯一，现在提到的集群环境中实现单例，就是集群内唯一，实质就是进程间唯一。进程之间是不共享内存的，那就需要借助外部存储来实现，比如文件或数据库，或像 redis 一样具有存储功能的中间件。我们把单例类对象通过序列化保存在外部存储，进程在使用这个单例类对象时先访问外部存储，然后反序列化成对象使用，使用完成后在序列化保存在外部存储。</p>
+<p>为了保证任何时刻，在进程之间只有一份对象存在，一个进程在反序列化获取对象之后需要对对象加锁，防止其他进程获取该对象，使用完后序列化保存到外部存储，然后显式的从内存中删除对象（instance = None），并释放锁。</p>
+<h2 id="django之全局变量">django之全局变量</h2>
+<p>序列化存储:python 有 zodb
+django-solo helps working with singletons: things like global settings that you want to edit from the admin site.</p>
+<p>python 的 web 应用都需要用 uwsgi 或 gunicorn 之类的多进程服务器，进程之间的全局变量实际上是相互隔离的。所有只能用 redis 或 django 的 cache 这种公共存储。</p>
+<p>最省事是用 Django 的缓存</p>
+<h2 id="参考">参考</h2>
+<p>你是否真的理解单例模式？:<a href="https://www.ershicimi.com/p/7cb8aab37c6653a09b8e5b187739af67" target="_blank">https://www.ershicimi.com/p/7cb8aab37c6653a09b8e5b187739af67</a></p>
+<p>uwsgi多进程配合kafka-python消息无法发送:<a href="https://www.cnblogs.com/MnCu8261/p/10482031.html" target="_blank">https://www.cnblogs.com/MnCu8261/p/10482031.html</a></p>
+<p>django 中如何维护一个全局变量:<a href="https://www.v2ex.com/t/504042" target="_blank">https://www.v2ex.com/t/504042</a>  </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶20之actor.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: python进阶20之actor">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶21再识单例模式","level":"1.22","depth":1,"previous":{"title":"python进阶20之actor","level":"1.21","depth":1,"path":"python进阶20之actor.md","ref":"python进阶20之actor.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶21再识单例模式.md","mtime":"2024-08-26T14:40:59.579Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

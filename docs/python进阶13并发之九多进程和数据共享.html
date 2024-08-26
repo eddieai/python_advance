@@ -1,0 +1,579 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶13并发之九多进程和数据共享 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶14变量作用域LEGB.html" />
+    
+    
+    <link rel="prev" href="python进阶12并发之八多线程与数据同步.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶13并发之九多进程和数据共享</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶13并发之九多进程和数据共享">python进阶13并发之九多进程和数据共享</h1>
+<p>使用进程，大概率出现情况是，想当然以为共享了，实际没共享。所以最终程序大概率卡死（部分逻辑没有数据进来，导致的业务逻辑性卡住，并非程序死锁）</p>
+<h2 id="哪些共享，哪些不共享">哪些共享，哪些不共享</h2>
+<p>默认进程是<strong>都不共享，包括全局变量</strong>。</p>
+<p>父子进程其实处于<strong>不同的资源空间</strong>（进程是系统分配资源的最小单位），所以2进程其实是完全独立的资源空间，数据自然无法直接交互。如果要交互，必须<strong>超越进程内部</strong>，进入到操作系统层面，比如文件方式，等进行交互。</p>
+<p>其实父子进程是一种非常<strong>松散的关系</strong>，在一个app中启动另一个app的关系就可以看做父子进程。只是开发过程中，大多数父子进程都是强业务关联的，所以自然会有一种<strong>虚幻的“亲密关系”</strong>，实际上这只是想当然的，子进程一旦启动，基本就和父进程没什么关系了，虽然不是完全没有，比如守护进程需要在父进程退出时也退出，但这个是操作系统的权利，而非父进程的权利。</p>
+<p>所以，可以认为进程内变量都不共享!</p>
+<h2 id="如何实现共享参考博文python进阶06并发之二技术点关键词">如何实现共享(参考博文:python进阶06并发之二技术点关键词)</h2>
+<h2 id="共享数据的同步">共享数据的同步</h2>
+<p>这个问题其实线程也存在，所以解决方法其实和线程类似的。</p>
+<p>优点是进程数据默认独立的，凡是共享数据，其实都是非常“突出”的，容易定位，找到多个进程的共享变量，相关临界区加上锁即可(视情况，未必一定是“加锁的方式”，或一定需要加锁，原子操作依然不需加锁)</p>
+<p>另外需要留意以下几点:</p>
+<p>01,虽然使用了manager()封装好的dict()或list()对象，这些对象只能保证数据的共享，不能保证数据的同步，也就是说也需要自己考虑加锁问题。</p>
+<p>02,dict=manager().dict(),dict['abc']=list('asdf'),这个赋值操作是进程安全的，而dict['abc'][2]='f',就未必了，应当避免使用后者的赋值方式。(不要尝试绕过manager()的操作，最好采用最为稳妥的赋值方式)</p>
+<p>03,创建进程时，参数必须能够被pickle，所以有些自定义的类对象实例是不能被作为参数的。和threading不同，multiprocessing Process参数必须能够被pickle进行序列化</p>
+<h2 id="使用了multiprocessingvalue为何还需要加锁">使用了multiprocessing.Value为何还需要加锁</h2>
+<p>本质上而言，<strong>共享和锁没有必然关系</strong>!，只是<strong>不共享不需加锁</strong>，<strong>共享协程不加锁</strong>，<strong>共享普通进程（线程）该加锁还是要加锁</strong></p>
+<p>在multiprocessing库中的Value是细粒度的，Value中有一个ctypes类型的对象，拥有一个value属性来表征内存中实际的对象。Value可以保证同时只有一个单独的线程或进程在读或者写value值。这么看起来没有什么问题。</p>
+<p>然而在第一个进程加载value值的时候，程序却不能阻止第二个进程加载旧的值。两个进程都会把value拷贝到自己的私有内存然后进行处理，并写回到共享值里。</p>
+<p>共享变量虽然<strong>做了一定锁封装</strong>，但是其<strong>锁粒度都是非常细</strong>的，而程序中<strong>涉及临界区可能比较大</strong>，<strong>仅依靠共享变量自身锁是无法限制住</strong>的。</p>
+<h2 id="使用类变量可以实现跨进程共享">使用类变量可以实现跨进程共享?</h2>
+<p>否。类变量仅能实现同进程内，跨实例共享! (仔细想想很清楚，但开发过程中容易忽略，想当然以为是全局的，实际只是进程内部的全局，而非web应用层面的全局)</p>
+<h2 id="什么可以被-pickle">什么可以被 pickle</h2>
+<p>参见<a href="https://docs.python.org/2/library/pickle.html#what-can-be-pickled-and-unpickled" target="_blank">what is pickable</a>。</p>
+<pre><code>None，True，False，内建数字类型，字符串
+picklable 对象组成的 tuple、list、set、dict
+在模块顶层中定义的函数、内建函数、类
+其 __dict__ 或 __getstate__() 是可 pickle 的类实例
+特别地，numpy ndarray
+注意 lambda 匿名函数不可被 pickle，除非使用 dill 之类的包，见此。
+详见 http://luly.lamost.org/blog/python_multiprocessing.html
+</code></pre><h2 id="参考">参考</h2>
+<p><a href="https://www.cnblogs.com/li-dp/p/5837823.html" target="_blank">Python多进程相关的坑</a></p>
+<p><a href="https://blog.csdn.net/licheetools/article/details/82946312" target="_blank">Python分布式进程中你会遇到的坑</a></p>
+<p><a href="https://www.jianshu.com/p/52676b93430d" target="_blank">Python多进程开发中使用Manager进行数据共享的陷阱</a></p>
+<p><a href="https://blog.csdn.net/u013887652/article/details/104007145" target="_blank">python多进程Pool使用遇到的坑</a></p>
+<p><a href="https://www.jianshu.com/p/a682b03e32b9" target="_blank">python multiprocessing多进程变量共享与加锁</a></p>
+<p><a href="https://blog.csdn.net/yournevermore/article/details/88718745" target="_blank">python 多进程共享对象(bug日记)</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶12并发之八多线程与数据同步.html" class="navigation navigation-prev " aria-label="Previous page: python进阶12并发之八多线程与数据同步">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶14变量作用域LEGB.html" class="navigation navigation-next " aria-label="Next page: python进阶14变量作用域LEGB">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶13并发之九多进程和数据共享","level":"1.14","depth":1,"next":{"title":"python进阶14变量作用域LEGB","level":"1.15","depth":1,"path":"python进阶14变量作用域LEGB.md","ref":"python进阶14变量作用域LEGB.md","articles":[]},"previous":{"title":"python进阶12并发之八多线程与数据同步","level":"1.13","depth":1,"path":"python进阶12并发之八多线程与数据同步.md","ref":"python进阶12并发之八多线程与数据同步.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶13并发之九多进程和数据共享.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

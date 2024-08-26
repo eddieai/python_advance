@@ -1,0 +1,839 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶16炫技巧 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶17正则表达式.html" />
+    
+    
+    <link rel="prev" href="python进阶15多继承与Mixin.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶16炫技巧</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶16炫技巧">python进阶16炫技巧</h1>
+<p>原则：<strong>可读性第一</strong>（效率固然重要，除非非常明显的效率差异，否则可读性优先)</p>
+<p>学习炫技巧，更多为了读懂他人代码，自己开发过程中，相似代码量（可读性），建议使用通俗写法。反对为炫而炫。</p>
+<h2 id="可直接运行的-zip-包">可直接运行的 zip 包</h2>
+<p>有 Python 包，居然可以以 zip 包进行发布，并且可以不用解压直接使用。</p>
+<p>这个zip 是如何制作的呢，请看下面的示例。</p>
+<pre><code>[root@localhost ~]# ls -l demo
+total 8
+-rw-r--r-- 1 root root 30 May  8 19:27 calc.py
+-rw-r--r-- 1 root root 35 May  8 19:33 __main__.py
+
+[root@localhost ~]# cat demo/__main__.py
+import calc
+print(calc.add(2, 3))
+[root@localhost ~]# cat demo/calc.py
+def add(x, y):
+    return x+y
+[root@localhost ~]# python -m zipfile -c demo.zip demo/*
+</code></pre><p>制作完成后，我们可以执行用 python 去执行它</p>
+<pre><code>[root@localhost ~]# python demo.zip
+5
+</code></pre><h2 id="懒人必备技能：使用-">懒人必备技能：使用 “_”</h2>
+<p>大家对于他的印象都是用于 占位符，省得为一个不需要用到的变量，绞尽脑汁的想变量名。</p>
+<p>今天要介绍的是他的第二种用法，就是在 console 模式下的应用。</p>
+<p>示例如下：</p>
+<pre><code>&gt;&gt;&gt; 3 + 4
+7
+&gt;&gt;&gt; _
+7
+&gt;&gt;&gt; name='公众号: Python编程时光'
+&gt;&gt;&gt; name
+'公众号: Python编程时光'
+&gt;&gt;&gt; _
+'公众号: Python编程时光'
+</code></pre><p>它可以返回上一次的运行结果。</p>
+<p>但是，如果是print函数打印出来的就不行了。</p>
+<pre><code>&gt;&gt;&gt; 3 + 4
+7
+&gt;&gt;&gt; _
+7
+&gt;&gt;&gt; print("公众号: Python编程时光")
+ming
+&gt;&gt;&gt; _
+7
+</code></pre><h2 id="最快查看包搜索路径的方式">最快查看包搜索路径的方式</h2>
+<pre><code>python3 -m site
+sys.path = [
+    '/home/wangbm',
+    '/usr/local/Python3.7/lib/python37.zip',
+    '/usr/local/Python3.7/lib/python3.7',
+    '/usr/local/Python3.7/lib/python3.7/lib-dynload',
+    '/home/wangbm/.local/lib/python3.7/site-packages',
+    '/usr/local/Python3.7/lib/python3.7/site-packages',
+]
+USER_BASE: '/home/wangbm/.local' (exists)
+USER_SITE: '/home/wangbm/.local/lib/python3.7/site-packages' (exists)
+ENABLE_USER_SITE: True
+</code></pre><h2 id="and-和-or-的取值顺序">and 和 or 的取值顺序</h2>
+<p>当一个 or 表达式中所有值都为真，Python会选择第一个值</p>
+<p>当一个 and 表达式 所有值都为真，Python 会选择第二个值。</p>
+<p>示例如下：</p>
+<pre><code>&gt;&gt;&gt;(2 or 3) * (5 and 7)
+14  # 2*7
+</code></pre><h2 id="访问类中的私有方法">访问类中的私有方法</h2>
+<pre><code># 调用私有方法，以下两种等价
+ins._Kls__private()
+ins.call_private()
+</code></pre><h2 id="一行代码实现ftp服务器">一行代码实现FTP服务器</h2>
+<p>python3 -m http.server 8888</p>
+<h2 id="for-else逻辑">for else逻辑</h2>
+<p>for else 和 try else 相同，只要代码正常走下去不被 break，不抛出异常，就可以走else。(所以和去掉else，直接写后面没区别?)</p>
+<p>优点在于，<strong>可以识别正常退出还是break退出</strong>（一般业务含义不同）</p>
+<h2 id="嵌套上下文管理的另类写法">嵌套上下文管理的另类写法</h2>
+<p>with test_context('aaa'), test_context('bbb'):
+    print('========== in main ============')</p>
+<h2 id="连接多个列表最极客的方式">连接多个列表最极客的方式</h2>
+<pre><code>&gt;&gt;&gt; b = [3,4]
+&gt;&gt;&gt; c = [5,6]
+&gt;&gt;&gt;
+&gt;&gt;&gt; sum((a,b,c), [])
+[1, 2, 3, 4, 5, 6]
+</code></pre><p>另外几种连接列表的方式</p>
+<pre><code>&gt;&gt;&gt; list01 + list02 + list03
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; list(chain(list01, list02, list03))
+&gt;&gt;&gt; [*list01, *list02]
+&gt;&gt;&gt; list01.extend(list02)
+&gt;&gt;&gt; [x for l in (list01, list02, list03) for x in l]
+&gt;&gt;&gt; from heapq import merge
+&gt;&gt;&gt; list(merge(list01, list02, list03))
+sorted(itertools.chain(*iterables))
+</code></pre><h2 id="在程序退出前执行代码的技巧">在程序退出前执行代码的技巧</h2>
+<p>使用 atexit 这个内置模块，可以很方便的注册退出函数。</p>
+<p>如果clean()函数有参数，那么你可以不用装饰器，而是直接调用atexit.register(clean_1, 参数1, 参数2, 参数3='xxx')。</p>
+<h2 id="合并字典的几种方法">合并字典的几种方法</h2>
+<pre><code>profile.update(ext_info)
+full_profile01 = {**profile, **ext_info}
+dict(itertools.chain(profile.items(), ext_info.items()))
+dict(ChainMap(profile, ext_info))
+full_profile = dict(profile.items() | ext_info.items())
+</code></pre><h2 id="条件语句的几种写法">条件语句的几种写法</h2>
+<pre><code>&lt;on_true&gt; if &lt;condition&gt; else &lt;on_false&gt;
+&lt;condition&gt; and &lt;on_true&gt; or &lt;on_false&gt;
+(&lt;on_true&gt;, &lt;on_false&gt;)[condition]
+(lambda: &lt;on_false&gt;, lambda:&lt;on_true&gt;)[&lt;condition&gt;]()
+&gt;&gt;&gt; msg2 = (lambda:"未成年", lambda:"已成年")[age2 &gt; 18]()
+&gt;&gt;&gt; print(msg2)
+未成年
+ msg2 = {True: "已成年", False: "未成年"}[age2 &gt; 18]
+&gt;&gt;&gt; print(msg2)
+未成年
+</code></pre><h2 id="让我爱不释手的用户环境">让我爱不释手的用户环境</h2>
+<p>当你在机器上并没有 root 权限时，如何安装 Python 的第三方包呢？</p>
+<p>可以使用 pip install --user pkg 将你的包安装在你的用户环境中，该用户环境与全局环境并不冲突，并且多用户之间相互隔离，互不影响。</p>
+<h2 id="with-与-上下文管理器">with 与 上下文管理器</h2>
+<p>样例:</p>
+<pre><code>import contextlib
+
+@contextlib.contextmanager
+def open_func(file_name):
+    # __enter__方法
+    print('open file:', file_name, 'in __enter__')
+    file_handler = open(file_name, 'r')
+
+    try:
+        yield file_handler
+    except Exception as exc:
+        # deal with exception
+        print('the exception was thrown')
+    finally:
+        print('close file:', file_name, 'in __exit__')
+        file_handler.close()
+
+        return
+
+with open_func('/Users/MING/mytest.txt') as file_in:
+    for line in file_in:
+        1/0
+        print(line)
+</code></pre><h2 id="在-linux-上看-json-文件">在 linux 上看 json 文件</h2>
+<p>cat test.json | python -m json.tool</p>
+<h2 id="sh，最优雅的命令调用方式">sh，最优雅的命令调用方式</h2>
+<pre><code> &gt;&gt;&gt; sh.glob("/etc/*.conf")
+['/etc/mke2fs.conf', '/etc/dnsmasq.conf', '/etc/asound.conf']
+&gt;&gt;&gt; r=sh.Command('/root/test.py')
+&gt;&gt;&gt; r()
+hello,world
+</code></pre><h2 id="判断是否包含子串的七种方法">判断是否包含子串的七种方法</h2>
+<pre><code>1. 使用 in 和 not in
+2. 使用 find 方法
+3. 使用 index 方法
+4. 使用 count 方法
+5，借助 operator
+</code></pre><p>operator模块是python中内置的操作符函数接口，它定义了一些算术和比较内置操作的函数。operator模块是用c实现的，所以执行速度比 python 代码快。</p>
+<p>在 operator 中有一个方法 contains 可以很方便地判断子串是否在字符串中。</p>
+<pre><code>&gt;&gt;&gt; import operator
+&gt;&gt;&gt;
+&gt;&gt;&gt; operator.contains("hello, python", "llo")
+</code></pre><h2 id="使用jsondumps打印字典">使用json.dumps打印字典</h2>
+<p>打印中文在 json.dumps 这里，却只要加个参数就好了</p>
+<p>具体的代码示例如下：</p>
+<pre><code>&gt;&gt;&gt; import json
+&gt;&gt;&gt; print json.dumps(info, indent=4, ensure_ascii=False)
+</code></pre><h2 id="slots">slots</h2>
+<p>JIT即时编译器，当虚拟机发现某个方法或代码块运行特别频繁时，就会把这些代码认定为热点代码，为了提高热点代码的运行效率，在运行时，虚拟机将会把这些代码编译成与本地平台的相关带代码，并进行各层次的优化。</p>
+<p>正如上面所说的，默认情况下,Python的新式类和经典类的实例都有一个dict来存储实例的属性。这在一般情况下还不错，而且非常灵活，</p>
+<p>乃至在程序中可以随意设置新的属性。但是，对一些在”编译”前就知道有几个固定属性的小class来说，这个dict就有点浪费内存了。</p>
+<p>当需要创建大量实例的时候，这个问题变得尤为突出。一种解决方法是在新式类中定义一个<strong>slots</strong>属性。</p>
+<p><strong>slots</strong>声明中包含若干实例变量，并为每个实例预留恰好足够的空间来保存每个变量；这样Python就不会再使用dict，从而节省空间。</p>
+<h2 id="stateful-service-排障">stateful service 排障</h2>
+<p>来个真的有点高（黑）级（暗）的技巧吧，开发一个 stateful service 的时候怎么排障？比如出现死锁了，或者某个线程意外退出。这个时候可以从</p>
+<p>gc.get_objects()</p>
+<p>掏出所有活着的对象，其中当然就包括活着的线程。</p>
+<p>例如，打印出所有 Greenlet 的 stack：</p>
+<pre><code>
+import os
+
+import gc
+
+import greenlet
+
+import traceback
+
+
+
+greenlets = [
+
+    o for o in gc.get_objects() if isinstance(o, greenlet.greenlet) if o]
+
+stack = '\n\n'.join(
+
+    ''.join(traceback.format_stack(o.gr_frame)) for o in greenlets)
+
+open('/tmp/stack-%d.txt' % os.getpid(), 'w').write(stack)
+</code></pre><p>这个方法结合 gevent.backdoor 堪称排障利器。如果愿意冒一定的风险，甚至可以使用调试器对事先没有埋过点的进程做活体检测——挂上 GIL 再打印一份线程 stack。详见 GitHub - wooparadog/pstack: Tool to dump python thread and greenlet stacks.</p>
+<h2 id="调试利器，显示调用栈">调试利器，显示调用栈</h2>
+<p>有时候BUG隐藏的太深，需要对上下文都有清晰的展示来帮助判断。用pdb调试不方便，用print不直观。可以使用如下函数获取当前调用栈：</p>
+<pre><code>
+import sys
+
+def get_cur_info():
+
+    print sys._getframe().f_code.co_filename # 当前文件名
+
+    print sys._getframe(0).f_code.co_name # 当前函数名
+
+    print sys._getframe(1).f_code.co_name # 调用该函数的函数的名字，如果没有被调用，则返回module
+
+    print sys._getframe().f_lineno # 当前行号
+</code></pre><h2 id="x入参">x入参</h2>
+<pre><code>def testa(*v):
+    print(list(v))
+
+
+testa(1, 2, 3)
+testa(list('abc'))
+testa('a', 'b', list('cde'))
+
+[1, 2, 3]
+[['a', 'b', 'c']]
+['a', 'b', ['c', 'd', 'e']]
+</code></pre><h2 id="内存占用">内存占用</h2>
+<p>下面的代码块可以检查变量 variable 所占用的内存。  </p>
+<pre><code>import sys   
+
+variable = 30   
+print(sys.getsizeof(variable)) # 24
+</code></pre><h2 id="打印-n-次字符串">打印 N 次字符串</h2>
+<p>该代码块不需要循环语句就能打印 N 次字符串。  </p>
+<pre><code>n = 2;
+
+s ="Programming";
+
+
+
+print(s * n);
+
+# ProgrammingProgramming
+</code></pre><h2 id="解包">解包</h2>
+<p>如下代码段可以将打包好的成对列表解开成两组不同的元组。  </p>
+<pre><code>array = [['a', 'b'], ['c', 'd'], ['e', 'f']]
+
+transposed = zip(*array)
+
+print(transposed)
+
+# [('a', 'c', 'e'), ('b', 'd', 'f')]
+</code></pre><h2 id="链式函数调用">链式函数调用</h2>
+<p>你可以在一行代码内调用多个函数。  </p>
+<pre><code>def add(a, b):
+
+    return a + b
+
+
+
+def subtract(a, b):
+
+    return a - b
+
+
+
+a, b = 4, 5
+
+print((subtract if a &gt; b else add)(a, b)) # 9
+</code></pre><h2 id="回文序列">回文序列</h2>
+<p>以下方法会检查给定的字符串是不是回文序列，它首先会把所有字母转化为小写，并移除非英文字母符号。最后，它会对比字符串与反向字符串是否相等，相等则表示为回文序列。  </p>
+<pre><code>def palindrome(string):
+
+    from re import sub
+
+    s = sub('[\W_]', '', string.lower())
+
+    return s == s[::-1]
+
+
+
+palindrome('taco cat') # True
+</code></pre><h2 id="不使用-if-else-的计算子">不使用 if-else 的计算子</h2>
+<p>这一段代码可以不使用条件语句就实现加减乘除、求幂操作，它通过字典这一数据结构实现：  </p>
+<pre><code>import operator
+
+action = {
+
+    "+": operator.add,
+
+    "-": operator.sub,
+
+    "/": operator.truediv,
+
+    "*": operator.mul,
+
+    "**": pow
+
+}
+
+print(action['-'](50, 25)) # 25
+</code></pre><h2 id="参考">参考</h2>
+<p>Python 黑魔法指南 50 例:python.iswbm.com/en/latest/c01/c01<em>10.html<br></br>Python 炫技操作：连接列表的八种方法：python.iswbm.com/en/latest/c01/c01<em>41.html<br></br>Python 炫技操作：判断是否包含子串的七种方法：python.iswbm.com/en/latest/c01/c01_40.html<br></br>Python 炫技操作：合并字典的七种方法：python.iswbm.com/en/latest/c01/c01_39.html<br></br>Python 炫技操作：条件语句的七种写法：python.iswbm.com/en/latest/c01/c01_37.html<br></br>每日一库：sh，最优雅的命令调用方式：python.iswbm.com/en/latest/c01/c01_34.html<br></br>Python 开发中有哪些高级技巧？:<a href="https://www.zhihu.com/question/23760468" target="_blank">https://www.zhihu.com/question/23760468</a><br></br>python __slots</em></em> 详解（上篇）:<a href="https://blog.csdn.net/sxingming/article/details/52892640" target="_blank">https://blog.csdn.net/sxingming/article/details/52892640</a><br></br>30段极简Python代码：这些小技巧你都Get了么:<a href="https://zhuanlan.zhihu.com/p/109016233" target="_blank">https://zhuanlan.zhihu.com/p/109016233</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶15多继承与Mixin.html" class="navigation navigation-prev " aria-label="Previous page: python进阶15多继承与Mixin">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶17正则表达式.html" class="navigation navigation-next " aria-label="Next page: python进阶17正则表达式">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"next":{"title":"python进阶17正则表达式","level":"1.18","depth":1,"path":"python进阶17正则表达式.md","ref":"python进阶17正则表达式.md","articles":[]},"previous":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"path":"python进阶15多继承与Mixin.md","ref":"python进阶15多继承与Mixin.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶16炫技巧.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

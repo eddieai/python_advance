@@ -1,0 +1,969 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶11并发之七多种并发方式的效率测试 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶12并发之八多线程与数据同步.html" />
+    
+    
+    <link rel="prev" href="python进阶10并发之六并行化改造.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶11并发之七多种并发方式的效率测试</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶11并发之七多种并发方式的效率测试">python进阶11并发之七多种并发方式的效率测试</h1>
+<p>测试map,apply_async,gevent协程爬虫</p>
+<p>测试代码:网页爬虫</p>
+<h2 id="函数代码">函数代码</h2>
+<pre><code>def thread_multi():
+    threads = list()
+    for url in urls:
+        threads.append(threading.Thread(target=process, args=(url,)))
+    [t.start() for t in threads]
+    [t.join() for t in threads]
+
+
+def thread_map():
+    pool = ThreadPool(max(1, cpu_count() - 1))
+    results = pool.map(process, urls)
+    pool.close()
+    pool.join()
+    print(results)
+
+
+def thread_async():
+    pool = ThreadPool(max(1, cpu_count() - 1))
+    results = list()
+    for url in urls:
+        results.append(pool.apply_async(process, args=(url,)))
+    pool.close()
+    pool.join()
+    print([result.get() for result in results])
+
+
+def process_multi():
+    processes = list()
+    for url in urls:
+        processes.append(Process(target=process, args=(url,)))
+    [t.start() for t in processes]
+    [t.join() for t in processes]
+
+
+def process_map():
+    pool = Pool(processes=max(1, cpu_count() - 1))
+    results = pool.map(process, urls)
+    pool.close()
+    pool.join()
+    print(results)
+
+
+def process_async():
+    pool = Pool(processes=max(1, cpu_count() - 1))
+    results = list()
+    for url in urls:
+        results.append(pool.apply_async(process, (url,)))
+    pool.close()
+    pool.join()
+    print([result.get() for result in results])
+</code></pre><h2 id="测试结果concurrentopt">测试结果concurrentOpt</h2>
+<p><img src="./images/20200530165323184_493061281.png" alt=""></img></p>
+<p><img src="./images/20200530165334423_70013299.png" alt=""></img></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>thread_multi</th>
+<th>thread_map</th>
+<th>thread_async</th>
+<th>process_multi</th>
+<th>process_map</th>
+<th>process_async</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>5.732065</td>
+<td>9.236784</td>
+<td>7.831096</td>
+<td>9.954077</td>
+<td>9.778723</td>
+<td>12.086315</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4.868261</td>
+<td>14.948347</td>
+<td>8.431347</td>
+<td>9.679722</td>
+<td>17.086732</td>
+<td>6.354689</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7.17074</td>
+<td>9.833528</td>
+<td>12.248446</td>
+<td>6.584711</td>
+<td>17.405191</td>
+<td>17.600024</td>
+</tr>
+<tr>
+<td>3</td>
+<td>11.223755</td>
+<td>10.848167</td>
+<td>9.235662</td>
+<td>6.841372</td>
+<td>9.969995</td>
+<td>11.37249</td>
+</tr>
+<tr>
+<td>4</td>
+<td>10.391303</td>
+<td>8.540373</td>
+<td>8.236726</td>
+<td>10.971645</td>
+<td>8.964562</td>
+<td>9.265784</td>
+</tr>
+<tr>
+<td>5</td>
+<td>8.3693</td>
+<td>9.942565</td>
+<td>9.541138</td>
+<td>8.789822</td>
+<td>8.266148</td>
+<td>10.571744</td>
+</tr>
+<tr>
+<td>6</td>
+<td>8.799133</td>
+<td>10.436757</td>
+<td>13.669565</td>
+<td>10.497021</td>
+<td>9.668785</td>
+<td>10.168379</td>
+</tr>
+<tr>
+<td>7</td>
+<td>5.603222</td>
+<td>9.04568</td>
+<td>9.843495</td>
+<td>4.587275</td>
+<td>14.596141</td>
+<td>10.470989</td>
+</tr>
+<tr>
+<td>8</td>
+<td>9.003843</td>
+<td>6.43141</td>
+<td>9.941858</td>
+<td>4.738146</td>
+<td>8.170778</td>
+<td>9.773284</td>
+</tr>
+<tr>
+<td>9</td>
+<td>9.414749</td>
+<td>15.56822</td>
+<td>9.23152</td>
+<td>8.254023</td>
+<td>8.781076</td>
+<td>14.082026</td>
+</tr>
+<tr>
+<td>10</td>
+<td>8.0576371</td>
+<td>10.4831831</td>
+<td>9.8210853</td>
+<td>8.0897814</td>
+<td>11.2688131</td>
+<td>11.1745724</td>
+</tr>
+</tbody>
+</table>
+<p>最后一行为均值</p>
+<h2 id="测试结果concurrentoptgevent">测试结果concurrentOptGevent</h2>
+<p><img src="./images/20200530170150361_1240656248.png" alt=""></img></p>
+<p><img src="./images/20200530170201434_1766846624.png" alt=""></img></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>thread_multi</th>
+<th>thread_map</th>
+<th>thread_async</th>
+<th>process_multi</th>
+<th>process_map</th>
+<th>process_async</th>
+<th>gevent_test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>10.770623</td>
+<td>10.072167</td>
+<td>11.220298</td>
+<td>11.308327</td>
+<td>3.40E-05</td>
+<td>1.00E-05</td>
+<td>6.035623</td>
+</tr>
+<tr>
+<td>1</td>
+<td>5.628367</td>
+<td>8.850531</td>
+<td>8.939288</td>
+<td>7.608235</td>
+<td>3.20E-05</td>
+<td>1.00E-05</td>
+<td>6.700398</td>
+</tr>
+<tr>
+<td>2</td>
+<td>5.214341</td>
+<td>6.726455</td>
+<td>13.69806</td>
+<td>6.808565</td>
+<td>3.20E-05</td>
+<td>1.10E-05</td>
+<td>6.868222</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6.849362</td>
+<td>7.976406</td>
+<td>6.922554</td>
+<td>5.7132</td>
+<td>1.70E-05</td>
+<td>5.00E-06</td>
+<td>3.650169</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5.442727</td>
+<td>8.179533</td>
+<td>8.46556</td>
+<td>5.084351</td>
+<td>3.00E-05</td>
+<td>1.10E-05</td>
+<td>7.655325</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7.949327</td>
+<td>9.9421</td>
+<td>9.234288</td>
+<td>4.723601</td>
+<td>3.30E-05</td>
+<td>1.00E-05</td>
+<td>4.739602</td>
+</tr>
+<tr>
+<td>6</td>
+<td>5.765848</td>
+<td>9.534865</td>
+<td>7.956348</td>
+<td>9.004707</td>
+<td>2.00E-05</td>
+<td>6.00E-06</td>
+<td>5.40825</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.89613</td>
+<td>10.026686</td>
+<td>6.81114</td>
+<td>5.685556</td>
+<td>3.60E-05</td>
+<td>1.00E-05</td>
+<td>4.534598</td>
+</tr>
+<tr>
+<td>8</td>
+<td>8.838316</td>
+<td>10.292949</td>
+<td>6.709802</td>
+<td>9.328648</td>
+<td>1.80E-05</td>
+<td>5.00E-06</td>
+<td>5.724812</td>
+</tr>
+<tr>
+<td>9</td>
+<td>7.144312</td>
+<td>9.321319</td>
+<td>9.64821</td>
+<td>5.898414</td>
+<td>3.30E-05</td>
+<td>1.00E-05</td>
+<td>8.251311</td>
+</tr>
+<tr>
+<td>10</td>
+<td>6.7499353</td>
+<td>9.0923011</td>
+<td>8.9605548</td>
+<td>7.1163604</td>
+<td>2.85E-05</td>
+<td>8.80E-06</td>
+<td>5.956831</td>
+</tr>
+</tbody>
+</table>
+<p>最后一行为均值</p>
+<h2 id="总结">总结</h2>
+<table>
+<thead>
+<tr>
+<th>concurrentOpt</th>
+<th>进程or线程</th>
+<th>同步or异步(不大确定)</th>
+<th>阻塞or非阻塞(不大确定)</th>
+<th>平均时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>thread_multi</td>
+<td>多线程</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>8.0576371</td>
+</tr>
+<tr>
+<td>thread_map</td>
+<td>线程池</td>
+<td>(批)同步</td>
+<td>阻塞</td>
+<td>10.4831831</td>
+</tr>
+<tr>
+<td>thread_async</td>
+<td>线程池</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>9.8210853</td>
+</tr>
+<tr>
+<td>process_multi</td>
+<td>多进程</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>8.0897814</td>
+</tr>
+<tr>
+<td>process_map</td>
+<td>进程池</td>
+<td>（批）同步</td>
+<td>阻塞</td>
+<td>11.2688131</td>
+</tr>
+<tr>
+<td>process_async</td>
+<td>进程池</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>11.1745724</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>concurrentOptGevent</th>
+<th>进程or线程</th>
+<th>同步or异步(不大确定)</th>
+<th>阻塞or非阻塞(不大确定)</th>
+<th>平均时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>thread_multi</td>
+<td>多线程</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>6.7499353</td>
+</tr>
+<tr>
+<td>thread_map</td>
+<td>线程池</td>
+<td>（批）同步</td>
+<td>非阻塞</td>
+<td>9.0923011</td>
+</tr>
+<tr>
+<td>thread_async</td>
+<td>线程池</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>8.9605548</td>
+</tr>
+<tr>
+<td>process_multi</td>
+<td>多进程</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>7.1163604</td>
+</tr>
+<tr>
+<td>process_map</td>
+<td>进程池</td>
+<td>（批）同步</td>
+<td>非阻塞</td>
+<td>卡住</td>
+</tr>
+<tr>
+<td>process_async</td>
+<td>进程池</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>卡住</td>
+</tr>
+<tr>
+<td>gevent_test</td>
+<td>协程</td>
+<td>异步</td>
+<td>非阻塞</td>
+<td>5.956831</td>
+</tr>
+</tbody>
+</table>
+<p>结论:</p>
+<p>01，启用gevent后，除了卡住的，线程和进程均加快1s左右时间</p>
+<p>02，协程在线程程序中是最快的</p>
+<p>03，多线程程序下载速度弱优于多进程</p>
+<p>04，不论是进程还是线程，使用thread_async都快于map</p>
+<p>05，不考虑协程时，多线程较线程池速度更快，多进程较进程池速度更快，这一点不大符合理论，个人感觉和url数量少有关.</p>
+<p>至于进程池在启用gevent后卡住的问题，网上也没查到相关的靠谱资料，哪位大牛晓得的话，求解释～</p>
+<p>测试代码:<a href="https://github.com/yuanjh6/scripts" target="_blank">github</a>的concurrentOpt.py和concurrentOptGevent.py</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶10并发之六并行化改造.html" class="navigation navigation-prev " aria-label="Previous page: python进阶10并发之六并行化改造">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶12并发之八多线程与数据同步.html" class="navigation navigation-next " aria-label="Next page: python进阶12并发之八多线程与数据同步">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶11并发之七多种并发方式的效率测试","level":"1.12","depth":1,"next":{"title":"python进阶12并发之八多线程与数据同步","level":"1.13","depth":1,"path":"python进阶12并发之八多线程与数据同步.md","ref":"python进阶12并发之八多线程与数据同步.md","articles":[]},"previous":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"path":"python进阶10并发之六并行化改造.md","ref":"python进阶10并发之六并行化改造.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶11并发之七多种并发方式的效率测试.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,648 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>python进阶03UnboundLocalError和NameError错误 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="python进阶04IO的同步异步,阻塞非阻塞.html" />
+    
+    
+    <link rel="prev" href="python进阶02yield.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="python进阶01偏函数.html">
+            
+                <a href="python进阶01偏函数.html">
+            
+                    
+                    python进阶01偏函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="python进阶02yield.html">
+            
+                <a href="python进阶02yield.html">
+            
+                    
+                    python进阶02yield
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="python进阶03UnboundLocalError和NameError错误.html">
+            
+                <a href="python进阶03UnboundLocalError和NameError错误.html">
+            
+                    
+                    python进阶03UnboundLocalError和NameError错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html">
+            
+                    
+                    python进阶04IO的同步异步,阻塞非阻塞
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="python进阶05并发之一基本概念.html">
+            
+                <a href="python进阶05并发之一基本概念.html">
+            
+                    
+                    python进阶05并发之一基本概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="python进阶06并发之二技术点关键词.html">
+            
+                <a href="python进阶06并发之二技术点关键词.html">
+            
+                    
+                    python进阶06并发之二技术点关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="python进阶07并发之三其他问题.html">
+            
+                <a href="python进阶07并发之三其他问题.html">
+            
+                    
+                    python进阶07并发之三其他问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                <a href="python进阶08并发之四map,apply,map_async,apply_async差异.html">
+            
+                    
+                    python进阶08并发之四map,apply,map_async,apply_async差异
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="python进阶09并发之五生产者消费者.html">
+            
+                <a href="python进阶09并发之五生产者消费者.html">
+            
+                    
+                    python进阶09并发之五生产者消费者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="python进阶10并发之六并行化改造.html">
+            
+                <a href="python进阶10并发之六并行化改造.html">
+            
+                    
+                    python进阶10并发之六并行化改造
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                <a href="python进阶11并发之七多种并发方式的效率测试.html">
+            
+                    
+                    python进阶11并发之七多种并发方式的效率测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="python进阶12并发之八多线程与数据同步.html">
+            
+                <a href="python进阶12并发之八多线程与数据同步.html">
+            
+                    
+                    python进阶12并发之八多线程与数据同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="python进阶13并发之九多进程和数据共享.html">
+            
+                <a href="python进阶13并发之九多进程和数据共享.html">
+            
+                    
+                    python进阶13并发之九多进程和数据共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="python进阶14变量作用域LEGB.html">
+            
+                <a href="python进阶14变量作用域LEGB.html">
+            
+                    
+                    python进阶14变量作用域LEGB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="python进阶15多继承与Mixin.html">
+            
+                <a href="python进阶15多继承与Mixin.html">
+            
+                    
+                    python进阶15多继承与Mixin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="python进阶16炫技巧.html">
+            
+                <a href="python进阶16炫技巧.html">
+            
+                    
+                    python进阶16炫技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="python进阶17正则表达式.html">
+            
+                <a href="python进阶17正则表达式.html">
+            
+                    
+                    python进阶17正则表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="python进阶18垃圾回收GC.html">
+            
+                <a href="python进阶18垃圾回收GC.html">
+            
+                    
+                    python进阶18垃圾回收GC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="python进阶19装饰器和闭包.html">
+            
+                <a href="python进阶19装饰器和闭包.html">
+            
+                    
+                    python进阶19装饰器和闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="python进阶20之actor.html">
+            
+                <a href="python进阶20之actor.html">
+            
+                    
+                    python进阶20之actor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="python进阶21再识单例模式.html">
+            
+                <a href="python进阶21再识单例模式.html">
+            
+                    
+                    python进阶21再识单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >python进阶03UnboundLocalError和NameError错误</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="python进阶03unboundlocalerror和nameerror错误">python进阶03UnboundLocalError和NameError错误</h1>
+<h2 id="几个概念">几个概念</h2>
+<p>code block：作为一个单元(Unit)被执行的一段python程序文本。例如一个模块、函数体和类的定义等。</p>
+<p>scope：在一个code block中定义name的可见性；</p>
+<p>block’s environment：对于一个code block，其所有scope中可见的name的集合构成block的环境。</p>
+<p>bind name：下面的操作均可视为绑定操作</p>
+<pre><code>函数的形参
+import声明
+类和函数的定义
+赋值操作
+for循环首标
+异常捕获中相关的赋值变量
+</code></pre><p>local variable：如果name在一个block中被绑定，该变量便是该block的一个local variable。</p>
+<p>global variable：如果name在一个module中被绑定，该变量便称为一个global variable。</p>
+<p>free variable: 如果一个name在一个block中被引用，但没有在该代码块中被定义，那么便称为该变量为一个free variable。</p>
+<p>关于变量作用域参考博文：python进阶14变量作用域LEGB</p>
+<h2 id="经典案例1">经典案例1</h2>
+<pre><code>def outer_func():
+    loc_var = "local variable"
+    def inner_func():
+        loc_var += " in inner func"
+        return loc_var
+    return inner_func
+
+clo_func = outer_func()
+clo_func()
+</code></pre><p>错误提示:</p>
+<pre><code>Traceback (most recent call last):
+  File "G:\Project Files\Python Test\Main.py", line 238, in &lt;module&gt;
+    clo_func()
+  File "G:\Project Files\Python Test\Main.py", line 233, in inner_func
+    loc_var += " in inner func"
+UnboundLocalError: local variable 'loc_var' referenced before assignment
+</code></pre><h2 id="经典案例2">经典案例2</h2>
+<pre><code>def get_select_desc(name, flag, is_format = True):
+    if flag:
+        sel_res = 'Do select name = %s' % name
+    return sel_res if is_format else name
+
+get_select_desc('Error', False, True)
+</code></pre><p>错误提示：</p>
+<pre><code>Traceback (most recent call last):
+  File "G:\Project Files\Python Test\Main.py", line 247, in &lt;module&gt;
+    get_select_desc('Error', False, True)
+  File "G:\Project Files\Python Test\Main.py", line 245, in get_select_desc
+    return sel_res if is_format else name
+UnboundLocalError: local variable 'sel_res' referenced before assignment
+</code></pre><h2 id="经典案例3">经典案例3</h2>
+<pre><code>def outer_func(out_flag):
+    if out_flag:
+        loc_var1 = 'local variable with flag'
+    else:
+        loc_var2 = 'local variable without flag'
+    def inner_func(in_flag):
+        return loc_var1 if in_flag else loc_var2
+    return inner_func
+
+clo_func = outer_func(True)
+print clo_func(False)
+</code></pre><p>错误提示：</p>
+<pre><code>Traceback (most recent call last):
+  File "G:\Project Files\Python Test\Main.py", line 260, in &lt;module&gt;
+    print clo_func(False)
+  File "G:\Project Files\Python Test\Main.py", line 256, in inner_func
+    return loc_var1 if in_flag else loc_var2
+NameError: free variable 'loc_var2' referenced before assignment in enclosing scope
+</code></pre><h2 id="分析案例">分析案例</h2>
+<pre><code>import sys
+a = 1
+for i in range(10):
+    pass
+
+
+def outer_func(g=3):
+    loc_var = "local variable"
+
+    def inner_func():
+        print(a)
+        print(g)
+
+        try:
+            int("0.2")
+        except ValueError as e:
+            print(e)
+
+        loc_var += " in inner func"
+        return loc_var
+
+    return inner_func
+
+
+clo_func = outer_func()
+clo_func()
+
+
+class clss():
+    def add(self):
+        pass
+</code></pre><p>分析</p>
+<p>1,双下划线:根据bind定义，识别为scope可见的变量</p>
+<p>2,scope可见是存在层次关系的,越靠左侧说明包含范围越大（类似作用域的感觉),越靠右侧，包含范围越小，（作用域越小）</p>
+<p>3,图中表明1和3的地方就是，标准案例1的问题点.loc_var由于在赋值语句“＝”的左边，所以别认为是scope内(可见)变量，所以执行loc_var=loc_var+"xx"时，会从最近的scope加载loc_var,最近的loc_var恰好指向自己，但是此时的"loc_var"尚且未被初始化，所以报错。</p>
+<p>4,相比较，图中2,变量"g"在局部也未被初始化，但是却未报错，应为g在scope中未找到，所以自动向上找(往范围更大的找)，就找到入参处的变量”g"了。</p>
+<p><img src="./images/20200513231942911_1164903850.png" alt=""></img></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.cnblogs.com/friedCoder/p/12571983.html" target="_blank">UnboundLocalError，探讨Python中的绑定</a></p>
+<p><a href="https://www.cnblogs.com/yssjun/p/9873689.html" target="_blank">Python UnboundLocalError和NameError错误根源解析</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="python进阶02yield.html" class="navigation navigation-prev " aria-label="Previous page: python进阶02yield">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="python进阶04IO的同步异步,阻塞非阻塞.html" class="navigation navigation-next " aria-label="Next page: python进阶04IO的同步异步,阻塞非阻塞">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"next":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"path":"python进阶04IO的同步异步,阻塞非阻塞.md","ref":"python进阶04IO的同步异步,阻塞非阻塞.md","articles":[]},"previous":{"title":"python进阶02yield","level":"1.3","depth":1,"path":"python进阶02yield.md","ref":"python进阶02yield.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶03UnboundLocalError和NameError错误.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
