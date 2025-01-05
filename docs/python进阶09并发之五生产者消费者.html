@@ -6,7 +6,7 @@
         <title>python进阶09并发之五生产者消费者 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -422,107 +422,109 @@
                                 <h1 id="python进阶09并发之五生产者消费者">python进阶09并发之五生产者消费者</h1>
 <p>这也是实际项目中使用较多的一种并发模式，用Queue(JoinableQueue)实现，是Python中最常用的方式(这里的queue特指multiprocess包下的queue，非queue.Queue)。</p>
 <h2 id="queue">Queue</h2>
-<pre><code># encoding:utf-8
-__author__ = 'Fioman'
-__time__ = '2019/3/7 14:06'
-from multiprocessing import Process,Queue
-import time,random
+<pre><code class="lang-python"><span class="hljs-comment"># encoding:utf-8</span>
+__author__ = <span class="hljs-string">'Fioman'</span>
+__time__ = <span class="hljs-string">'2019/3/7 14:06'</span>
+<span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process,Queue
+<span class="hljs-keyword">import</span> time,random
 
-def consumer(q,name):
-    while True:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consumer</span>(<span class="hljs-params">q,name</span>):
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
         food = q.get()
-        if food is None:
-            print('接收到了一个空,生产者已经完事了')
-            break
+        <span class="hljs-keyword">if</span> food <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">'接收到了一个空,生产者已经完事了'</span>)
+            <span class="hljs-keyword">break</span>
 
-        print('\033[31m{}消费了{}\033[0m'.format(name,food))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'\033[31m{}消费了{}\033[0m'</span>.<span class="hljs-built_in">format</span>(name,food))
         time.sleep(random.random())
 
-def producer(name,food,q):
-    for i in range(10):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">producer</span>(<span class="hljs-params">name,food,q</span>):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
         time.sleep(random.random())
-        f = '{}生产了{}{}'.format(name,food,i)
-        print(f)
+        f = <span class="hljs-string">'{}生产了{}{}'</span>.<span class="hljs-built_in">format</span>(name,food,i)
+        <span class="hljs-built_in">print</span>(f)
         q.put(f)
 
 
 
-if __name__ == '__main__':
-    q = Queue(20)
-    p1 = Process(target=producer,args=('fioman','包子',q))
-    p2 = Process(target=producer,args=('jingjing','馒头',q))
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    q = Queue(<span class="hljs-number">20</span>)
+    p1 = Process(target=producer,args=(<span class="hljs-string">'fioman'</span>,<span class="hljs-string">'包子'</span>,q))
+    p2 = Process(target=producer,args=(<span class="hljs-string">'jingjing'</span>,<span class="hljs-string">'馒头'</span>,q))
     p1.start()
     p2.start()
 
-    c1 = Process(target=consumer,args=(q,'mengmeng'))
-    c2 = Process(target=consumer,args=(q,'xiaoxiao'))
+    c1 = Process(target=consumer,args=(q,<span class="hljs-string">'mengmeng'</span>))
+    c2 = Process(target=consumer,args=(q,<span class="hljs-string">'xiaoxiao'</span>))
     c1.start()
     c2.start()
 
-    # 让主程序可以等待子进程的结束.
+    <span class="hljs-comment"># 让主程序可以等待子进程的结束.</span>
     p1.join()
     p2.join()
-    # 生产者的进程结束,这里需要放置两个空值,供消费者获取,用来判断已经没有存货了
-    q.put(None)
-    q.put(None)
+    <span class="hljs-comment"># 生产者的进程结束,这里需要放置两个空值,供消费者获取,用来判断已经没有存货了</span>
+    q.put(<span class="hljs-literal">None</span>)
+    q.put(<span class="hljs-literal">None</span>)
 
-    print('主程序结束..........')
-</code></pre><h2 id="joinablequeue">JoinableQueue</h2>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'主程序结束..........'</span>)
+</code></pre>
+<h2 id="joinablequeue">JoinableQueue</h2>
 <p>创建可连接的共享进程队列,它们也是队列,但是这些队列比较特殊.它们可以允许消费者通知生产者项目已经被成功处理.注意,这里必须是生产者生产完了,生产者的进程被挂起,等到消费者完全消费的时候,生产者进程就结束,然后主程序结束.将消费者进程设置为守护进程,这样的话,主进程结束的时候,消费进程也就结束了.</p>
 <p>JoinableQueue()比普通的Queue()多了两个方法:</p>
-<pre><code>q.task_done() 
+<pre><code class="lang-python">q.task_done() 
 使用者使用此方法发出信号，表示q.get()返回的项目已经被处理。如果调用此方法的次数大于从队列中删除的项目数量，将引发ValueError异常。
 
 q.join() 
 生产者将使用此方法进行阻塞，直到队列中所有项目均被处理。阻塞将持续到为队列中的每个项目均调用q.task_done()方法为止。 
-# encoding:utf-8
-__author__ = 'Fioman'
-__time__ = '2019/3/7 14:06'
-from multiprocessing import Process,JoinableQueue
-import time,random
+<span class="hljs-comment"># encoding:utf-8</span>
+__author__ = <span class="hljs-string">'Fioman'</span>
+__time__ = <span class="hljs-string">'2019/3/7 14:06'</span>
+<span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process,JoinableQueue
+<span class="hljs-keyword">import</span> time,random
 
-def consumer(q,name):
-    while True:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consumer</span>(<span class="hljs-params">q,name</span>):
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
         food = q.get()
-        if food is None:
-            print('接收到了一个空,生产者已经完事了')
-            break
+        <span class="hljs-keyword">if</span> food <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">'接收到了一个空,生产者已经完事了'</span>)
+            <span class="hljs-keyword">break</span>
 
-        print('\033[31m{}消费了{}\033[0m'.format(name,food))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'\033[31m{}消费了{}\033[0m'</span>.<span class="hljs-built_in">format</span>(name,food))
         time.sleep(random.random())
-        q.task_done()  # 向生产者发送信号,表示消费了一个
+        q.task_done()  <span class="hljs-comment"># 向生产者发送信号,表示消费了一个</span>
 
-def producer(name,food,q):
-    for i in range(10):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">producer</span>(<span class="hljs-params">name,food,q</span>):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
         time.sleep(random.random())
-        f = '{}生产了{}{}'.format(name,food,i)
-        print(f)
+        f = <span class="hljs-string">'{}生产了{}{}'</span>.<span class="hljs-built_in">format</span>(name,food,i)
+        <span class="hljs-built_in">print</span>(f)
         q.put(f)
-    q.join() # 当生产者生产完毕之后,会在这里阻塞.等待消费者的消费.
+    q.join() <span class="hljs-comment"># 当生产者生产完毕之后,会在这里阻塞.等待消费者的消费.</span>
 
 
 
-if __name__ == '__main__':
-    q = JoinableQueue(20)
-    p1 = Process(target=producer,args=('fioman','包子',q))
-    p2 = Process(target=producer,args=('jingjing','馒头',q))
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    q = JoinableQueue(<span class="hljs-number">20</span>)
+    p1 = Process(target=producer,args=(<span class="hljs-string">'fioman'</span>,<span class="hljs-string">'包子'</span>,q))
+    p2 = Process(target=producer,args=(<span class="hljs-string">'jingjing'</span>,<span class="hljs-string">'馒头'</span>,q))
     p1.start()
     p2.start()
 
-    c1 = Process(target=consumer,args=(q,'mengmeng'))
-    c2 = Process(target=consumer,args=(q,'xiaoxiao'))
-    c1.daemon = True # 将消费者设置为守护进程
-    c2.daemon = True # 将消费者设置为守护进程
+    c1 = Process(target=consumer,args=(q,<span class="hljs-string">'mengmeng'</span>))
+    c2 = Process(target=consumer,args=(q,<span class="hljs-string">'xiaoxiao'</span>))
+    c1.daemon = <span class="hljs-literal">True</span> <span class="hljs-comment"># 将消费者设置为守护进程</span>
+    c2.daemon = <span class="hljs-literal">True</span> <span class="hljs-comment"># 将消费者设置为守护进程</span>
     c1.start()
     c2.start()
 
-    # 让主程序可以等待生产子进程的结束.
+    <span class="hljs-comment"># 让主程序可以等待生产子进程的结束.</span>
     p1.join()
     p2.join()
 
 
-    print('主程序结束..........')
-</code></pre><p>个人不习惯使用JoinableQueue，为什么呢？因为他是通过生产者来“得知”，整个生产消费流程的终结.</p>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'主程序结束..........'</span>)
+</code></pre>
+<p>个人不习惯使用JoinableQueue，为什么呢？因为他是通过生产者来“得知”，整个生产消费流程的终结.</p>
 <p>在消费者调用q.task_done()时，会触发一次q.join()的检查(q.join()是用来阻塞进程的，最后一个任务完成后，q.task_done()＝》q.join()＝》阻塞解除)，之后生产者进程退出。而消费者呢？业务逻辑层面上是没有退出的（本例）。比如，本例中通过<strong>设置为守护进程的方式进行退出</strong>。但如果后续主进程还有其他任务，而没有退出呢？那么这些子进程则沦为僵尸进程，虽然对系统资源消耗很少(消费者的queue.get()也是阻塞的，所以不会执行循环，仅仅会“卡”在那里，但也不会自动消亡)，但感觉非常别扭的。所以个人还是倾向于用"生产者queue.put(None) ,消费者见到None则break(退出循环)"的传统方式 进行消费者进程触发退出。如果采用这种方式那么JoinableQueue相比Queue就没有优势了。 </p>
 <h2 id="一点思考">一点思考</h2>
 <p>关于生产者和消费者，曾经思考过这么一种实现方式。</p>
@@ -532,39 +534,40 @@ if __name__ == '__main__':
 <p>消费者：存活生产者个数=0(生产者均已经完成生成) 且 队列长度=0(队列也已经消费结束)  则退出消费者进程.</p>
 <p>这种情况下，只需要　消费者.join()　就可以保证整个生产消费进程的执行结束(这一点和JoinableQueue很像，不过JoinableQueue是 生产者.join())</p>
 <p>一共只改动3处，就可以完成生产者消费者的并行化控制。 而且更符合逻辑，因为生产者是明确知道自己的退出条件的，而消费者依赖生产者，所以只需要观察消费者就可以知道（生成者是否结束）整个－生成消费链是否完成。</p>
-<pre><code>
-def consumer(q,name):
-    while not (q.product_n==0 and q.size==0):# 存活生产者=0，意味着全部结束生产，队列不会新增数据,queue.size=0说明消费完毕
+<pre><code class="lang-python">
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consumer</span>(<span class="hljs-params">q,name</span>):
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> (q.product_n==<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> q.size==<span class="hljs-number">0</span>):<span class="hljs-comment"># 存活生产者=0，意味着全部结束生产，队列不会新增数据,queue.size=0说明消费完毕</span>
         food = q.get()
-        print('\033[31m{}消费了{}\033[0m'.format(name,food))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'\033[31m{}消费了{}\033[0m'</span>.<span class="hljs-built_in">format</span>(name,food))
         time.sleep(random.random())
 
-def producer(name,food,q):
-    for i in range(10):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">producer</span>(<span class="hljs-params">name,food,q</span>):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
         time.sleep(random.random())
-        f = '{}生产了{}{}'.format(name,food,i)
-        print(f)
+        f = <span class="hljs-string">'{}生产了{}{}'</span>.<span class="hljs-built_in">format</span>(name,food,i)
+        <span class="hljs-built_in">print</span>(f)
         q.put(f)
-    q.product_n -= 1 # 当生产者生产完毕之后,q.product_n - 1(存活生产者个数-1)
+    q.product_n -= <span class="hljs-number">1</span> <span class="hljs-comment"># 当生产者生产完毕之后,q.product_n - 1(存活生产者个数-1)</span>
 
 
 
-if __name__ == '__main__':
-    q = StatusableQueue(product_n=2,size=20)#默认状态=正常,n=2含义：生产者个数,size=20,对列长度
-    p1 = Process(target=producer,args=('fioman','包子',q))
-    p2 = Process(target=producer,args=('jingjing','馒头',q))
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    q = StatusableQueue(product_n=<span class="hljs-number">2</span>,size=<span class="hljs-number">20</span>)<span class="hljs-comment">#默认状态=正常,n=2含义：生产者个数,size=20,对列长度</span>
+    p1 = Process(target=producer,args=(<span class="hljs-string">'fioman'</span>,<span class="hljs-string">'包子'</span>,q))
+    p2 = Process(target=producer,args=(<span class="hljs-string">'jingjing'</span>,<span class="hljs-string">'馒头'</span>,q))
     p1.start()
     p2.start()
 
-    c1 = Process(target=consumer,args=(q,'mengmeng'))
-    c2 = Process(target=consumer,args=(q,'xiaoxiao'))
+    c1 = Process(target=consumer,args=(q,<span class="hljs-string">'mengmeng'</span>))
+    c2 = Process(target=consumer,args=(q,<span class="hljs-string">'xiaoxiao'</span>))
     c1.start()
     c2.start()
 
-    # 消费者消费结束（说明生产也一定结束了），则说明整个生产－消费逻辑完成
+    <span class="hljs-comment"># 消费者消费结束（说明生产也一定结束了），则说明整个生产－消费逻辑完成</span>
     c1.join()
     c2.join()
-</code></pre><p>文中加注释地方为修改点，这样代码最简单，调用方面，含义清晰。</p>
+</code></pre>
+<p>文中加注释地方为修改点，这样代码最简单，调用方面，含义清晰。</p>
 <p>缺点：<strong>必须知道生产者个数</strong>，这个数据应该不难获取，毕竟后面在创建生产者时也需要使用这个变量控制。</p>
 <h2 id="参考">参考</h2>
 <p><a href="https://www.jianshu.com/p/acf67126d804" target="_blank">Python的进程间通信</a>  </p>
@@ -611,7 +614,7 @@ if __name__ == '__main__':
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶09并发之五生产者消费者","level":"1.10","depth":1,"next":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"path":"python进阶10并发之六并行化改造.md","ref":"python进阶10并发之六并行化改造.md","articles":[]},"previous":{"title":"python进阶08并发之四map,apply,map_async,apply_async差异","level":"1.9","depth":1,"path":"python进阶08并发之四map,apply,map_async,apply_async差异.md","ref":"python进阶08并发之四map,apply,map_async,apply_async差异.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶09并发之五生产者消费者.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶09并发之五生产者消费者","level":"1.10","depth":1,"next":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"path":"python进阶10并发之六并行化改造.md","ref":"python进阶10并发之六并行化改造.md","articles":[]},"previous":{"title":"python进阶08并发之四map,apply,map_async,apply_async差异","level":"1.9","depth":1,"path":"python进阶08并发之四map,apply,map_async,apply_async差异.md","ref":"python进阶08并发之四map,apply,map_async,apply_async差异.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶09并发之五生产者消费者.md","mtime":"2025-01-05T18:02:31.956Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

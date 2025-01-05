@@ -14,7 +14,7 @@ python封装了4种常用方法，用于实现并发
 
 需要注意：map 和 map_async 入参为迭代器类型，可以批量调用。而apply和apply_async只能一个个调用。
 
-```
+```python
 # map
 results = pool.map(worker, [1, 2, 3])
 
@@ -40,7 +40,7 @@ Pool.apply_async：调用立即返回而不是等待结果。AsyncResult返回�
 相比Pool.apply，该Pool.apply_async方法还具有一个回调，则在函数完成时调用该回调。可以使用它来代替get()。
 
 
-```
+```python
 import multiprocessing as mp
 import time
 

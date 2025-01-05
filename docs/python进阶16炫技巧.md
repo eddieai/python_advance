@@ -10,7 +10,7 @@
 
 这个zip 是如何制作的呢，请看下面的示例。
 
-```
+```python
 [root@localhost ~]# ls -l demo
 total 8
 -rw-r--r-- 1 root root 30 May  8 19:27 calc.py
@@ -26,7 +26,7 @@ def add(x, y):
 ```
 制作完成后，我们可以执行用 python 去执行它
 
-```
+```python
 [root@localhost ~]# python demo.zip
 5
 ```
@@ -38,7 +38,7 @@ def add(x, y):
 
 示例如下：
 
-```
+```python
 >>> 3 + 4
 7
 >>> _
@@ -53,7 +53,7 @@ def add(x, y):
 
 但是，如果是print函数打印出来的就不行了。
 
-```
+```python
 >>> 3 + 4
 7
 >>> _
@@ -65,7 +65,7 @@ ming
 ```
 
 ## 最快查看包搜索路径的方式
-```
+```python
 python3 -m site
 sys.path = [
     '/home/wangbm',
@@ -86,13 +86,13 @@ ENABLE_USER_SITE: True
 
 示例如下：
 
-```
+```python
 >>>(2 or 3) * (5 and 7)
 14  # 2*7
 ```
 
 ## 访问类中的私有方法
-```
+```python
 # 调用私有方法，以下两种等价
 ins._Kls__private()
 ins.call_private()
@@ -114,7 +114,7 @@ with test_context('aaa'), test_context('bbb'):
     print('========== in main ============')
 ## 连接多个列表最极客的方式
 
-```
+```python
 >>> b = [3,4]
 >>> c = [5,6]
 >>>
@@ -123,7 +123,7 @@ with test_context('aaa'), test_context('bbb'):
 ```
 另外几种连接列表的方式
 
-```
+```python
 >>> list01 + list02 + list03
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 >>> list(chain(list01, list02, list03))
@@ -142,7 +142,7 @@ sorted(itertools.chain(*iterables))
 
 
 ## 合并字典的几种方法
-```
+```python
 profile.update(ext_info)
 full_profile01 = {**profile, **ext_info}
 dict(itertools.chain(profile.items(), ext_info.items()))
@@ -150,7 +150,7 @@ dict(ChainMap(profile, ext_info))
 full_profile = dict(profile.items() | ext_info.items())
 ```
 ## 条件语句的几种写法
-```
+```python
 <on_true> if <condition> else <on_false>
 <condition> and <on_true> or <on_false>
 (<on_true>, <on_false>)[condition]
@@ -171,7 +171,7 @@ full_profile = dict(profile.items() | ext_info.items())
 ## with 与 上下文管理器
 样例:
 
-```
+```python
 import contextlib
 
 @contextlib.contextmanager
@@ -201,7 +201,7 @@ cat test.json | python -m json.tool
 
 
 ## sh，最优雅的命令调用方式
-```
+```python
  >>> sh.glob("/etc/*.conf")
 ['/etc/mke2fs.conf', '/etc/dnsmasq.conf', '/etc/asound.conf']
 >>> r=sh.Command('/root/test.py')
@@ -209,7 +209,7 @@ cat test.json | python -m json.tool
 hello,world
 ```
 ## 判断是否包含子串的七种方法
-```
+```python
 1. 使用 in 和 not in
 2. 使用 find 方法
 3. 使用 index 方法
@@ -220,7 +220,7 @@ operator模块是python中内置的操作符函数接口，它定义了一些算
 
 在 operator 中有一个方法 contains 可以很方便地判断子串是否在字符串中。
 
-```
+```python
 >>> import operator
 >>>
 >>> operator.contains("hello, python", "llo")
@@ -230,7 +230,7 @@ operator模块是python中内置的操作符函数接口，它定义了一些算
 
 具体的代码示例如下：
 
-```
+```python
 >>> import json
 >>> print json.dumps(info, indent=4, ensure_ascii=False)
 ```
@@ -257,7 +257,7 @@ gc.get_objects()
 
 例如，打印出所有 Greenlet 的 stack：
 
-```
+```python
 
 import os
 
@@ -289,7 +289,7 @@ open('/tmp/stack-%d.txt' % os.getpid(), 'w').write(stack)
 
 有时候BUG隐藏的太深，需要对上下文都有清晰的展示来帮助判断。用pdb调试不方便，用print不直观。可以使用如下函数获取当前调用栈：
 
-```
+```python
 
 import sys
 
@@ -306,7 +306,7 @@ def get_cur_info():
 ```
 
 ## x入参
-```
+```python
 def testa(*v):
     print(list(v))
 
@@ -330,7 +330,7 @@ print(sys.getsizeof(variable)) # 24
   
 ## 打印 N 次字符串  
 该代码块不需要循环语句就能打印 N 次字符串。  
-```
+```python
 n = 2;
 
 s ="Programming";
@@ -344,7 +344,7 @@ print(s * n);
 ```
 ## 解包  
 如下代码段可以将打包好的成对列表解开成两组不同的元组。  
-```
+```python
 array = [['a', 'b'], ['c', 'd'], ['e', 'f']]
 
 transposed = zip(*array)
@@ -356,7 +356,7 @@ print(transposed)
 ```
 ## 链式函数调用  
 你可以在一行代码内调用多个函数。  
-```
+```python
 def add(a, b):
 
     return a + b
@@ -376,7 +376,7 @@ print((subtract if a > b else add)(a, b)) # 9
 ```
 ## 回文序列  
 以下方法会检查给定的字符串是不是回文序列，它首先会把所有字母转化为小写，并移除非英文字母符号。最后，它会对比字符串与反向字符串是否相等，相等则表示为回文序列。  
-```
+```python
 def palindrome(string):
 
     from re import sub
@@ -392,7 +392,7 @@ palindrome('taco cat') # True
 ```
 ## 不使用 if-else 的计算子  
 这一段代码可以不使用条件语句就实现加减乘除、求幂操作，它通过字典这一数据结构实现：  
-```
+```python
 import operator
 
 action = {

@@ -6,7 +6,7 @@
         <title>python进阶02yield · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -423,159 +423,169 @@
 <p>yield关键字之前见过，也能读懂，但开发时也不大敢使用，感觉理解还是不够充分。刚好项目代码中有涉及，顺便再学习学习。</p>
 <p>在理解yield之前，</p>
 <h2 id="可迭代，迭代器，生成器">可迭代，迭代器，生成器</h2>
-<pre><code>可迭代对象，是其内部实现了，__iter__ 这个魔术方法。  
-=&gt;对比可迭代对象，迭代器其实就只是多了一个函数而已。就是__next__()，我们可以不再使用for循环来间断获取元素值。而可以直接使用next()方法来实现。  
-==&gt;生成器，则是在迭代器的基础上（可以用for循环，可以使用next()），再实现了yield。
-</code></pre><p>可以看出三者存在明显递进关系，越往后要求越苛刻，需实现方法也越多.(如果分不清，查阅本文参考文献第一篇)</p>
+<pre><code class="lang-python">可迭代对象，是其内部实现了，__iter__ 这个魔术方法。  
+=&gt;对比可迭代对象，迭代器其实就只是多了一个函数而已。就是__next__()，我们可以不再使用<span class="hljs-keyword">for</span>循环来间断获取元素值。而可以直接使用<span class="hljs-built_in">next</span>()方法来实现。  
+==&gt;生成器，则是在迭代器的基础上（可以用<span class="hljs-keyword">for</span>循环，可以使用<span class="hljs-built_in">next</span>()），再实现了<span class="hljs-keyword">yield</span>。
+</code></pre>
+<p>可以看出三者存在明显递进关系，越往后要求越苛刻，需实现方法也越多.(如果分不清，查阅本文参考文献第一篇)</p>
 <h2 id="猜测代码结果">猜测代码结果</h2>
 <p>看如下代码</p>
-<pre><code>## 第一段代码
-items=[i for i in range(10)]
-tmp=func(m)#func是一函数  
-print(func02(tmp))# func02是另一个函数
-print(func02(tmp))  
+<pre><code class="lang-python"><span class="hljs-comment">## 第一段代码</span>
+items=[i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)]
+tmp=func(m)<span class="hljs-comment">#func是一函数  </span>
+<span class="hljs-built_in">print</span>(func02(tmp))<span class="hljs-comment"># func02是另一个函数</span>
+<span class="hljs-built_in">print</span>(func02(tmp))  
 
-## 第二段代码
-items=[i for i in range(10)]
-tmp=func(m)#func是一函数  
-print(func02(func(m)))# func02是另一个函数
-print(func02(func(m)))
-</code></pre><p>请问这二者输出相同么？如果不考虑前文的铺垫，孤零零放出这么一段代码，可能9成都会不假思索的说相同。因为第二段代码，其实就是把一个变量多定义几遍而已。</p>
+<span class="hljs-comment">## 第二段代码</span>
+items=[i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)]
+tmp=func(m)<span class="hljs-comment">#func是一函数  </span>
+<span class="hljs-built_in">print</span>(func02(func(m)))<span class="hljs-comment"># func02是另一个函数</span>
+<span class="hljs-built_in">print</span>(func02(func(m)))
+</code></pre>
+<p>请问这二者输出相同么？如果不考虑前文的铺垫，孤零零放出这么一段代码，可能9成都会不假思索的说相同。因为第二段代码，其实就是把一个变量多定义几遍而已。</p>
 <p>由于tmp=func(m)，所以func02(tmp)等价于func02(func(m)),再结合软件开发中的业务逻辑确定性原则（同输入同输出），所以这两段代码输出必然相同。如果稍稍思考下就能发现，其实这个说法是有问题的，如果func02就是next()函数呢？显然输出会不同。</p>
 <p>长久的编程习惯会让我们忽略一些东西，yield就属于忽略点，其内部等价于内置了"状态机"的概念。</p>
 <p>如果对上面代码持有异议，可运行如下代码</p>
-<pre><code>def flatten(items, ignore_types=(str, bytes)):
-    for x in items:
-        if isinstance(x, Iterable) and not isinstance(x, ignore_types):
-            yield from flatten(x)
-        else:
-            yield x
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">flatten</span>(<span class="hljs-params">items, ignore_types=(<span class="hljs-params"><span class="hljs-built_in">str</span>, <span class="hljs-built_in">bytes</span></span>)</span>):
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> items:
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(x, Iterable) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(x, ignore_types):
+            <span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> flatten(x)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">yield</span> x
 以下不同
 tmp=flatten(items)
-print(next(flatten(items)))
-print(next(flatten(items)))
-print(next(flatten(items)))
-print(next(flatten(items)))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(flatten(items)))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(flatten(items)))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(flatten(items)))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(flatten(items)))
 
 tmp=flatten(items)
-print(next(tmp))
-print(next(tmp))
-print(next(tmp))
-print(next(tmp))
-</code></pre><h2 id="yield简单介绍">yield简单介绍</h2>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(tmp))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(tmp))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(tmp))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(tmp))
+</code></pre>
+<h2 id="yield简单介绍">yield简单介绍</h2>
 <p>yield 是什么东西呢，它相当于我们函数里的return。在每次next()，或者for遍历的时候，都会yield这里将新的值返回回去，并在这里阻塞，等待下一次的调用。记住要点，yield相关的<strong>2个动作和2个状态，return-自我阻塞-(别人)xx动作-唤醒(自己)</strong>，完整就是,return之后，自动，自我阻塞，然后，等待xx的动作，唤醒自己。这个要记牢，否则后面容易懵。</p>
 <p>如何创建一个生成器，主要有如下两种方法</p>
-<pre><code># 01,使用列表生成式，注意不是[]，而是()
-L = (x * x for x in range(10))
-print(isinstance(L, Generator))  # True
+<pre><code class="lang-python"><span class="hljs-comment"># 01,使用列表生成式，注意不是[]，而是()</span>
+L = (x * x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">isinstance</span>(L, Generator))  <span class="hljs-comment"># True</span>
 
-# 02,实现了yield的函数
-def mygen(n):
-    now = 0
-    while now &lt; n:
-        yield now
-        now += 1
+<span class="hljs-comment"># 02,实现了yield的函数</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">mygen</span>(<span class="hljs-params">n</span>):
+    now = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> now &lt; n:
+        <span class="hljs-keyword">yield</span> now
+        now += <span class="hljs-number">1</span>
 
-if __name__ == '__main__':
-    gen = mygen(10)
-    print(isinstance(gen, Generator))  # True
-</code></pre><p>如何运行/激活生成器</p>
-<pre><code>使用next()
-使用generator.send(None)
-</code></pre><p>这就是yield基础知识.</p>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    gen = mygen(<span class="hljs-number">10</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">isinstance</span>(gen, Generator))  <span class="hljs-comment"># True</span>
+</code></pre>
+<p>如何运行/激活生成器</p>
+<pre><code class="lang-python">使用<span class="hljs-built_in">next</span>()
+使用generator.send(<span class="hljs-literal">None</span>)
+</code></pre>
+<p>这就是yield基础知识.</p>
 <h2 id="yield个人理解01缓冲型延迟型list">yield个人理解01,缓冲型(延迟型)list</h2>
 <p>就是把yield的函数看做普通list列表，不过是他什么时候用到什么时候计算，不关心他怎么实现的(或者什么时候真正执行的)。</p>
 <p>这么理解，基本上大部分yield函数，看懂是没问题的，但是写呢？依然难以下手，因为不清楚每一行代码是如何运行的。 我之前就是这么理解的，阅读足够，开发不足。</p>
 <h2 id="yield个人理解02多return时序函数">yield个人理解02,多return时序函数</h2>
 <p>首先以下定义结构</p>
-<pre><code>yield x=&gt;等价于=&gt;return x,receive y
-</code></pre><p>举例:执行到yield时</p>
+<pre><code class="lang-python"><span class="hljs-keyword">yield</span> x=&gt;等价于=&gt;<span class="hljs-keyword">return</span> x,receive y
+</code></pre>
+<p>举例:执行到yield时</p>
 <p>连线1，返回。先return index,然后自我阻塞,</p>
 <p>连线2，等待填充。y哪里其实是个空位，意味这等待外部向这里填充数据（如何填充?前面介绍的next or send）.</p>
 <p>连线3，填充后继续。填充数据之后，传递给yield index,中yield开始的位置，此处为=的右侧，所以receive后会赋值给jump</p>
 <p>所以说yield的执行其实是"时序"型的，一个“时钟”就是一个next(or send),每走一步，return之后，等待,等别人通过next(or send)，叫醒自己继续走.</p>
 <p>从时间角度看，yield函数其实有"一系列不同时间的返回值"。</p>
 <p>所以其非常适合"需要捕捉中间结果的迭代计算"</p>
-<p><img src="./images/20200503164112134_466137441.png" alt=""></img></p>
+<p><img src="images/20200503164112134_466137441.png" alt=""></img></p>
 <h2 id="yield实例和分析">yield实例和分析</h2>
-<pre><code>def jumping_range(N):
-    index = 0
-    while index &lt; N:
-        # 通过send()发送的信息将赋值给jump
-        jump = yield index
-        if jump is None:
-            jump = 1
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">jumping_range</span>(<span class="hljs-params">N</span>):
+    index = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> index &lt; N:
+        <span class="hljs-comment"># 通过send()发送的信息将赋值给jump</span>
+        jump = <span class="hljs-keyword">yield</span> index
+        <span class="hljs-keyword">if</span> jump <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            jump = <span class="hljs-number">1</span>
         index += jump
 
-if __name__ == '__main__':
-    itr = jumping_range(5)
-    print(next(itr))
-    print(itr.send(2))
-    print(next(itr))
-    print(itr.send(-1))
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    itr = jumping_range(<span class="hljs-number">5</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(itr))
+    <span class="hljs-built_in">print</span>(itr.send(<span class="hljs-number">2</span>))
+    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(itr))
+    <span class="hljs-built_in">print</span>(itr.send(-<span class="hljs-number">1</span>))
 
 输出:
-0
-2
-3
-2
-</code></pre><p>分析:</p>
+<span class="hljs-number">0</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span>
+<span class="hljs-number">2</span>
+</code></pre>
+<p>分析:</p>
 <p>如下图，粗黑线部分就是程序代码执行流，可见index=0这部分代码其实只执行了一次,后续每次next后程序起点都是Jump=xx</p>
 <p>这种角度看，yield非常类似我们debug程序时加入的断点，断点处return 当前取值,然后set 新的取值.</p>
-<p><img src="./images/20200503170909015_1058463589.png" alt=""></img></p>
+<p><img src="images/20200503170909015_1058463589.png" alt=""></img></p>
 <h2 id="yield-continue和break">yield continue和break</h2>
-<pre><code>def get_detection_result():
-    tmpi = 0
-    ret = True
-    while ret:
-        if tmpi % 4 == 0:
-            tmpi += 1
-            yield #continue
-        elif tmpi % 4 == 1:
-            tmpi += 1
-            ret = False
-            yield #break ,will raise exception 
-        elif tmpi % 4 == 2:
-            tmpi += 1
-            m = yield tmpi
-            print(m) # common multi return 
-        else:
-            print('xxxxxxx') # dead loop
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_detection_result</span>():
+    tmpi = <span class="hljs-number">0</span>
+    ret = <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">while</span> ret:
+        <span class="hljs-keyword">if</span> tmpi % <span class="hljs-number">4</span> == <span class="hljs-number">0</span>:
+            tmpi += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">yield</span> <span class="hljs-comment">#continue</span>
+        <span class="hljs-keyword">elif</span> tmpi % <span class="hljs-number">4</span> == <span class="hljs-number">1</span>:
+            tmpi += <span class="hljs-number">1</span>
+            ret = <span class="hljs-literal">False</span>
+            <span class="hljs-keyword">yield</span> <span class="hljs-comment">#break ,will raise exception </span>
+        <span class="hljs-keyword">elif</span> tmpi % <span class="hljs-number">4</span> == <span class="hljs-number">2</span>:
+            tmpi += <span class="hljs-number">1</span>
+            m = <span class="hljs-keyword">yield</span> tmpi
+            <span class="hljs-built_in">print</span>(m) <span class="hljs-comment"># common multi return </span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">'xxxxxxx'</span>) <span class="hljs-comment"># dead loop</span>
 f = get_detection_result()
-print(next(f))
-print(f.send(101))
-print(f.send(102))
-</code></pre><h2 id="胞兄yield-from">胞兄yield from</h2>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">next</span>(f))
+<span class="hljs-built_in">print</span>(f.send(<span class="hljs-number">101</span>))
+<span class="hljs-built_in">print</span>(f.send(<span class="hljs-number">102</span>))
+</code></pre>
+<h2 id="胞兄yield-from">胞兄yield from</h2>
 <p>简单的理解</p>
-<pre><code># 字符串
-astr='ABC'
-# 列表
-alist=[1,2,3]
-# 字典
-adict={"name":"wangbm","age":18}
-# 生成器
-agen=(i for i in range(4,8))
+<pre><code class="lang-python"><span class="hljs-comment"># 字符串</span>
+astr=<span class="hljs-string">'ABC'</span>
+<span class="hljs-comment"># 列表</span>
+alist=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+<span class="hljs-comment"># 字典</span>
+adict={<span class="hljs-string">"name"</span>:<span class="hljs-string">"wangbm"</span>,<span class="hljs-string">"age"</span>:<span class="hljs-number">18</span>}
+<span class="hljs-comment"># 生成器</span>
+agen=(i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>,<span class="hljs-number">8</span>))
 
-def gen(*args, **kw):
-    for item in args:
-        # yield 方法
-        for i in item:
-            yield i
-        # yield from方法
-        #yield from item
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">gen</span>(<span class="hljs-params">*args, **kw</span>):
+    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> args:
+        <span class="hljs-comment"># yield 方法</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> item:
+            <span class="hljs-keyword">yield</span> i
+        <span class="hljs-comment"># yield from方法</span>
+        <span class="hljs-comment">#yield from item</span>
 
 new_list=gen(astr, alist, adict， agen)
-print(list(new_list))
-# ['A', 'B', 'C', 1, 2, 3, 'name', 'age', 4, 5, 6, 7]
-</code></pre><p>可以简单理解为</p>
-<pre><code>yield from item
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(new_list))
+<span class="hljs-comment"># ['A', 'B', 'C', 1, 2, 3, 'name', 'age', 4, 5, 6, 7]</span>
+</code></pre>
+<p>可以简单理解为</p>
+<pre><code class="lang-python"><span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> item
 等价于
-for i in item:
-    yield i
-</code></pre><p>委托生成器的作用是：在调用方与子生成器之间建立一个双向通道。</p>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> item:
+    <span class="hljs-keyword">yield</span> i
+</code></pre>
+<p>委托生成器的作用是：在调用方与子生成器之间建立一个双向通道。</p>
 <p>所谓的双向通道是什么意思呢？</p>
 <p>调用方可以通过send()直接发送消息给子生成器，而子生成器yield的值，也是直接返回给调用方。</p>
-<p><img src="./images/20200503172520484_1389736532.png" alt=""></img></p>
+<p><img src="images/20200503172520484_1389736532.png" alt=""></img></p>
 <h2 id="参考文献">参考文献</h2>
 <p><a href="https://www.cnblogs.com/wongbingming/p/9060989.html" target="_blank">Python并发编程之从生成器使用入门协程（七）</a></p>
 <p><a href="https://www.cnblogs.com/wongbingming/p/9085268.html" target="_blank">Python并发编程之深入理解yield from语法（八）</a></p>
@@ -623,7 +633,7 @@ for i in item:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶02yield","level":"1.3","depth":1,"next":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"path":"python进阶03UnboundLocalError和NameError错误.md","ref":"python进阶03UnboundLocalError和NameError错误.md","articles":[]},"previous":{"title":"python进阶01偏函数","level":"1.2","depth":1,"path":"python进阶01偏函数.md","ref":"python进阶01偏函数.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶02yield.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶02yield","level":"1.3","depth":1,"next":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"path":"python进阶03UnboundLocalError和NameError错误.md","ref":"python进阶03UnboundLocalError和NameError错误.md","articles":[]},"previous":{"title":"python进阶01偏函数","level":"1.2","depth":1,"path":"python进阶01偏函数.md","ref":"python进阶01偏函数.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶02yield.md","mtime":"2025-01-05T18:02:31.966Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

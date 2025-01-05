@@ -6,7 +6,7 @@
 
 ## 函数代码
 
-```
+```python
 def thread_multi():
     threads = list()
     for url in urls:

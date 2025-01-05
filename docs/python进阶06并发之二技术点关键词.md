@@ -14,7 +14,7 @@ python中存在GIL这个"线程锁",
 
 注意：进程之间是互相独立的，主进程代码运行结束，守护进程随即终止
 
-```
+```python
 #主进程代码运行完毕,守护进程就会结束
 from multiprocessing import Process
 from threading import Thread
@@ -43,7 +43,7 @@ print("main-------") #打印该行则主进程代码结束,则守护进程p1应�
 
 为了方式上面情况的发生，就出现了互斥锁(Lock)
 
-```
+```python
 import threading
 import time
  
@@ -74,7 +74,7 @@ print "num:", num
 
 Queue是多进程的安全队列，可以使用Queue实现多进程之间的数据传递。
 
-```
+```python
 Queue.qsize()：返回当前队列包含的消息数量；
 Queue.empty()：如果队列为空，返回True，反之False ；
 Queue.full()：如果队列满了，返回True,反之False；
@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
 ## 共享数据(Manager)
 
-```
+```python
 if __name__ == '__main__':
     with multiprocessing.Manager() as MG: #重命名
         mydict=MG.dict()#主进程与子进程共享这个字典
@@ -144,7 +144,7 @@ python线程的事件用于主线程控制其他线程的执行，事件是一�
 
 事件处理的机制：全局定义了一个“Flag”，当flag值为“False”，那么event.wait()就会阻塞，当flag值为“True”，那么event.wait()便不再阻塞。
 
-```
+```python
 #利用Event类模拟红绿灯
 import threading
 import time
@@ -190,7 +190,7 @@ Unix/Linux操作系统提供了一个fork()系统调用，它非常特殊。普�
 
 Python的os模块封装了常见的系统调用，其中就包括fork，可以在Python程序中轻松创建子进程：
 
-```
+```python
 import os
 
 print('Process (%s) start...' % os.getpid())
@@ -224,7 +224,7 @@ I am child process (877) and my parent is 876.
 
 进程直接的内存空间是隔离的
 
-```
+```python
 from multiprocessing import Process
 n=100 #在windows系统中应该把全局变量定义在if __name__ == '__main__'之上就可以了
 def work():
@@ -243,7 +243,7 @@ if __name__ == '__main__':
 ## multiprocessing模块
 Process模块是一个创建进程的模块,借助这个模块可以创建进程
 
-```
+```python
 Process([group [, target [, name [, args [, kwargs]]]]])，由该类实例化得到的对象，表示一个子进程中的任务（尚未启动）
 ```
 强调：
@@ -311,7 +311,7 @@ window中使用Process注意事项:
 
 进程池中常用方法：
 
-```
+```python
 1 p.apply(func [, args [, kwargs]])
 在一个池工作进程中执行func(*args,**kwargs),然后返回结果。
 需要强调的是：此操作并不会在所有池工作进程中并执行func函数。如果要通过不同参数并发地执行func函数，必须从不同线程调用p.apply()函数或者使用p.apply_async()
@@ -377,7 +377,7 @@ pool.join() #主进程等待所有子进程执行完毕。必须在close()或ter
 
 **greenlet**
 
-```
+```python
 from greenlet import greenlet
  
 def test1():
@@ -400,7 +400,7 @@ gr1.switch()
 
 **gevent**
 
-```
+```python
 from gevent import monkey; monkey.patch_all()
 import gevent
 import requests
@@ -423,7 +423,7 @@ gevent.joinall([
 ## ThreadLocal 
 创建一个全局的ThreadLocal对象,每个线程有独立的存储空间,每个线程对ThreadLocal对象都可以读写，但是互不影响.
 
-```
+```python
 import threading
 
 # 创建全局ThreadLocal对象:
@@ -467,7 +467,7 @@ t2.join()
 
 ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题。
 
-```
+```python
 import threading, time
 local = threading.local()  # 创建一个全局的ThreadLocal对象
 num = 0  # 将线程中需要访问的变量绑定到全局ThreadLocal对象上

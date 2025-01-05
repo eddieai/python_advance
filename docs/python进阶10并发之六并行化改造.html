@@ -6,7 +6,7 @@
         <title>python进阶10并发之六并行化改造 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -424,22 +424,22 @@
 <p>1个大step中包含3个小step,大step内部的第一步，二步，三步存在依赖关系（就是内部保持顺序执行）</p>
 <p>a1,b1,c1,表示子任务a的第一步，b的第一步，c的第一步.同理a2,表示子任务a的第二步。</p>
 <h2 id="无并行">无并行</h2>
-<p><img src="./images/20200516201326064_2085715063.png" alt=""></img></p>
+<p><img src="images/20200516201326064_2085715063.png" alt=""></img></p>
 <h2 id="水平并行">水平并行</h2>
 <p>优点：修改简单，容易排错</p>
 <p>缺点：使用场景有限，适合批量数据，不适合流式数据</p>
 <p>实现：pool().map(step1);pool().map(step2);pool().map(step3)</p>
-<p><img src="./images/20200516200706969_886400128.png" alt=""></img></p>
+<p><img src="images/20200516200706969_886400128.png" alt=""></img></p>
 <h2 id="垂直并行">垂直并行</h2>
 <p>优点：修改简单，容易排错</p>
 <p>缺点：如果中间步骤耗时过多，上游依然处于限制状态</p>
 <p>实现：pool().apply_sync(func(step1,step2,step3))</p>
-<p><img src="./images/20200516201421973_663344535.png" alt=""></img></p>
+<p><img src="images/20200516201421973_663344535.png" alt=""></img></p>
 <h2 id="生产者消费者">生产者消费者</h2>
 <p>优点：上下游耦合小，任务粒度更细</p>
 <p>缺点：改造稍微复杂，需考虑生产者生成结束等特殊情况的兼容，并且调试也较麻烦</p>
 <p>实现：Queue(多进程multiprocessing,Queue,多线程queue.Queue,python大多多进程)</p>
-<p><img src="./images/20200516201648430_1960556897.png" alt=""></img></p>
+<p><img src="images/20200516201648430_1960556897.png" alt=""></img></p>
 <h2 id="协程">协程</h2>
 <p>协成可看做特殊单线程（意味着本质是单线程，多线程是表象），任务角度多个线程同时执行，实时角度看只有一个线程真正执行，好处是无需处理线程共享数据的加锁等情况（因为只有一个线程会执行，不存在同时修改的情况）。还有就是其<strong>进程内部不需要操作系统调度</strong>（进程整体肯定是操作系统调度，否则就凌驾与操作系统了），<strong>会自行调度</strong>，释放时间片给其他内部线程。</p>
 <p>常规的线程一旦得到cpu时间片，会毫不犹豫执行，哪怕处于sleep状态也会占用资源。而协程则不会，其会把cpu主动出让(给自己其他线程)，等到别人"呼唤"自己时才会真正执行（比如next（自己）,gevent.sleep时间到了也算唤醒）。
@@ -497,7 +497,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"next":{"title":"python进阶11并发之七多种并发方式的效率测试","level":"1.12","depth":1,"path":"python进阶11并发之七多种并发方式的效率测试.md","ref":"python进阶11并发之七多种并发方式的效率测试.md","articles":[]},"previous":{"title":"python进阶09并发之五生产者消费者","level":"1.10","depth":1,"path":"python进阶09并发之五生产者消费者.md","ref":"python进阶09并发之五生产者消费者.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶10并发之六并行化改造.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"next":{"title":"python进阶11并发之七多种并发方式的效率测试","level":"1.12","depth":1,"path":"python进阶11并发之七多种并发方式的效率测试.md","ref":"python进阶11并发之七多种并发方式的效率测试.md","articles":[]},"previous":{"title":"python进阶09并发之五生产者消费者","level":"1.10","depth":1,"path":"python进阶09并发之五生产者消费者.md","ref":"python进阶09并发之五生产者消费者.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶10并发之六并行化改造.md","mtime":"2025-01-05T18:02:31.966Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

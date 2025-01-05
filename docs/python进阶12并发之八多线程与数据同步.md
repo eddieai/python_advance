@@ -7,7 +7,7 @@ python并发**首选进程**，但偶尔有场景进程无法搞定，比如有�
 
 参考代码:
 
-```
+```python
 # coding=utf-8
 ############## 共享变量均未加锁，仅用来演示共享问题，未考虑同步问题 ###########
 ############# 线程的变量共享　#############
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 ```
 执行结果:
 
-```
+```python
 /home/john/anaconda3/bin/python3 /home/john/PYTHON/scripts/concurrent/threadShare.py
 (global)	gnum 线程(Thread-1) id:93930593956000 num=101
 (self)		num 线程(Thread-1) id:93930593956000 num=101
@@ -65,7 +65,7 @@ if __name__ == '__main__':
 最简单做法，凡是会在多个线程中修改的共享对象(变量)，都加锁。这样可能会有部分锁多加了，但绝对好过不加，毕竟多加锁无非导致效率低下(也可能导致死锁)，而一旦该加的没有加，则会导致数据错误，二者孰轻孰重很清楚。建议多了解下"**原子操作**"，如果不熟悉，可以按照**先加锁，再删锁**的思路，将原子操作的锁删掉即可（业务逻辑开发阶段，哪些会在多个线程被修改，是很难想全面的。所以一般是先开发，实现业务逻辑思路，再找共享变量，尽可能缩小临界区间，最后再上锁）。这样一方面保险，另一方面也避免了过多锁带来的低效问题。
 
 ## thread完整版和简单版的关系
-```
+```python
 class Thread:
     def __init__(self, group=None, target=None, name=None,
                  args=(), kwargs=None, *, daemon=None):
@@ -87,7 +87,7 @@ class Thread:
 ## 线程本身就有局部变量，为何还需要ThreadLocal？
 ThreadLocal例子
 
-```
+```python
 import threading
  
 # 创建全局ThreadLocal对象:
@@ -118,7 +118,7 @@ t2.join()
 
 举例：
 
-```
+```python
 ############# 线程的变量共享(short mode)　#############
 gnum = 1
 
@@ -145,7 +145,7 @@ if __name__ == '__main__':
 ```
 结果:(和前面相同)
 
-```
+```python
 (global)	gnum 线程(Thread-1) id:94051294298272 num=101
 (self)		num 线程(Thread-1) id:94051294298272 num=101
 (self.list)	num_list 线程(Thread-1) id:140412783240456 num=[0, 1, 2, 3, 4, 100]
@@ -159,7 +159,7 @@ if __name__ == '__main__':
 
 那么那种情况需要使用呢？
 
-```
+```python
 global_dict = {}
 
 def std_thread(name):
@@ -228,7 +228,7 @@ get_face_result中可以访问self里面的哪些资源？在1处（thread声明
 
 结果：
 
-```
+```python
 1
 2
 ```

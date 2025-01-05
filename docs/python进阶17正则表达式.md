@@ -1,6 +1,6 @@
 # python进阶17正则表达式
 ## 正则基础知识
-```
+```python
 ^`:匹配行首
 `$`:匹配结尾
 `*`:（**贪婪**）前面字符匹配任意多次
@@ -31,7 +31,7 @@
 
 
 ## 分组捕获
-```
+```python
 import re
 str = 'booy123'
 regex = '((boy|booy)123)'
@@ -48,7 +48,7 @@ re_match.group(2)
 ## 懒惰限定符
 如果有多个贪婪，则第一个最贪婪
 
-```
+```python
 *? ：重复任意次，但尽可能少重复
 +? ：重复1次或更多次，但尽可能少重复
 ?? ：重复0次或1次，但尽可能少重复
@@ -58,7 +58,7 @@ str = 'abooabbapds aboksldap'
 obj = re.compile('ab.*?ap') #注意用非贪婪匹配，不然list里只有一个
 ```
 ## 匹配和搜索
-```
+```python
 match_list = obj.findall(str)  #match_list是一个list
 # match_list -> ['abooabbap','aboksldap']
 

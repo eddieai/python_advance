@@ -6,7 +6,7 @@
         <title>python进阶15多继承与Mixin · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -426,65 +426,68 @@
 <p>怎么办，那就只好让这两种飞机同时继承交通工具以及飞行器两个父类，这样就出现了多重继承。这时又违背了继承必须是”is-a”关系。这个难题该怎么破？</p>
 <p>这时候 Mixin 就闪亮登场了。飞行只是飞机做为交通工具的一种（增强）属性，我们可以为这个飞行的功能单独定义一个（增强）类，称之为 Mixin 类。这个类，是做为增强功能，添加到子类中的。为了让其他开发者，一看就知道这是个 Mixin 类，一般都要求开发者遵循规范，在类名末尾加上 Mixin 。</p>
 <p>举个例子</p>
-<pre><code>class Vehicle(object):
-    pass
+<pre><code class="lang-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Vehicle</span>(<span class="hljs-title class_ inherited__">object</span>):
+    <span class="hljs-keyword">pass</span>
 
-class PlaneMixin(object):
-    def fly(self):
-        print('I am flying')
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">PlaneMixin</span>(<span class="hljs-title class_ inherited__">object</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fly</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'I am flying'</span>)
 
-class Airplane(Vehicle, PlaneMixin):
-    pass
-</code></pre><p>使用Mixin类实现多重继承要遵循以下几个规范</p>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Airplane</span>(Vehicle, PlaneMixin):
+    <span class="hljs-keyword">pass</span>
+</code></pre>
+<p>使用Mixin类实现多重继承要遵循以下几个规范</p>
 <p>责任明确：必须表示某一种功能，而不是某个物品；</p>
 <p>功能单一：若有多个功能，那就写多个Mixin类；</p>
 <p>绝对独立：不能依赖于子类的实现；子类即便没有继承这个Mixin类，也照样可以工作，就是缺少了某个功能。</p>
 <h2 id="一个-mixin-类的实例这个例子并不符合前面的无依赖原则">一个 Mixin 类的实例(这个例子并不符合前面的无依赖原则)</h2>
 <p>这里，我直接先上代码，有兴趣的同学，可以暂停到这里，看看这段代码中的 subclass.display() 这行代码，究竟是怎么执行的：</p>
-<pre><code>class Displayer():
-    def display(self, message):
-        print(message)
+<pre><code class="lang-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Displayer</span>():
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self, message</span>):
+        <span class="hljs-built_in">print</span>(message)
 
 
-class LoggerMixin():
-    def log(self, message, filename='logfile.txt'):
-        with open(filename, 'a') as fh:
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">LoggerMixin</span>():
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">self, message, filename=<span class="hljs-string">'logfile.txt'</span></span>):
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(filename, <span class="hljs-string">'a'</span>) <span class="hljs-keyword">as</span> fh:
             fh.write(message)
 
-    def display(self, message):
-        super().display(message)
-        self.log(message)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">display</span>(<span class="hljs-params">self, message</span>):
+        <span class="hljs-built_in">super</span>().display(message)
+        <span class="hljs-variable language_">self</span>.log(message)
 
 
-class MySubClass(LoggerMixin, Displayer):
-    def log(self, message):
-        super().log(message, filename='subclasslog.txt')
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MySubClass</span>(LoggerMixin, Displayer):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">self, message</span>):
+        <span class="hljs-built_in">super</span>().log(message, filename=<span class="hljs-string">'subclasslog.txt'</span>)
 
 
 subclass = MySubClass()
-subclass.display("This string will be shown and logged in subclasslog.txt")
-</code></pre><p>代码不多，也就拢共 22 行，22 行的代码里面，定义了 3 个类。其中 MySubClass 多继承了 LoggerMixin 类和 Displayer 类。看似并没有什么异常的代码里面，当你尝试去仔细推敲 subclass.display() 的调用逻辑之后，就变得异常的复杂。</p>
+subclass.display(<span class="hljs-string">"This string will be shown and logged in subclasslog.txt"</span>)
+</code></pre>
+<p>代码不多，也就拢共 22 行，22 行的代码里面，定义了 3 个类。其中 MySubClass 多继承了 LoggerMixin 类和 Displayer 类。看似并没有什么异常的代码里面，当你尝试去仔细推敲 subclass.display() 的调用逻辑之后，就变得异常的复杂。</p>
 <p>问题:我们的 LoggerMixin 类是怎么调用的 super().display() 方法的呢？</p>
 <p>解答:在多继承的环境下，super() 有相对来说更加复杂的含义。它会查看你的继承链，使用一种叫做 Methods Resolution Order（方法解析顺序） 的方式，来决定调用最近的继承父类的方法。</p>
 <p>也就是说，我们的 MySubClass.display() 调用，触发了是这么一系列的行为：</p>
-<pre><code>1. MySubClass.display() is resolved to LoggerMixin.display().
+<pre><code class="lang-python"><span class="hljs-number">1.</span> MySubClass.display() <span class="hljs-keyword">is</span> resolved to LoggerMixin.display().
 MySubClass.display() 方法被解析为 LoggerMixin.display() 方法的调用。这应该还是比较好理解的。因为对于 MySubClass 类来说，在继承链上的两个父类，LoggerMixin 和 Displayer 来说，LoggerMixin 是最近的，因此调用它的 display() 方法。
 
-2. LoggerMixin.display() calls super().display(), which is resolved to Displayer.display().
-LoggerMixin.display() 方法调用了 super().display()，这一行代码按照我们刚才的解释，查看 MySubClass 的继承链，是应该调用 Displayer 类的 display() 方法的。这一步是相对来说比较难以理解的。
+<span class="hljs-number">2.</span> LoggerMixin.display() calls <span class="hljs-built_in">super</span>().display(), which <span class="hljs-keyword">is</span> resolved to Displayer.display().
+LoggerMixin.display() 方法调用了 <span class="hljs-built_in">super</span>().display()，这一行代码按照我们刚才的解释，查看 MySubClass 的继承链，是应该调用 Displayer 类的 display() 方法的。这一步是相对来说比较难以理解的。
 
-让我们这么来理解它，当 LoggerMixin.display() 中调用了 super().display() 的时候，它会尝试去寻找属于当前类的继承链。而这个当前类是什么类呢？不是 LoggerMixin 类，而是 MySubClass 类。MySubClass 类的继承连是 LoggerMixin，然后 Displayer。所以，我们就找到了 Displayer 的 display() 方法。
+让我们这么来理解它，当 LoggerMixin.display() 中调用了 <span class="hljs-built_in">super</span>().display() 的时候，它会尝试去寻找属于当前类的继承链。而这个当前类是什么类呢？不是 LoggerMixin 类，而是 MySubClass 类。MySubClass 类的继承连是 LoggerMixin，然后 Displayer。所以，我们就找到了 Displayer 的 display() 方法。
 
-3. It alse calls self.log(). Since self, in this case, is a MySubClass instance, it resolves to MySubClass.log(). MySubClass.log() calls super().log(), which is resolved back to LoggerMixin.log().
-别忘了，我们的 LoggerMixin 类还调用了 self.log() 方法。这个看似好像要直接调用 LoggerMixin 的 log 方法，其实不然。
+<span class="hljs-number">3.</span> It alse calls <span class="hljs-variable language_">self</span>.log(). Since <span class="hljs-variable language_">self</span>, <span class="hljs-keyword">in</span> this <span class="hljs-keyword">case</span>, <span class="hljs-keyword">is</span> a MySubClass instance, it resolves to MySubClass.log(). MySubClass.log() calls <span class="hljs-built_in">super</span>().log(), which <span class="hljs-keyword">is</span> resolved back to LoggerMixin.log().
+别忘了，我们的 LoggerMixin 类还调用了 <span class="hljs-variable language_">self</span>.log() 方法。这个看似好像要直接调用 LoggerMixin 的 log 方法，其实不然。
 
-LoggerMixin 的 display() 方法在当前语境中的 self，其实是 MySubClass 类的对象，因此对于 MySubClass 类的对象，想要调用 log 方法，是直接调用自己类中的 log 方法，也就是 MySubClass.log() 方法，而不是 LoggerMixin.log() 方法的。
+LoggerMixin 的 display() 方法在当前语境中的 <span class="hljs-variable language_">self</span>，其实是 MySubClass 类的对象，因此对于 MySubClass 类的对象，想要调用 log 方法，是直接调用自己类中的 log 方法，也就是 MySubClass.log() 方法，而不是 LoggerMixin.log() 方法的。
 
-而又因为 MySubClass.log() 方法调用了 super().log() 方法，这才根据继承链寻找最近的父类，才找到了 LoggerMixin 类中的 log() 方法进行调用。
-</code></pre><h2 id="画图总结">画图总结</h2>
+而又因为 MySubClass.log() 方法调用了 <span class="hljs-built_in">super</span>().log() 方法，这才根据继承链寻找最近的父类，才找到了 LoggerMixin 类中的 log() 方法进行调用。
+</code></pre>
+<h2 id="画图总结">画图总结</h2>
 <p>为了方便大家理解，我画了一个简略的图方便理解：</p>
 <p>一句简单的 subclass.display() 的背后，究竟发生了什么？</p>
-<p><img src="./images/20200603233938336_1079964900.png" alt=""></img></p>
+<p><img src="images/20200603233938336_1079964900.png" alt=""></img></p>
 <h2 id="参考">参考</h2>
 <p>一个例子走近 Python 的 Mixin 类：利用 Python 多继承的魔力：<a href="https://blog.csdn.net/u012814856/article/details/81355935" target="_blank">https://blog.csdn.net/u012814856/article/details/81355935</a></p>
 <p>1.9 多继承与Mixin设计模式：python.iswbm.com/en/latest/c01/c01_09.html</p>
@@ -531,7 +534,7 @@ LoggerMixin 的 display() 方法在当前语境中的 self，其实是 MySubClas
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"next":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"path":"python进阶16炫技巧.md","ref":"python进阶16炫技巧.md","articles":[]},"previous":{"title":"python进阶14变量作用域LEGB","level":"1.15","depth":1,"path":"python进阶14变量作用域LEGB.md","ref":"python进阶14变量作用域LEGB.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶15多继承与Mixin.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"next":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"path":"python进阶16炫技巧.md","ref":"python进阶16炫技巧.md","articles":[]},"previous":{"title":"python进阶14变量作用域LEGB","level":"1.15","depth":1,"path":"python进阶14变量作用域LEGB.md","ref":"python进阶14变量作用域LEGB.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶15多继承与Mixin.md","mtime":"2025-01-05T18:02:31.966Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

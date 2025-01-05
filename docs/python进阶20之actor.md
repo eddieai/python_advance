@@ -7,7 +7,7 @@ actor模型。actor模式是一种最古老的也是最简单的并行和分布�
 
 ## 简单任务调度器
 
-```
+```python
 class TaskScheduler:
     def __init__(self):
         self._task_queue = deque()
@@ -43,7 +43,7 @@ sched.run()
 ## 协程生产者消费者
 廖雪峰的python官网教程里面的协程生产者消费者
 
-```
+```python
 def consumer():
     r = ''
     while True:
@@ -70,7 +70,7 @@ produce(c)
 ## 并发网络应用程序
 演示了使用生成器来实现一个并发网络应用程序：
 
-```
+```python
 class ActorScheduler:
     def __init__(self):
         self._actors = {}

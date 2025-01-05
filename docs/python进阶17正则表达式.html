@@ -6,7 +6,7 @@
         <title>python进阶17正则表达式 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -421,70 +421,74 @@
                                 
                                 <h1 id="python进阶17正则表达式">python进阶17正则表达式</h1>
 <h2 id="正则基础知识">正则基础知识</h2>
-<pre><code>^`:匹配行首
+<pre><code class="lang-python">^`:匹配行首
 `$`:匹配结尾
 `*`:（**贪婪**）前面字符匹配任意多次
-`+`:（**懒惰**）前面字符匹配1或者更多次
-`?`:前面字符匹配0或1次，还作为懒惰限定符使用，详看后面
+`+`:（**懒惰**）前面字符匹配<span class="hljs-number">1</span>或者更多次
+`?`:前面字符匹配<span class="hljs-number">0</span>或<span class="hljs-number">1</span>次，还作为懒惰限定符使用，详看后面
 
 `{m}`:前面字符匹配m次
 `{m,n}`:前面字符匹配m~n次
 `{m,}`:前面字符匹配m或更多次
-`{,n}`:前面字符匹配0~n次
+`{,n}`:前面字符匹配<span class="hljs-number">0</span>~n次
 
 `|`:或,必须加括号
 
 `.`:匹配除换行符以外的任意字符
-`[1357]`:匹配1，3,5,7中其中一个数字，当然也可以是字母
-`[0-9]`:匹配0到9的其中一个数字，类似用法还有：[a-zA-Z]
+`[<span class="hljs-number">1357</span>]`:匹配<span class="hljs-number">1</span>，<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>中其中一个数字，当然也可以是字母
+`[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]`:匹配<span class="hljs-number">0</span>到<span class="hljs-number">9</span>的其中一个数字，类似用法还有：[a-zA-Z]
 `[\u4E00-\u9FA5]`:匹配中文
-`[^012]`:表示除012外的任意字符，包括3-9,a-z,A-Z,等等
+`[^012]`:表示除012外的任意字符，包括<span class="hljs-number">3</span>-<span class="hljs-number">9</span>,a-z,A-Z,等等
 注意：[]里面的.和*等一些特殊字符都失去特殊意义，只表示本身。
-</code></pre><p><img src="./images/20200604234002143_42267894.png" alt=""></img></p>
-<p><img src="./images/20200604233948999_235626947.png" alt=""></img></p>
-<p><img src="./images/20200604234014638_1136493652.png" alt=""></img></p>
+</code></pre>
+<p><img src="images/20200604234002143_42267894.png" alt=""></img></p>
+<p><img src="images/20200604233948999_235626947.png" alt=""></img></p>
+<p><img src="images/20200604234014638_1136493652.png" alt=""></img></p>
 <h2 id="分组捕获">分组捕获</h2>
-<pre><code>import re
-str = 'booy123'
-regex = '((boy|booy)123)'
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> re
+<span class="hljs-built_in">str</span> = <span class="hljs-string">'booy123'</span>
+regex = <span class="hljs-string">'((boy|booy)123)'</span>
 
-# 如果有多个括号，则从最外面往里算，从1开始
+<span class="hljs-comment"># 如果有多个括号，则从最外面往里算，从1开始</span>
 
-re_match = re.match(regex, str)
-re_match.group(1)
-# 'booy123'
-re_match.group(2)
-# 'booy'
-</code></pre><h2 id="懒惰限定符">懒惰限定符</h2>
+re_match = re.<span class="hljs-keyword">match</span>(regex, <span class="hljs-built_in">str</span>)
+re_match.group(<span class="hljs-number">1</span>)
+<span class="hljs-comment"># 'booy123'</span>
+re_match.group(<span class="hljs-number">2</span>)
+<span class="hljs-comment"># 'booy'</span>
+</code></pre>
+<h2 id="懒惰限定符">懒惰限定符</h2>
 <p>如果有多个贪婪，则第一个最贪婪</p>
-<pre><code>*? ：重复任意次，但尽可能少重复
-+? ：重复1次或更多次，但尽可能少重复
-?? ：重复0次或1次，但尽可能少重复
+<pre><code class="lang-python">*? ：重复任意次，但尽可能少重复
++? ：重复<span class="hljs-number">1</span>次或更多次，但尽可能少重复
+?? ：重复<span class="hljs-number">0</span>次或<span class="hljs-number">1</span>次，但尽可能少重复
 {n,m}? ：重复n到m次，但尽可能少重复
 {n,}?： 重复n次以上，但尽可能少重复
-str = 'abooabbapds aboksldap'
-obj = re.compile('ab.*?ap') #注意用非贪婪匹配，不然list里只有一个
-</code></pre><h2 id="匹配和搜索">匹配和搜索</h2>
-<pre><code>match_list = obj.findall(str)  #match_list是一个list
-# match_list -&gt; ['abooabbap','aboksldap']
+<span class="hljs-built_in">str</span> = <span class="hljs-string">'abooabbapds aboksldap'</span>
+obj = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">'ab.*?ap'</span>) <span class="hljs-comment">#注意用非贪婪匹配，不然list里只有一个</span>
+</code></pre>
+<h2 id="匹配和搜索">匹配和搜索</h2>
+<pre><code class="lang-python">match_list = obj.findall(<span class="hljs-built_in">str</span>)  <span class="hljs-comment">#match_list是一个list</span>
+<span class="hljs-comment"># match_list -&gt; ['abooabbap','aboksldap']</span>
 
-for match in match_list:
-    print(match)
-# 输出
-# abooabbap
-# aboksldap
-import re
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">match</span> <span class="hljs-keyword">in</span> match_list:
+    <span class="hljs-built_in">print</span>(<span class="hljs-keyword">match</span>)
+<span class="hljs-comment"># 输出</span>
+<span class="hljs-comment"># abooabbap</span>
+<span class="hljs-comment"># aboksldap</span>
+<span class="hljs-keyword">import</span> re
 
-str = 'abooabbapds aboksldap'
-obj = re.compile('ab.*?ap')
-match_list = obj.finditer(str)
-# match_list -&gt; callable_iterator对象，需要用group()查询
+<span class="hljs-built_in">str</span> = <span class="hljs-string">'abooabbapds aboksldap'</span>
+obj = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">'ab.*?ap'</span>)
+match_list = obj.finditer(<span class="hljs-built_in">str</span>)
+<span class="hljs-comment"># match_list -&gt; callable_iterator对象，需要用group()查询</span>
 
-for match in match_list:
-    print(match.group())
-# abooabbap
-# aboksldap
-</code></pre><h2 id="参考">参考</h2>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">match</span> <span class="hljs-keyword">in</span> match_list:
+    <span class="hljs-built_in">print</span>(<span class="hljs-keyword">match</span>.group())
+<span class="hljs-comment"># abooabbap</span>
+<span class="hljs-comment"># aboksldap</span>
+</code></pre>
+<h2 id="参考">参考</h2>
 <p>Python正则表达式急速入门：<a href="https://baijiahao.baidu.com/s?id=1652504385879645545&amp;wfr=spider&amp;for=pc" target="_blank">https://baijiahao.baidu.com/s?id=1652504385879645545&amp;wfr=spider&amp;for=pc</a></p>
 <p>正则表达式必知必会：python.iswbm.com/en/latest/c01/c01_11.html</p>
 <p>Python 正则表达式：<a href="https://www.runoob.com/python/python-reg-expressions.html" target="_blank">https://www.runoob.com/python/python-reg-expressions.html</a></p>
@@ -532,7 +536,7 @@ for match in match_list:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶17正则表达式","level":"1.18","depth":1,"next":{"title":"python进阶18垃圾回收GC","level":"1.19","depth":1,"path":"python进阶18垃圾回收GC.md","ref":"python进阶18垃圾回收GC.md","articles":[]},"previous":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"path":"python进阶16炫技巧.md","ref":"python进阶16炫技巧.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶17正则表达式.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶17正则表达式","level":"1.18","depth":1,"next":{"title":"python进阶18垃圾回收GC","level":"1.19","depth":1,"path":"python进阶18垃圾回收GC.md","ref":"python进阶18垃圾回收GC.md","articles":[]},"previous":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"path":"python进阶16炫技巧.md","ref":"python进阶16炫技巧.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶17正则表达式.md","mtime":"2025-01-05T18:02:31.966Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

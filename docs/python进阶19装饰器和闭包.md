@@ -2,7 +2,7 @@
 ## Nested functions
 Python允许创建嵌套函数，这意味着我们可以在函数内声明函数并且所有的作用域和声明周期规则也同样适用。
 
-```
+```python
 >>> def outer():
 ...     x = 1
 ...     def inner():
@@ -17,7 +17,7 @@ Python允许创建嵌套函数，这意味着我们可以在函数内声明函�
 ## Closures
 让我们不从定义而是从另一个代码示例开始。如果我们将上一个例子稍加修改会怎样呢？
 
-```
+```python
 >>> def outer():
 ...     x = 1
 ...     def inner():
@@ -37,7 +37,7 @@ Python允许创建嵌套函数，这意味着我们可以在函数内声明函�
 
 请记住，每次当outer函数被调用时inner函数都被重新定义一次。目前x的值没有改变，因此我们得到的每个inner函数和其它的inner函数拥有相同的行为，但是如果我们将它做出一点改变呢？
 
-```
+```python
 >>> def outer(x):
 ...     def inner():
 ...         print x # 1
@@ -60,7 +60,7 @@ closures独自就是一个强有力的技术——你甚至想到在某些方面
 ## 闭包之坑_延迟绑定
 这是一个经（很）典（大）的问题（坑）
 
-```
+```python
 def multipliers():
     return [lambda x: i * x for i in range(4)]
 print([m(2) for m in multipliers()])  
@@ -73,7 +73,7 @@ print([m(2) for m in multipliers()])
 
 有解药么？有4种，分别如下
 
-```
+```python
 #生成器
 def multipliers():
     return (lambda x: i * x for i in range(4))
@@ -105,7 +105,7 @@ print([m(2) for m in multipliers()])
 
 一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。我们将从简单的开始一直到写出有用的decorators。
 
-```
+```python
 >>> def outer(some_func):  
 ...     def inner():  
 ...         print "before some_func"  
@@ -135,7 +135,7 @@ before some_func
 
 <function inner at 0x...>
 
-```
+```python
 现在任何对foo()的调用都不会得到原始的foo，而是会得到我们经过装饰的版本！领悟到了一些decorator的思想吗？让我们写一个更加有用的装饰器。  
 假设我们有一个提供坐标对象的库，它们可能只是由x, y两个坐标对组成。令人沮丧的是，这个坐标对象并不支持算术运算，并且我们无法修改这个库的源代码，因此我们不能添加这些对运算的支持。我们将做大量的运算，但是我们现在只想实现加、减函数，它们可以带两个坐标最想作为参数并做相应的算术运算。这些函数可能很容易写（为了描述我将提供一个简单的Coordinate类。  
 ```
@@ -167,7 +167,7 @@ before some_func
 
 Coord:{'y': 400, 'x': 400}
 
-```
+```python
 但是，我们想当one和two都是{x: 0, y: 0},one和three的和为{x: 100, y: 200}，在不修改one, two, three的前提下结果有所不同（实在没弄明白原作者此处是什么意思^ ^）。让我们写一个边界检查decorator而不用为每个函数添加一个对输入参数做边界检查然后返回函数值！  
 ```
 >>> def wrapper(func):
@@ -204,7 +204,7 @@ Coord: {'y': 0, 'x': 0}
 
 Coord: {'y': 200, 'x': 100}
 
-```
+```python
 这个装饰器的效果和前面实例的一样——返回一个修改过了的函数，只是在上例中对输入参数和返回值做了一些有用的检查和规范化，至于这样做是否让我们的代码变得更加简洁是一件可选择的事情：将边界检查隔绝在它自己的函数里，然后将其应用到通过用一个decorator包装将我们所关心的函数上。另一个可能的方法是每次调用算数函数时对每一个输入参数和输出结果前对参数或者结果做边界检查，毫无疑问的是使用decorator至少在对一个函数进行边界检查的代码量上重复更少。实际上，如果是装饰我们自己的函数，我们可以将装饰器应用程序写的更明显一点。
 
 ## 含参装饰器
@@ -243,14 +243,14 @@ def say_hello(contry):
 xiaoming()
 print("------------")
 jack()
-```
+```python
 
 看看输出结果。  
 ```
 你好!
 ------------
 hello.
-```
+```python
 
 
 ## 用偏函数与类实现装饰器
@@ -290,7 +290,7 @@ def delay(duration):
 @delay(duration=2)
 def add(a, b):
     return a+b
-```
+```python
 来看一下执行过程  
 ```
 >>> add    # 可见 add 变成了 Delay 的实例

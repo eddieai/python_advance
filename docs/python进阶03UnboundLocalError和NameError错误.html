@@ -6,7 +6,7 @@
         <title>python进阶03UnboundLocalError和NameError错误 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -425,104 +425,112 @@
 <p>scope：在一个code block中定义name的可见性；</p>
 <p>block’s environment：对于一个code block，其所有scope中可见的name的集合构成block的环境。</p>
 <p>bind name：下面的操作均可视为绑定操作</p>
-<pre><code>函数的形参
-import声明
+<pre><code class="lang-python">函数的形参
+<span class="hljs-keyword">import</span>声明
 类和函数的定义
 赋值操作
-for循环首标
+<span class="hljs-keyword">for</span>循环首标
 异常捕获中相关的赋值变量
-</code></pre><p>local variable：如果name在一个block中被绑定，该变量便是该block的一个local variable。</p>
+</code></pre>
+<p>local variable：如果name在一个block中被绑定，该变量便是该block的一个local variable。</p>
 <p>global variable：如果name在一个module中被绑定，该变量便称为一个global variable。</p>
 <p>free variable: 如果一个name在一个block中被引用，但没有在该代码块中被定义，那么便称为该变量为一个free variable。</p>
 <p>关于变量作用域参考博文：python进阶14变量作用域LEGB</p>
 <h2 id="经典案例1">经典案例1</h2>
-<pre><code>def outer_func():
-    loc_var = "local variable"
-    def inner_func():
-        loc_var += " in inner func"
-        return loc_var
-    return inner_func
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">outer_func</span>():
+    loc_var = <span class="hljs-string">"local variable"</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner_func</span>():
+        loc_var += <span class="hljs-string">" in inner func"</span>
+        <span class="hljs-keyword">return</span> loc_var
+    <span class="hljs-keyword">return</span> inner_func
 
 clo_func = outer_func()
 clo_func()
-</code></pre><p>错误提示:</p>
-<pre><code>Traceback (most recent call last):
-  File "G:\Project Files\Python Test\Main.py", line 238, in &lt;module&gt;
+</code></pre>
+<p>错误提示:</p>
+<pre><code class="lang-python">Traceback (most recent call last):
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">238</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
     clo_func()
-  File "G:\Project Files\Python Test\Main.py", line 233, in inner_func
-    loc_var += " in inner func"
-UnboundLocalError: local variable 'loc_var' referenced before assignment
-</code></pre><h2 id="经典案例2">经典案例2</h2>
-<pre><code>def get_select_desc(name, flag, is_format = True):
-    if flag:
-        sel_res = 'Do select name = %s' % name
-    return sel_res if is_format else name
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">233</span>, <span class="hljs-keyword">in</span> inner_func
+    loc_var += <span class="hljs-string">" in inner func"</span>
+UnboundLocalError: local variable <span class="hljs-string">'loc_var'</span> referenced before assignment
+</code></pre>
+<h2 id="经典案例2">经典案例2</h2>
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_select_desc</span>(<span class="hljs-params">name, flag, is_format = <span class="hljs-literal">True</span></span>):
+    <span class="hljs-keyword">if</span> flag:
+        sel_res = <span class="hljs-string">'Do select name = %s'</span> % name
+    <span class="hljs-keyword">return</span> sel_res <span class="hljs-keyword">if</span> is_format <span class="hljs-keyword">else</span> name
 
-get_select_desc('Error', False, True)
-</code></pre><p>错误提示：</p>
-<pre><code>Traceback (most recent call last):
-  File "G:\Project Files\Python Test\Main.py", line 247, in &lt;module&gt;
-    get_select_desc('Error', False, True)
-  File "G:\Project Files\Python Test\Main.py", line 245, in get_select_desc
-    return sel_res if is_format else name
-UnboundLocalError: local variable 'sel_res' referenced before assignment
-</code></pre><h2 id="经典案例3">经典案例3</h2>
-<pre><code>def outer_func(out_flag):
-    if out_flag:
-        loc_var1 = 'local variable with flag'
-    else:
-        loc_var2 = 'local variable without flag'
-    def inner_func(in_flag):
-        return loc_var1 if in_flag else loc_var2
-    return inner_func
+get_select_desc(<span class="hljs-string">'Error'</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>)
+</code></pre>
+<p>错误提示：</p>
+<pre><code class="lang-python">Traceback (most recent call last):
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">247</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
+    get_select_desc(<span class="hljs-string">'Error'</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>)
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">245</span>, <span class="hljs-keyword">in</span> get_select_desc
+    <span class="hljs-keyword">return</span> sel_res <span class="hljs-keyword">if</span> is_format <span class="hljs-keyword">else</span> name
+UnboundLocalError: local variable <span class="hljs-string">'sel_res'</span> referenced before assignment
+</code></pre>
+<h2 id="经典案例3">经典案例3</h2>
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">outer_func</span>(<span class="hljs-params">out_flag</span>):
+    <span class="hljs-keyword">if</span> out_flag:
+        loc_var1 = <span class="hljs-string">'local variable with flag'</span>
+    <span class="hljs-keyword">else</span>:
+        loc_var2 = <span class="hljs-string">'local variable without flag'</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner_func</span>(<span class="hljs-params">in_flag</span>):
+        <span class="hljs-keyword">return</span> loc_var1 <span class="hljs-keyword">if</span> in_flag <span class="hljs-keyword">else</span> loc_var2
+    <span class="hljs-keyword">return</span> inner_func
 
-clo_func = outer_func(True)
-print clo_func(False)
-</code></pre><p>错误提示：</p>
-<pre><code>Traceback (most recent call last):
-  File "G:\Project Files\Python Test\Main.py", line 260, in &lt;module&gt;
-    print clo_func(False)
-  File "G:\Project Files\Python Test\Main.py", line 256, in inner_func
-    return loc_var1 if in_flag else loc_var2
-NameError: free variable 'loc_var2' referenced before assignment in enclosing scope
-</code></pre><h2 id="分析案例">分析案例</h2>
-<pre><code>import sys
-a = 1
-for i in range(10):
-    pass
+clo_func = outer_func(<span class="hljs-literal">True</span>)
+<span class="hljs-built_in">print</span> clo_func(<span class="hljs-literal">False</span>)
+</code></pre>
+<p>错误提示：</p>
+<pre><code class="lang-python">Traceback (most recent call last):
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">260</span>, <span class="hljs-keyword">in</span> &lt;module&gt;
+    <span class="hljs-built_in">print</span> clo_func(<span class="hljs-literal">False</span>)
+  File <span class="hljs-string">"G:\Project Files\Python Test\Main.py"</span>, line <span class="hljs-number">256</span>, <span class="hljs-keyword">in</span> inner_func
+    <span class="hljs-keyword">return</span> loc_var1 <span class="hljs-keyword">if</span> in_flag <span class="hljs-keyword">else</span> loc_var2
+NameError: free variable <span class="hljs-string">'loc_var2'</span> referenced before assignment <span class="hljs-keyword">in</span> enclosing scope
+</code></pre>
+<h2 id="分析案例">分析案例</h2>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> sys
+a = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
+    <span class="hljs-keyword">pass</span>
 
 
-def outer_func(g=3):
-    loc_var = "local variable"
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">outer_func</span>(<span class="hljs-params">g=<span class="hljs-number">3</span></span>):
+    loc_var = <span class="hljs-string">"local variable"</span>
 
-    def inner_func():
-        print(a)
-        print(g)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inner_func</span>():
+        <span class="hljs-built_in">print</span>(a)
+        <span class="hljs-built_in">print</span>(g)
 
-        try:
-            int("0.2")
-        except ValueError as e:
-            print(e)
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-built_in">int</span>(<span class="hljs-string">"0.2"</span>)
+        <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(e)
 
-        loc_var += " in inner func"
-        return loc_var
+        loc_var += <span class="hljs-string">" in inner func"</span>
+        <span class="hljs-keyword">return</span> loc_var
 
-    return inner_func
+    <span class="hljs-keyword">return</span> inner_func
 
 
 clo_func = outer_func()
 clo_func()
 
 
-class clss():
-    def add(self):
-        pass
-</code></pre><p>分析</p>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">clss</span>():
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">pass</span>
+</code></pre>
+<p>分析</p>
 <p>1,双下划线:根据bind定义，识别为scope可见的变量</p>
 <p>2,scope可见是存在层次关系的,越靠左侧说明包含范围越大（类似作用域的感觉),越靠右侧，包含范围越小，（作用域越小）</p>
 <p>3,图中表明1和3的地方就是，标准案例1的问题点.loc_var由于在赋值语句“＝”的左边，所以别认为是scope内(可见)变量，所以执行loc_var=loc_var+"xx"时，会从最近的scope加载loc_var,最近的loc_var恰好指向自己，但是此时的"loc_var"尚且未被初始化，所以报错。</p>
 <p>4,相比较，图中2,变量"g"在局部也未被初始化，但是却未报错，应为g在scope中未找到，所以自动向上找(往范围更大的找)，就找到入参处的变量”g"了。</p>
-<p><img src="./images/20200513231942911_1164903850.png" alt=""></img></p>
+<p><img src="images/20200513231942911_1164903850.png" alt=""></img></p>
 <h2 id="参考">参考</h2>
 <p><a href="https://www.cnblogs.com/friedCoder/p/12571983.html" target="_blank">UnboundLocalError，探讨Python中的绑定</a></p>
 <p><a href="https://www.cnblogs.com/yssjun/p/9873689.html" target="_blank">Python UnboundLocalError和NameError错误根源解析</a></p>
@@ -569,7 +577,7 @@ class clss():
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"next":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"path":"python进阶04IO的同步异步,阻塞非阻塞.md","ref":"python进阶04IO的同步异步,阻塞非阻塞.md","articles":[]},"previous":{"title":"python进阶02yield","level":"1.3","depth":1,"path":"python进阶02yield.md","ref":"python进阶02yield.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶03UnboundLocalError和NameError错误.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶03UnboundLocalError和NameError错误","level":"1.4","depth":1,"next":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"path":"python进阶04IO的同步异步,阻塞非阻塞.md","ref":"python进阶04IO的同步异步,阻塞非阻塞.md","articles":[]},"previous":{"title":"python进阶02yield","level":"1.3","depth":1,"path":"python进阶02yield.md","ref":"python进阶02yield.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶03UnboundLocalError和NameError错误.md","mtime":"2025-01-05T18:02:31.956Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

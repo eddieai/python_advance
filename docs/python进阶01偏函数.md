@@ -11,7 +11,7 @@
 举例01：
 
 
-```
+```python
 from functools import partial
  
 def mod( n, m ):
@@ -25,7 +25,7 @@ print mod_by_100( 7 )  # 2
 
 举例02：
 
-```
+```python
 from functools import partial
  
 bin2dec = partial( int, base=2 )

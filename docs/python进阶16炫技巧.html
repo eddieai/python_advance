@@ -6,7 +6,7 @@
         <title>python进阶16炫技巧 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -425,68 +425,75 @@
 <h2 id="可直接运行的-zip-包">可直接运行的 zip 包</h2>
 <p>有 Python 包，居然可以以 zip 包进行发布，并且可以不用解压直接使用。</p>
 <p>这个zip 是如何制作的呢，请看下面的示例。</p>
-<pre><code>[root@localhost ~]# ls -l demo
-total 8
--rw-r--r-- 1 root root 30 May  8 19:27 calc.py
--rw-r--r-- 1 root root 35 May  8 19:33 __main__.py
+<pre><code class="lang-python">[root@localhost ~]<span class="hljs-comment"># ls -l demo</span>
+total <span class="hljs-number">8</span>
+-rw-r--r-- <span class="hljs-number">1</span> root root <span class="hljs-number">30</span> May  <span class="hljs-number">8</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span> calc.py
+-rw-r--r-- <span class="hljs-number">1</span> root root <span class="hljs-number">35</span> May  <span class="hljs-number">8</span> <span class="hljs-number">19</span>:<span class="hljs-number">33</span> __main__.py
 
-[root@localhost ~]# cat demo/__main__.py
-import calc
-print(calc.add(2, 3))
-[root@localhost ~]# cat demo/calc.py
-def add(x, y):
-    return x+y
-[root@localhost ~]# python -m zipfile -c demo.zip demo/*
-</code></pre><p>制作完成后，我们可以执行用 python 去执行它</p>
-<pre><code>[root@localhost ~]# python demo.zip
-5
-</code></pre><h2 id="懒人必备技能：使用-">懒人必备技能：使用 “_”</h2>
+[root@localhost ~]<span class="hljs-comment"># cat demo/__main__.py</span>
+<span class="hljs-keyword">import</span> calc
+<span class="hljs-built_in">print</span>(calc.add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>))
+[root@localhost ~]<span class="hljs-comment"># cat demo/calc.py</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">x, y</span>):
+    <span class="hljs-keyword">return</span> x+y
+[root@localhost ~]<span class="hljs-comment"># python -m zipfile -c demo.zip demo/*</span>
+</code></pre>
+<p>制作完成后，我们可以执行用 python 去执行它</p>
+<pre><code class="lang-python">[root@localhost ~]<span class="hljs-comment"># python demo.zip</span>
+<span class="hljs-number">5</span>
+</code></pre>
+<h2 id="懒人必备技能：使用-">懒人必备技能：使用 “_”</h2>
 <p>大家对于他的印象都是用于 占位符，省得为一个不需要用到的变量，绞尽脑汁的想变量名。</p>
 <p>今天要介绍的是他的第二种用法，就是在 console 模式下的应用。</p>
 <p>示例如下：</p>
-<pre><code>&gt;&gt;&gt; 3 + 4
-7
-&gt;&gt;&gt; _
-7
-&gt;&gt;&gt; name='公众号: Python编程时光'
-&gt;&gt;&gt; name
-'公众号: Python编程时光'
-&gt;&gt;&gt; _
-'公众号: Python编程时光'
-</code></pre><p>它可以返回上一次的运行结果。</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">3</span> + <span class="hljs-number">4</span>
+<span class="hljs-number">7</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>_
+<span class="hljs-number">7</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>name=<span class="hljs-string">'公众号: Python编程时光'</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>name
+<span class="hljs-string">'公众号: Python编程时光'</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>_
+<span class="hljs-string">'公众号: Python编程时光'</span>
+</code></pre>
+<p>它可以返回上一次的运行结果。</p>
 <p>但是，如果是print函数打印出来的就不行了。</p>
-<pre><code>&gt;&gt;&gt; 3 + 4
-7
-&gt;&gt;&gt; _
-7
-&gt;&gt;&gt; print("公众号: Python编程时光")
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">3</span> + <span class="hljs-number">4</span>
+<span class="hljs-number">7</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>_
+<span class="hljs-number">7</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-string">"公众号: Python编程时光"</span>)
 ming
-&gt;&gt;&gt; _
-7
-</code></pre><h2 id="最快查看包搜索路径的方式">最快查看包搜索路径的方式</h2>
-<pre><code>python3 -m site
+<span class="hljs-meta">&gt;&gt;&gt; </span>_
+<span class="hljs-number">7</span>
+</code></pre>
+<h2 id="最快查看包搜索路径的方式">最快查看包搜索路径的方式</h2>
+<pre><code class="lang-python">python3 -m site
 sys.path = [
-    '/home/wangbm',
-    '/usr/local/Python3.7/lib/python37.zip',
-    '/usr/local/Python3.7/lib/python3.7',
-    '/usr/local/Python3.7/lib/python3.7/lib-dynload',
-    '/home/wangbm/.local/lib/python3.7/site-packages',
-    '/usr/local/Python3.7/lib/python3.7/site-packages',
+    <span class="hljs-string">'/home/wangbm'</span>,
+    <span class="hljs-string">'/usr/local/Python3.7/lib/python37.zip'</span>,
+    <span class="hljs-string">'/usr/local/Python3.7/lib/python3.7'</span>,
+    <span class="hljs-string">'/usr/local/Python3.7/lib/python3.7/lib-dynload'</span>,
+    <span class="hljs-string">'/home/wangbm/.local/lib/python3.7/site-packages'</span>,
+    <span class="hljs-string">'/usr/local/Python3.7/lib/python3.7/site-packages'</span>,
 ]
-USER_BASE: '/home/wangbm/.local' (exists)
-USER_SITE: '/home/wangbm/.local/lib/python3.7/site-packages' (exists)
-ENABLE_USER_SITE: True
-</code></pre><h2 id="and-和-or-的取值顺序">and 和 or 的取值顺序</h2>
+USER_BASE: <span class="hljs-string">'/home/wangbm/.local'</span> (exists)
+USER_SITE: <span class="hljs-string">'/home/wangbm/.local/lib/python3.7/site-packages'</span> (exists)
+ENABLE_USER_SITE: <span class="hljs-literal">True</span>
+</code></pre>
+<h2 id="and-和-or-的取值顺序">and 和 or 的取值顺序</h2>
 <p>当一个 or 表达式中所有值都为真，Python会选择第一个值</p>
 <p>当一个 and 表达式 所有值都为真，Python 会选择第二个值。</p>
 <p>示例如下：</p>
-<pre><code>&gt;&gt;&gt;(2 or 3) * (5 and 7)
-14  # 2*7
-</code></pre><h2 id="访问类中的私有方法">访问类中的私有方法</h2>
-<pre><code># 调用私有方法，以下两种等价
+<pre><code class="lang-python">&gt;&gt;&gt;(<span class="hljs-number">2</span> <span class="hljs-keyword">or</span> <span class="hljs-number">3</span>) * (<span class="hljs-number">5</span> <span class="hljs-keyword">and</span> <span class="hljs-number">7</span>)
+<span class="hljs-number">14</span>  <span class="hljs-comment"># 2*7</span>
+</code></pre>
+<h2 id="访问类中的私有方法">访问类中的私有方法</h2>
+<pre><code class="lang-python"><span class="hljs-comment"># 调用私有方法，以下两种等价</span>
 ins._Kls__private()
 ins.call_private()
-</code></pre><h2 id="一行代码实现ftp服务器">一行代码实现FTP服务器</h2>
+</code></pre>
+<h2 id="一行代码实现ftp服务器">一行代码实现FTP服务器</h2>
 <p>python3 -m http.server 8888</p>
 <h2 id="for-else逻辑">for else逻辑</h2>
 <p>for else 和 try else 相同，只要代码正常走下去不被 break，不抛出异常，就可以走else。(所以和去掉else，直接写后面没区别?)</p>
@@ -495,94 +502,103 @@ ins.call_private()
 <p>with test_context('aaa'), test_context('bbb'):
     print('========== in main ============')</p>
 <h2 id="连接多个列表最极客的方式">连接多个列表最极客的方式</h2>
-<pre><code>&gt;&gt;&gt; b = [3,4]
-&gt;&gt;&gt; c = [5,6]
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>b = [<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>c = [<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]
 &gt;&gt;&gt;
-&gt;&gt;&gt; sum((a,b,c), [])
-[1, 2, 3, 4, 5, 6]
-</code></pre><p>另外几种连接列表的方式</p>
-<pre><code>&gt;&gt;&gt; list01 + list02 + list03
-[1, 2, 3, 4, 5, 6, 7, 8, 9]
-&gt;&gt;&gt; list(chain(list01, list02, list03))
-&gt;&gt;&gt; [*list01, *list02]
-&gt;&gt;&gt; list01.extend(list02)
-&gt;&gt;&gt; [x for l in (list01, list02, list03) for x in l]
-&gt;&gt;&gt; from heapq import merge
-&gt;&gt;&gt; list(merge(list01, list02, list03))
-sorted(itertools.chain(*iterables))
-</code></pre><h2 id="在程序退出前执行代码的技巧">在程序退出前执行代码的技巧</h2>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sum</span>((a,b,c), [])
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]
+</code></pre>
+<p>另外几种连接列表的方式</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>list01 + list02 + list03
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(chain(list01, list02, list03))
+<span class="hljs-meta">&gt;&gt;&gt; </span>[*list01, *list02]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list01.extend(list02)
+<span class="hljs-meta">&gt;&gt;&gt; </span>[x <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> (list01, list02, list03) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> l]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> heapq <span class="hljs-keyword">import</span> merge
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(merge(list01, list02, list03))
+<span class="hljs-built_in">sorted</span>(itertools.chain(*iterables))
+</code></pre>
+<h2 id="在程序退出前执行代码的技巧">在程序退出前执行代码的技巧</h2>
 <p>使用 atexit 这个内置模块，可以很方便的注册退出函数。</p>
 <p>如果clean()函数有参数，那么你可以不用装饰器，而是直接调用atexit.register(clean_1, 参数1, 参数2, 参数3='xxx')。</p>
 <h2 id="合并字典的几种方法">合并字典的几种方法</h2>
-<pre><code>profile.update(ext_info)
+<pre><code class="lang-python">profile.update(ext_info)
 full_profile01 = {**profile, **ext_info}
-dict(itertools.chain(profile.items(), ext_info.items()))
-dict(ChainMap(profile, ext_info))
-full_profile = dict(profile.items() | ext_info.items())
-</code></pre><h2 id="条件语句的几种写法">条件语句的几种写法</h2>
-<pre><code>&lt;on_true&gt; if &lt;condition&gt; else &lt;on_false&gt;
-&lt;condition&gt; and &lt;on_true&gt; or &lt;on_false&gt;
+<span class="hljs-built_in">dict</span>(itertools.chain(profile.items(), ext_info.items()))
+<span class="hljs-built_in">dict</span>(ChainMap(profile, ext_info))
+full_profile = <span class="hljs-built_in">dict</span>(profile.items() | ext_info.items())
+</code></pre>
+<h2 id="条件语句的几种写法">条件语句的几种写法</h2>
+<pre><code class="lang-python">&lt;on_true&gt; <span class="hljs-keyword">if</span> &lt;condition&gt; <span class="hljs-keyword">else</span> &lt;on_false&gt;
+&lt;condition&gt; <span class="hljs-keyword">and</span> &lt;on_true&gt; <span class="hljs-keyword">or</span> &lt;on_false&gt;
 (&lt;on_true&gt;, &lt;on_false&gt;)[condition]
-(lambda: &lt;on_false&gt;, lambda:&lt;on_true&gt;)[&lt;condition&gt;]()
-&gt;&gt;&gt; msg2 = (lambda:"未成年", lambda:"已成年")[age2 &gt; 18]()
-&gt;&gt;&gt; print(msg2)
+(<span class="hljs-keyword">lambda</span>: &lt;on_false&gt;, <span class="hljs-keyword">lambda</span>:&lt;on_true&gt;)[&lt;condition&gt;]()
+<span class="hljs-meta">&gt;&gt;&gt; </span>msg2 = (<span class="hljs-keyword">lambda</span>:<span class="hljs-string">"未成年"</span>, <span class="hljs-keyword">lambda</span>:<span class="hljs-string">"已成年"</span>)[age2 &gt; <span class="hljs-number">18</span>]()
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(msg2)
 未成年
- msg2 = {True: "已成年", False: "未成年"}[age2 &gt; 18]
-&gt;&gt;&gt; print(msg2)
+ msg2 = {<span class="hljs-literal">True</span>: <span class="hljs-string">"已成年"</span>, <span class="hljs-literal">False</span>: <span class="hljs-string">"未成年"</span>}[age2 &gt; <span class="hljs-number">18</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(msg2)
 未成年
-</code></pre><h2 id="让我爱不释手的用户环境">让我爱不释手的用户环境</h2>
+</code></pre>
+<h2 id="让我爱不释手的用户环境">让我爱不释手的用户环境</h2>
 <p>当你在机器上并没有 root 权限时，如何安装 Python 的第三方包呢？</p>
 <p>可以使用 pip install --user pkg 将你的包安装在你的用户环境中，该用户环境与全局环境并不冲突，并且多用户之间相互隔离，互不影响。</p>
 <h2 id="with-与-上下文管理器">with 与 上下文管理器</h2>
 <p>样例:</p>
-<pre><code>import contextlib
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> contextlib
 
-@contextlib.contextmanager
-def open_func(file_name):
-    # __enter__方法
-    print('open file:', file_name, 'in __enter__')
-    file_handler = open(file_name, 'r')
+<span class="hljs-meta">@contextlib.contextmanager</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">open_func</span>(<span class="hljs-params">file_name</span>):
+    <span class="hljs-comment"># __enter__方法</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'open file:'</span>, file_name, <span class="hljs-string">'in __enter__'</span>)
+    file_handler = <span class="hljs-built_in">open</span>(file_name, <span class="hljs-string">'r'</span>)
 
-    try:
-        yield file_handler
-    except Exception as exc:
-        # deal with exception
-        print('the exception was thrown')
-    finally:
-        print('close file:', file_name, 'in __exit__')
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">yield</span> file_handler
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> exc:
+        <span class="hljs-comment"># deal with exception</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'the exception was thrown'</span>)
+    <span class="hljs-keyword">finally</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'close file:'</span>, file_name, <span class="hljs-string">'in __exit__'</span>)
         file_handler.close()
 
-        return
+        <span class="hljs-keyword">return</span>
 
-with open_func('/Users/MING/mytest.txt') as file_in:
-    for line in file_in:
-        1/0
-        print(line)
-</code></pre><h2 id="在-linux-上看-json-文件">在 linux 上看 json 文件</h2>
+<span class="hljs-keyword">with</span> open_func(<span class="hljs-string">'/Users/MING/mytest.txt'</span>) <span class="hljs-keyword">as</span> file_in:
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file_in:
+        <span class="hljs-number">1</span>/<span class="hljs-number">0</span>
+        <span class="hljs-built_in">print</span>(line)
+</code></pre>
+<h2 id="在-linux-上看-json-文件">在 linux 上看 json 文件</h2>
 <p>cat test.json | python -m json.tool</p>
 <h2 id="sh，最优雅的命令调用方式">sh，最优雅的命令调用方式</h2>
-<pre><code> &gt;&gt;&gt; sh.glob("/etc/*.conf")
-['/etc/mke2fs.conf', '/etc/dnsmasq.conf', '/etc/asound.conf']
-&gt;&gt;&gt; r=sh.Command('/root/test.py')
-&gt;&gt;&gt; r()
+<pre><code class="lang-python"> &gt;&gt;&gt; sh.glob(<span class="hljs-string">"/etc/*.conf"</span>)
+[<span class="hljs-string">'/etc/mke2fs.conf'</span>, <span class="hljs-string">'/etc/dnsmasq.conf'</span>, <span class="hljs-string">'/etc/asound.conf'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>r=sh.Command(<span class="hljs-string">'/root/test.py'</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>r()
 hello,world
-</code></pre><h2 id="判断是否包含子串的七种方法">判断是否包含子串的七种方法</h2>
-<pre><code>1. 使用 in 和 not in
-2. 使用 find 方法
-3. 使用 index 方法
-4. 使用 count 方法
-5，借助 operator
-</code></pre><p>operator模块是python中内置的操作符函数接口，它定义了一些算术和比较内置操作的函数。operator模块是用c实现的，所以执行速度比 python 代码快。</p>
+</code></pre>
+<h2 id="判断是否包含子串的七种方法">判断是否包含子串的七种方法</h2>
+<pre><code class="lang-python"><span class="hljs-number">1.</span> 使用 <span class="hljs-keyword">in</span> 和 <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span>
+<span class="hljs-number">2.</span> 使用 find 方法
+<span class="hljs-number">3.</span> 使用 index 方法
+<span class="hljs-number">4.</span> 使用 count 方法
+<span class="hljs-number">5</span>，借助 operator
+</code></pre>
+<p>operator模块是python中内置的操作符函数接口，它定义了一些算术和比较内置操作的函数。operator模块是用c实现的，所以执行速度比 python 代码快。</p>
 <p>在 operator 中有一个方法 contains 可以很方便地判断子串是否在字符串中。</p>
-<pre><code>&gt;&gt;&gt; import operator
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> operator
 &gt;&gt;&gt;
-&gt;&gt;&gt; operator.contains("hello, python", "llo")
-</code></pre><h2 id="使用jsondumps打印字典">使用json.dumps打印字典</h2>
+<span class="hljs-meta">&gt;&gt;&gt; </span>operator.contains(<span class="hljs-string">"hello, python"</span>, <span class="hljs-string">"llo"</span>)
+</code></pre>
+<h2 id="使用jsondumps打印字典">使用json.dumps打印字典</h2>
 <p>打印中文在 json.dumps 这里，却只要加个参数就好了</p>
 <p>具体的代码示例如下：</p>
-<pre><code>&gt;&gt;&gt; import json
-&gt;&gt;&gt; print json.dumps(info, indent=4, ensure_ascii=False)
-</code></pre><h2 id="slots">slots</h2>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> json
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span> json.dumps(info, indent=<span class="hljs-number">4</span>, ensure_ascii=<span class="hljs-literal">False</span>)
+</code></pre>
+<h2 id="slots">slots</h2>
 <p>JIT即时编译器，当虚拟机发现某个方法或代码块运行特别频繁时，就会把这些代码认定为热点代码，为了提高热点代码的运行效率，在运行时，虚拟机将会把这些代码编译成与本地平台的相关带代码，并进行各层次的优化。</p>
 <p>正如上面所说的，默认情况下,Python的新式类和经典类的实例都有一个dict来存储实例的属性。这在一般情况下还不错，而且非常灵活，</p>
 <p>乃至在程序中可以随意设置新的属性。但是，对一些在”编译”前就知道有几个固定属性的小class来说，这个dict就有点浪费内存了。</p>
@@ -593,54 +609,57 @@ hello,world
 <p>gc.get_objects()</p>
 <p>掏出所有活着的对象，其中当然就包括活着的线程。</p>
 <p>例如，打印出所有 Greenlet 的 stack：</p>
-<pre><code>
-import os
+<pre><code class="lang-python">
+<span class="hljs-keyword">import</span> os
 
-import gc
+<span class="hljs-keyword">import</span> gc
 
-import greenlet
+<span class="hljs-keyword">import</span> greenlet
 
-import traceback
+<span class="hljs-keyword">import</span> traceback
 
 
 
 greenlets = [
 
-    o for o in gc.get_objects() if isinstance(o, greenlet.greenlet) if o]
+    o <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> gc.get_objects() <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(o, greenlet.greenlet) <span class="hljs-keyword">if</span> o]
 
-stack = '\n\n'.join(
+stack = <span class="hljs-string">'\n\n'</span>.join(
 
-    ''.join(traceback.format_stack(o.gr_frame)) for o in greenlets)
+    <span class="hljs-string">''</span>.join(traceback.format_stack(o.gr_frame)) <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> greenlets)
 
-open('/tmp/stack-%d.txt' % os.getpid(), 'w').write(stack)
-</code></pre><p>这个方法结合 gevent.backdoor 堪称排障利器。如果愿意冒一定的风险，甚至可以使用调试器对事先没有埋过点的进程做活体检测——挂上 GIL 再打印一份线程 stack。详见 GitHub - wooparadog/pstack: Tool to dump python thread and greenlet stacks.</p>
+<span class="hljs-built_in">open</span>(<span class="hljs-string">'/tmp/stack-%d.txt'</span> % os.getpid(), <span class="hljs-string">'w'</span>).write(stack)
+</code></pre>
+<p>这个方法结合 gevent.backdoor 堪称排障利器。如果愿意冒一定的风险，甚至可以使用调试器对事先没有埋过点的进程做活体检测——挂上 GIL 再打印一份线程 stack。详见 GitHub - wooparadog/pstack: Tool to dump python thread and greenlet stacks.</p>
 <h2 id="调试利器，显示调用栈">调试利器，显示调用栈</h2>
 <p>有时候BUG隐藏的太深，需要对上下文都有清晰的展示来帮助判断。用pdb调试不方便，用print不直观。可以使用如下函数获取当前调用栈：</p>
-<pre><code>
-import sys
+<pre><code class="lang-python">
+<span class="hljs-keyword">import</span> sys
 
-def get_cur_info():
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_cur_info</span>():
 
-    print sys._getframe().f_code.co_filename # 当前文件名
+    <span class="hljs-built_in">print</span> sys._getframe().f_code.co_filename <span class="hljs-comment"># 当前文件名</span>
 
-    print sys._getframe(0).f_code.co_name # 当前函数名
+    <span class="hljs-built_in">print</span> sys._getframe(<span class="hljs-number">0</span>).f_code.co_name <span class="hljs-comment"># 当前函数名</span>
 
-    print sys._getframe(1).f_code.co_name # 调用该函数的函数的名字，如果没有被调用，则返回module
+    <span class="hljs-built_in">print</span> sys._getframe(<span class="hljs-number">1</span>).f_code.co_name <span class="hljs-comment"># 调用该函数的函数的名字，如果没有被调用，则返回module</span>
 
-    print sys._getframe().f_lineno # 当前行号
-</code></pre><h2 id="x入参">x入参</h2>
-<pre><code>def testa(*v):
-    print(list(v))
+    <span class="hljs-built_in">print</span> sys._getframe().f_lineno <span class="hljs-comment"># 当前行号</span>
+</code></pre>
+<h2 id="x入参">x入参</h2>
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">testa</span>(<span class="hljs-params">*v</span>):
+    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>(v))
 
 
-testa(1, 2, 3)
-testa(list('abc'))
-testa('a', 'b', list('cde'))
+testa(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+testa(<span class="hljs-built_in">list</span>(<span class="hljs-string">'abc'</span>))
+testa(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-built_in">list</span>(<span class="hljs-string">'cde'</span>))
 
-[1, 2, 3]
-[['a', 'b', 'c']]
-['a', 'b', ['c', 'd', 'e']]
-</code></pre><h2 id="内存占用">内存占用</h2>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+[[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]]
+[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, [<span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>, <span class="hljs-string">'e'</span>]]
+</code></pre>
+<h2 id="内存占用">内存占用</h2>
 <p>下面的代码块可以检查变量 variable 所占用的内存。  </p>
 <pre><code>import sys   
 
@@ -648,74 +667,79 @@ variable = 30
 print(sys.getsizeof(variable)) # 24
 </code></pre><h2 id="打印-n-次字符串">打印 N 次字符串</h2>
 <p>该代码块不需要循环语句就能打印 N 次字符串。  </p>
-<pre><code>n = 2;
+<pre><code class="lang-python">n = <span class="hljs-number">2</span>;
 
-s ="Programming";
+s =<span class="hljs-string">"Programming"</span>;
 
 
 
-print(s * n);
+<span class="hljs-built_in">print</span>(s * n);
 
-# ProgrammingProgramming
-</code></pre><h2 id="解包">解包</h2>
+<span class="hljs-comment"># ProgrammingProgramming</span>
+</code></pre>
+<h2 id="解包">解包</h2>
 <p>如下代码段可以将打包好的成对列表解开成两组不同的元组。  </p>
-<pre><code>array = [['a', 'b'], ['c', 'd'], ['e', 'f']]
+<pre><code class="lang-python">array = [[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>], [<span class="hljs-string">'e'</span>, <span class="hljs-string">'f'</span>]]
 
-transposed = zip(*array)
+transposed = <span class="hljs-built_in">zip</span>(*array)
 
-print(transposed)
+<span class="hljs-built_in">print</span>(transposed)
 
-# [('a', 'c', 'e'), ('b', 'd', 'f')]
-</code></pre><h2 id="链式函数调用">链式函数调用</h2>
+<span class="hljs-comment"># [('a', 'c', 'e'), ('b', 'd', 'f')]</span>
+</code></pre>
+<h2 id="链式函数调用">链式函数调用</h2>
 <p>你可以在一行代码内调用多个函数。  </p>
-<pre><code>def add(a, b):
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>):
 
-    return a + b
-
-
-
-def subtract(a, b):
-
-    return a - b
+    <span class="hljs-keyword">return</span> a + b
 
 
 
-a, b = 4, 5
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">subtract</span>(<span class="hljs-params">a, b</span>):
 
-print((subtract if a &gt; b else add)(a, b)) # 9
-</code></pre><h2 id="回文序列">回文序列</h2>
+    <span class="hljs-keyword">return</span> a - b
+
+
+
+a, b = <span class="hljs-number">4</span>, <span class="hljs-number">5</span>
+
+<span class="hljs-built_in">print</span>((subtract <span class="hljs-keyword">if</span> a &gt; b <span class="hljs-keyword">else</span> add)(a, b)) <span class="hljs-comment"># 9</span>
+</code></pre>
+<h2 id="回文序列">回文序列</h2>
 <p>以下方法会检查给定的字符串是不是回文序列，它首先会把所有字母转化为小写，并移除非英文字母符号。最后，它会对比字符串与反向字符串是否相等，相等则表示为回文序列。  </p>
-<pre><code>def palindrome(string):
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">palindrome</span>(<span class="hljs-params">string</span>):
 
-    from re import sub
+    <span class="hljs-keyword">from</span> re <span class="hljs-keyword">import</span> sub
 
-    s = sub('[\W_]', '', string.lower())
+    s = sub(<span class="hljs-string">'[\W_]'</span>, <span class="hljs-string">''</span>, string.lower())
 
-    return s == s[::-1]
+    <span class="hljs-keyword">return</span> s == s[::-<span class="hljs-number">1</span>]
 
 
 
-palindrome('taco cat') # True
-</code></pre><h2 id="不使用-if-else-的计算子">不使用 if-else 的计算子</h2>
+palindrome(<span class="hljs-string">'taco cat'</span>) <span class="hljs-comment"># True</span>
+</code></pre>
+<h2 id="不使用-if-else-的计算子">不使用 if-else 的计算子</h2>
 <p>这一段代码可以不使用条件语句就实现加减乘除、求幂操作，它通过字典这一数据结构实现：  </p>
-<pre><code>import operator
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> operator
 
 action = {
 
-    "+": operator.add,
+    <span class="hljs-string">"+"</span>: operator.add,
 
-    "-": operator.sub,
+    <span class="hljs-string">"-"</span>: operator.sub,
 
-    "/": operator.truediv,
+    <span class="hljs-string">"/"</span>: operator.truediv,
 
-    "*": operator.mul,
+    <span class="hljs-string">"*"</span>: operator.mul,
 
-    "**": pow
+    <span class="hljs-string">"**"</span>: <span class="hljs-built_in">pow</span>
 
 }
 
-print(action['-'](50, 25)) # 25
-</code></pre><h2 id="参考">参考</h2>
+<span class="hljs-built_in">print</span>(action[<span class="hljs-string">'-'</span>](<span class="hljs-number">50</span>, <span class="hljs-number">25</span>)) <span class="hljs-comment"># 25</span>
+</code></pre>
+<h2 id="参考">参考</h2>
 <p>Python 黑魔法指南 50 例:python.iswbm.com/en/latest/c01/c01<em>10.html<br></br>Python 炫技操作：连接列表的八种方法：python.iswbm.com/en/latest/c01/c01<em>41.html<br></br>Python 炫技操作：判断是否包含子串的七种方法：python.iswbm.com/en/latest/c01/c01_40.html<br></br>Python 炫技操作：合并字典的七种方法：python.iswbm.com/en/latest/c01/c01_39.html<br></br>Python 炫技操作：条件语句的七种写法：python.iswbm.com/en/latest/c01/c01_37.html<br></br>每日一库：sh，最优雅的命令调用方式：python.iswbm.com/en/latest/c01/c01_34.html<br></br>Python 开发中有哪些高级技巧？:<a href="https://www.zhihu.com/question/23760468" target="_blank">https://www.zhihu.com/question/23760468</a><br></br>python __slots</em></em> 详解（上篇）:<a href="https://blog.csdn.net/sxingming/article/details/52892640" target="_blank">https://blog.csdn.net/sxingming/article/details/52892640</a><br></br>30段极简Python代码：这些小技巧你都Get了么:<a href="https://zhuanlan.zhihu.com/p/109016233" target="_blank">https://zhuanlan.zhihu.com/p/109016233</a></p>
 
                                 
@@ -760,7 +784,7 @@ print(action['-'](50, 25)) # 25
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"next":{"title":"python进阶17正则表达式","level":"1.18","depth":1,"path":"python进阶17正则表达式.md","ref":"python进阶17正则表达式.md","articles":[]},"previous":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"path":"python进阶15多继承与Mixin.md","ref":"python进阶15多继承与Mixin.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶16炫技巧.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶16炫技巧","level":"1.17","depth":1,"next":{"title":"python进阶17正则表达式","level":"1.18","depth":1,"path":"python进阶17正则表达式.md","ref":"python进阶17正则表达式.md","articles":[]},"previous":{"title":"python进阶15多继承与Mixin","level":"1.16","depth":1,"path":"python进阶15多继承与Mixin.md","ref":"python进阶15多继承与Mixin.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶16炫技巧.md","mtime":"2025-01-05T18:02:31.966Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

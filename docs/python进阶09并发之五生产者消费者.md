@@ -3,7 +3,7 @@
 
 
 ## Queue
-```
+```python
 # encoding:utf-8
 __author__ = 'Fioman'
 __time__ = '2019/3/7 14:06'
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 JoinableQueue()比普通的Queue()多了两个方法:
 
-```
+```python
 q.task_done() 
 使用者使用此方法发出信号，表示q.get()返回的项目已经被处理。如果调用此方法的次数大于从队列中删除的项目数量，将引发ValueError异常。
 
@@ -128,7 +128,7 @@ StatusableQueue(product_n=2,size=20)　#product_n=2含义：存活的生产者�
 一共只改动3处，就可以完成生产者消费者的并行化控制。 而且更符合逻辑，因为生产者是明确知道自己的退出条件的，而消费者依赖生产者，所以只需要观察消费者就可以知道（生成者是否结束）整个－生成消费链是否完成。
 
 
-```
+```python
 
 def consumer(q,name):
     while not (q.product_n==0 and q.size==0):# 存活生产者=0，意味着全部结束生产，队列不会新增数据,queue.size=0说明消费完毕

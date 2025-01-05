@@ -5,7 +5,7 @@
 
 答案就是：使用的是LEGB规则，表示的是Local -> Enclosed -> Global -> Built-in，其中的箭头方向表示的是搜索顺序。
 
-```
+```python
 L: 先在局部变量中找，如果找不到
 E：则去闭包变量中找，如果找不到
 G：则去局部变量中找，如果找不到
@@ -13,7 +13,7 @@ B: 去内置变量中找，如果找不到，才报错 dir(__builtins__)
 ```
 其中
 
-```
+```python
 Local 可能是在一个函数或者类方法内部。
 Enclosed 可能是嵌套函数内，比如说 一个函数包裹在另一个函数内部。
 Global 代表的是执行脚本自身的最高层次。
@@ -29,7 +29,7 @@ Built-in 是Python为自身保留的特殊名称。
 
 ## 练习01
 
-```
+```python
 a_var = 'global value'
 
 def outer():
@@ -45,7 +45,7 @@ outer()
 ```
 结果:
 
-```
+```python
 outer before: local value
 in inner(): inner value
 outer after: inner value
@@ -58,7 +58,7 @@ outer after: inner value
 
 
 ## 练习02
-```
+```python
 a = 'global'
 
 def outer():
@@ -88,7 +88,7 @@ print('a is', a)
 ```
 结果:
 
-```
+```python
 a is local variable
 called my len() function: 14
 6
@@ -103,7 +103,7 @@ a is global
 02：如果我们提前在全局命名空间中明确定义了for循环变量，也是同样的结果！在这种情况下，它会重新绑定已有的变量：
 **For循环变量“泄漏”到全局命名空间**
 
-```
+```python
 b = 1
 for b in range(5):
     if b == 4:
@@ -115,7 +115,7 @@ print(b, '-> b in global')
 4 -> b in global
 ```
 在Python 3.x中，我们可以使用闭包来防止for循环变量进入全局命名空间。下面是一个例子（在Python 3.4中执行）：
-```
+```python
 i = 1
 print([i for i in range(5)])
 print(i, '-> i in global')
@@ -129,14 +129,14 @@ print(i, '-> i in global')
 
 还有另一个副作用就是
 
-```
+```python
 for i in range(5):
     print(i)
     i = 10
 ```
 结果:
 
-```
+```python
 0
 1
 2
@@ -148,7 +148,7 @@ for i in range(5):
 
 代码;
 
-```
+```python
 for i in range(5):
     i += 5
     print(i)
@@ -156,7 +156,7 @@ print(i)
 ```
 结果:
 
-```
+```python
 5
 6
 7
@@ -174,7 +174,7 @@ print(i)
 上式中,for里面i+5,到外面的for那里又重新赋值为原有的i(无视了内部对i的修改)，所以**每次都+5了**，而最终结果依然+5，是由于**最后一次的i并未被成功赋值**，所以最终结果看起来比较奇.
 
 
-```
+```python
 list_1 = [i for i in range(5)]
 print(i)
 

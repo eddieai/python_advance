@@ -5,7 +5,7 @@ yield关键字之前见过，也能读懂，但开发时也不大敢使用，感
 
 ## 可迭代，迭代器，生成器
 
-```
+```python
 可迭代对象，是其内部实现了，__iter__ 这个魔术方法。  
 =>对比可迭代对象，迭代器其实就只是多了一个函数而已。就是__next__()，我们可以不再使用for循环来间断获取元素值。而可以直接使用next()方法来实现。  
 ==>生成器，则是在迭代器的基础上（可以用for循环，可以使用next()），再实现了yield。  
@@ -16,7 +16,7 @@ yield关键字之前见过，也能读懂，但开发时也不大敢使用，感
 ## 猜测代码结果
 看如下代码
 
-```
+```python
 ## 第一段代码
 items=[i for i in range(10)]
 tmp=func(m)#func是一函数  
@@ -38,7 +38,7 @@ print(func02(func(m)))
 
 如果对上面代码持有异议，可运行如下代码
 
-```
+```python
 def flatten(items, ignore_types=(str, bytes)):
     for x in items:
         if isinstance(x, Iterable) and not isinstance(x, ignore_types):
@@ -64,7 +64,7 @@ yield 是什么东西呢，它相当于我们函数里的return。在每次next(
 
 如何创建一个生成器，主要有如下两种方法
 
-```
+```python
 # 01,使用列表生成式，注意不是[]，而是()
 L = (x * x for x in range(10))
 print(isinstance(L, Generator))  # True
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 如何运行/激活生成器
 
-```
+```python
 使用next()
 使用generator.send(None)
 ```
@@ -99,7 +99,7 @@ if __name__ == '__main__':
 ## yield个人理解02,多return时序函数
 首先以下定义结构
 
-```
+```python
 yield x=>等价于=>return x,receive y  
 ```
 举例:执行到yield时
@@ -123,7 +123,7 @@ yield x=>等价于=>return x,receive y
 
 ## yield实例和分析
 
-```
+```python
 def jumping_range(N):
     index = 0
     while index < N:
@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
 
 ## yield continue和break
-```
+```python
 def get_detection_result():
     tmpi = 0
     ret = True
@@ -188,7 +188,7 @@ print(f.send(102))
 ## 胞兄yield from
 简单的理解
 
-```
+```python
 # 字符串
 astr='ABC'
 # 列表
@@ -212,7 +212,7 @@ print(list(new_list))
 ```
 可以简单理解为
 
-```
+```python
 yield from item
 等价于
 for i in item:

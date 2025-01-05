@@ -6,7 +6,7 @@
         <title>python进阶05并发之一基本概念 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -422,8 +422,8 @@
                                 <h1 id="python进阶05并发之一基本概念">python进阶05并发之一基本概念</h1>
 <p>大多编程语言，一旦涉及并发，都会比较复杂，知识点也较多（大多为历史问题，很多技术点现在非常少使用了，但语言层面也提供支持，对于这些冷门点，只需要知道即可，使用时也<strong>尽量避免使用这种冷门技术</strong>，除非和应用场景非常匹配）。实际使用过程中，只需要知道各名词以及大概功能，大多现用现查，毕竟涉及点太多，而且使用频率也并非很高，一般也就新系统研发会使用，后续维护时基本不会涉及太多。</p>
 <h2 id="进程状态和调度">进程状态和调度</h2>
-<p><img src="./images/20200522232204787_2020266231.png" alt=""></img></p>
-<p><img src="./images/20200522232222025_1081392945.png" alt=""></img></p>
+<p><img src="images/20200522232204787_2020266231.png" alt=""></img></p>
+<p><img src="images/20200522232222025_1081392945.png" alt=""></img></p>
 <h2 id="进程线程协程">进程,线程,协程</h2>
 <p>1、进程</p>
 <p>进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行<strong>资源</strong>分配和调度的一个独立单位。每个进程都有自己的独立内存空间，不同进程通过进程间通信来通信。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存、文件句柄等）比较大，但相对比较稳定安全。</p>
@@ -499,26 +499,29 @@
 <h2 id="事件驱动协程依赖">事件驱动(协程依赖)</h2>
 <p>在UI编程中，常常要对鼠标点击进行相应，首先如何获得鼠标点击呢？</p>
 <p>方式一：创建一个线程，该线程一直循环检测是否有鼠标点击，那么这个方式有以下几个缺点：</p>
-<pre><code>1. CPU资源浪费，可能鼠标点击的频率非常小，但是扫描线程还是会一直循环检测，这会造成很多的CPU资源浪费；如果扫描鼠标点击的接口是阻塞的呢？
-2. 如果是堵塞的，又会出现下面这样的问题，如果我们不但要扫描鼠标点击，还要扫描键盘是否按下，由于扫描鼠标时被堵塞了，那么可能永远不会去扫描键盘；
-3. 如果一个循环需要扫描的设备非常多，这又会引来响应时间的问题；
-</code></pre><p>所以，该方式是非常不好的</p>
+<pre><code class="lang-python"><span class="hljs-number">1.</span> CPU资源浪费，可能鼠标点击的频率非常小，但是扫描线程还是会一直循环检测，这会造成很多的CPU资源浪费；如果扫描鼠标点击的接口是阻塞的呢？
+<span class="hljs-number">2.</span> 如果是堵塞的，又会出现下面这样的问题，如果我们不但要扫描鼠标点击，还要扫描键盘是否按下，由于扫描鼠标时被堵塞了，那么可能永远不会去扫描键盘；
+<span class="hljs-number">3.</span> 如果一个循环需要扫描的设备非常多，这又会引来响应时间的问题；
+</code></pre>
+<p>所以，该方式是非常不好的</p>
 <p>方式二：就是事件驱动模型</p>
 <p>目前大部分的UI编程都是事件驱动模型，如很多UI平台都会提供onClick()事件，这个事件就代表鼠标按下事件。事件驱动模型大体思路如下：</p>
-<pre><code>1. 有一个事件（消息）队列；
-2. 鼠标按下时，往这个队列中增加一个点击事件（消息）；
-3. 有个循环，不断从队列取出事件，根据不同的事件，调用不同的函数，如onClick()、onKeyDown()等；
-4. 事件（消息）一般都各自保存各自的处理函数指针，这样，每个消息都有独立的处理函数；
-</code></pre><p><img src="./images/20200523153052304_356870437.png" alt=""></img></p>
+<pre><code class="lang-python"><span class="hljs-number">1.</span> 有一个事件（消息）队列；
+<span class="hljs-number">2.</span> 鼠标按下时，往这个队列中增加一个点击事件（消息）；
+<span class="hljs-number">3.</span> 有个循环，不断从队列取出事件，根据不同的事件，调用不同的函数，如onClick()、onKeyDown()等；
+<span class="hljs-number">4.</span> 事件（消息）一般都各自保存各自的处理函数指针，这样，每个消息都有独立的处理函数；
+</code></pre>
+<p><img src="images/20200523153052304_356870437.png" alt=""></img></p>
 <p>事件驱动编程是一种编程范式，这里程序的执行流由外部事件来决定。它的特点是包含一个事件循环，当外部事件发生时使用回调机制来触发相应的处理。另外两种常见的编程范式是（单线程）同步以及多线程编程。</p>
 <p>让我们用例子来比较和对比一下单线程、多线程以及事件驱动编程模型。下图展示了随着时间的推移，这三种模式下程序所做的工作。这个程序有3个任务需要完成，每个任务都在等待I/O操作时阻塞自身。阻塞在I/O操作上所花费的时间已经用灰色框标示出来了</p>
-<p><img src="./images/20200523153150888_1314086925.png" alt=""></img></p>
+<p><img src="images/20200523153150888_1314086925.png" alt=""></img></p>
 <p>当我们面对如下的环境时，事件驱动模型通常是一个好的选择：</p>
-<pre><code>程序中有许多任务，而且…
+<pre><code class="lang-python">程序中有许多任务，而且…
 任务之间高度独立（因此它们不需要互相通信，或者等待彼此）而且…
 在等待事件到来时，某些任务会阻塞。
 当应用程序需要在任务间共享可变的数据时，这也是一个不错的选择，因为这里不需要采用同步处理。
-</code></pre><p>网络应用程序通常都有上述这些特点，这使得它们能够很好的契合事件驱动编程模型。</p>
+</code></pre>
+<p>网络应用程序通常都有上述这些特点，这使得它们能够很好的契合事件驱动编程模型。</p>
 <p>总结：异步IO涉及到了事件驱动模型，进程中维护一个<strong>消息队列</strong>，当客户端又请求时，就会把请求添加到消息队列中，线程从消息队列中<strong>轮询取要处理的请求</strong>，遇到I/O阻塞时（操作系统处理调用I/O接口处理，与程序无关），则进行上下文切换，处理其他请求，当I/O操作完成时，调用回调函数，告诉线程处理完成，然后再切换回来，处理完成后返回给客户端  Nginx能处理高并发就是用的这个原理</p>
 <h2 id="参考">参考</h2>
 <p><a href="https://www.cnblogs.com/lxmhhy/p/6041001.html" target="_blank">进程和线程、协程的区别</a></p>
@@ -580,7 +583,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶05并发之一基本概念","level":"1.6","depth":1,"next":{"title":"python进阶06并发之二技术点关键词","level":"1.7","depth":1,"path":"python进阶06并发之二技术点关键词.md","ref":"python进阶06并发之二技术点关键词.md","articles":[]},"previous":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"path":"python进阶04IO的同步异步,阻塞非阻塞.md","ref":"python进阶04IO的同步异步,阻塞非阻塞.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶05并发之一基本概念.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶05并发之一基本概念","level":"1.6","depth":1,"next":{"title":"python进阶06并发之二技术点关键词","level":"1.7","depth":1,"path":"python进阶06并发之二技术点关键词.md","ref":"python进阶06并发之二技术点关键词.md","articles":[]},"previous":{"title":"python进阶04IO的同步异步,阻塞非阻塞","level":"1.5","depth":1,"path":"python进阶04IO的同步异步,阻塞非阻塞.md","ref":"python进阶04IO的同步异步,阻塞非阻塞.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶05并发之一基本概念.md","mtime":"2025-01-05T18:02:31.956Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

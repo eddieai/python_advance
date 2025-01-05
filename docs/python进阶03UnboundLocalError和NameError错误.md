@@ -9,7 +9,7 @@ block’s environment：对于一个code block，其所有scope中可见的name�
 
 bind name：下面的操作均可视为绑定操作
 
-```
+```python
 函数的形参
 import声明
 类和函数的定义
@@ -28,7 +28,7 @@ free variable: 如果一个name在一个block中被引用，但没有在该代�
 
 
 ## 经典案例1
-```
+```python
 def outer_func():
     loc_var = "local variable"
     def inner_func():
@@ -42,7 +42,7 @@ clo_func()
 
 错误提示:
 
-```
+```python
 Traceback (most recent call last):
   File "G:\Project Files\Python Test\Main.py", line 238, in <module>
     clo_func()
@@ -51,7 +51,7 @@ Traceback (most recent call last):
 UnboundLocalError: local variable 'loc_var' referenced before assignment
 ```
 ## 经典案例2
-```
+```python
 def get_select_desc(name, flag, is_format = True):
     if flag:
         sel_res = 'Do select name = %s' % name
@@ -61,7 +61,7 @@ get_select_desc('Error', False, True)
 ```
 错误提示：
 
-```
+```python
 Traceback (most recent call last):
   File "G:\Project Files\Python Test\Main.py", line 247, in <module>
     get_select_desc('Error', False, True)
@@ -70,7 +70,7 @@ Traceback (most recent call last):
 UnboundLocalError: local variable 'sel_res' referenced before assignment
 ```
 ## 经典案例3
-```
+```python
 def outer_func(out_flag):
     if out_flag:
         loc_var1 = 'local variable with flag'
@@ -85,7 +85,7 @@ print clo_func(False)
 ```
 错误提示：
 
-```
+```python
 Traceback (most recent call last):
   File "G:\Project Files\Python Test\Main.py", line 260, in <module>
     print clo_func(False)
@@ -95,7 +95,7 @@ NameError: free variable 'loc_var2' referenced before assignment in enclosing sc
 ```
 
 ## 分析案例
-```
+```python
 import sys
 a = 1
 for i in range(10):

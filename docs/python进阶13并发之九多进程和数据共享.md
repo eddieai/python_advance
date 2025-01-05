@@ -44,7 +44,7 @@
 
 ## 什么可以被 pickle
 参见[what is pickable](https://docs.python.org/2/library/pickle.html#what-can-be-pickled-and-unpickled)。
-```
+```python
 None，True，False，内建数字类型，字符串
 picklable 对象组成的 tuple、list、set、dict
 在模块顶层中定义的函数、内建函数、类

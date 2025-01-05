@@ -6,7 +6,7 @@
         <title>python进阶11并发之七多种并发方式的效率测试 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 5.1.4">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -49,7 +49,7 @@
     
     
     <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
@@ -423,59 +423,60 @@
 <p>测试map,apply_async,gevent协程爬虫</p>
 <p>测试代码:网页爬虫</p>
 <h2 id="函数代码">函数代码</h2>
-<pre><code>def thread_multi():
-    threads = list()
-    for url in urls:
+<pre><code class="lang-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">thread_multi</span>():
+    threads = <span class="hljs-built_in">list</span>()
+    <span class="hljs-keyword">for</span> url <span class="hljs-keyword">in</span> urls:
         threads.append(threading.Thread(target=process, args=(url,)))
-    [t.start() for t in threads]
-    [t.join() for t in threads]
+    [t.start() <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> threads]
+    [t.join() <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> threads]
 
 
-def thread_map():
-    pool = ThreadPool(max(1, cpu_count() - 1))
-    results = pool.map(process, urls)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">thread_map</span>():
+    pool = ThreadPool(<span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, cpu_count() - <span class="hljs-number">1</span>))
+    results = pool.<span class="hljs-built_in">map</span>(process, urls)
     pool.close()
     pool.join()
-    print(results)
+    <span class="hljs-built_in">print</span>(results)
 
 
-def thread_async():
-    pool = ThreadPool(max(1, cpu_count() - 1))
-    results = list()
-    for url in urls:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">thread_async</span>():
+    pool = ThreadPool(<span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, cpu_count() - <span class="hljs-number">1</span>))
+    results = <span class="hljs-built_in">list</span>()
+    <span class="hljs-keyword">for</span> url <span class="hljs-keyword">in</span> urls:
         results.append(pool.apply_async(process, args=(url,)))
     pool.close()
     pool.join()
-    print([result.get() for result in results])
+    <span class="hljs-built_in">print</span>([result.get() <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results])
 
 
-def process_multi():
-    processes = list()
-    for url in urls:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_multi</span>():
+    processes = <span class="hljs-built_in">list</span>()
+    <span class="hljs-keyword">for</span> url <span class="hljs-keyword">in</span> urls:
         processes.append(Process(target=process, args=(url,)))
-    [t.start() for t in processes]
-    [t.join() for t in processes]
+    [t.start() <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> processes]
+    [t.join() <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> processes]
 
 
-def process_map():
-    pool = Pool(processes=max(1, cpu_count() - 1))
-    results = pool.map(process, urls)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_map</span>():
+    pool = Pool(processes=<span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, cpu_count() - <span class="hljs-number">1</span>))
+    results = pool.<span class="hljs-built_in">map</span>(process, urls)
     pool.close()
     pool.join()
-    print(results)
+    <span class="hljs-built_in">print</span>(results)
 
 
-def process_async():
-    pool = Pool(processes=max(1, cpu_count() - 1))
-    results = list()
-    for url in urls:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_async</span>():
+    pool = Pool(processes=<span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, cpu_count() - <span class="hljs-number">1</span>))
+    results = <span class="hljs-built_in">list</span>()
+    <span class="hljs-keyword">for</span> url <span class="hljs-keyword">in</span> urls:
         results.append(pool.apply_async(process, (url,)))
     pool.close()
     pool.join()
-    print([result.get() for result in results])
-</code></pre><h2 id="测试结果concurrentopt">测试结果concurrentOpt</h2>
-<p><img src="./images/20200530165323184_493061281.png" alt=""></img></p>
-<p><img src="./images/20200530165334423_70013299.png" alt=""></img></p>
+    <span class="hljs-built_in">print</span>([result.get() <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results])
+</code></pre>
+<h2 id="测试结果concurrentopt">测试结果concurrentOpt</h2>
+<p><img src="images/20200530165323184_493061281.png" alt=""></img></p>
+<p><img src="images/20200530165334423_70013299.png" alt=""></img></p>
 <table>
 <thead>
 <tr>
@@ -592,8 +593,8 @@ def process_async():
 </table>
 <p>最后一行为均值</p>
 <h2 id="测试结果concurrentoptgevent">测试结果concurrentOptGevent</h2>
-<p><img src="./images/20200530170150361_1240656248.png" alt=""></img></p>
-<p><img src="./images/20200530170201434_1766846624.png" alt=""></img></p>
+<p><img src="images/20200530170150361_1240656248.png" alt=""></img></p>
+<p><img src="images/20200530170201434_1766846624.png" alt=""></img></p>
 <table>
 <thead>
 <tr>
@@ -890,7 +891,7 @@ def process_async():
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"python进阶11并发之七多种并发方式的效率测试","level":"1.12","depth":1,"next":{"title":"python进阶12并发之八多线程与数据同步","level":"1.13","depth":1,"path":"python进阶12并发之八多线程与数据同步.md","ref":"python进阶12并发之八多线程与数据同步.md","articles":[]},"previous":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"path":"python进阶10并发之六并行化改造.md","ref":"python进阶10并发之六并行化改造.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶11并发之七多种并发方式的效率测试.md","mtime":"2024-08-26T14:40:59.564Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-26T14:56:56.347Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"python进阶11并发之七多种并发方式的效率测试","level":"1.12","depth":1,"next":{"title":"python进阶12并发之八多线程与数据同步","level":"1.13","depth":1,"path":"python进阶12并发之八多线程与数据同步.md","ref":"python进阶12并发之八多线程与数据同步.md","articles":[]},"previous":{"title":"python进阶10并发之六并行化改造","level":"1.11","depth":1,"path":"python进阶10并发之六并行化改造.md","ref":"python进阶10并发之六并行化改造.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"python进阶11并发之七多种并发方式的效率测试.md","mtime":"2025-01-05T18:02:31.956Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-01-05T18:02:42.239Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

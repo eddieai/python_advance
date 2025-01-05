@@ -11,7 +11,7 @@
 
 举个例子
 
-```
+```python
 class Vehicle(object):
     pass
 
@@ -33,7 +33,7 @@ class Airplane(Vehicle, PlaneMixin):
 
 ## 一个 Mixin 类的实例(这个例子并不符合前面的无依赖原则)
 这里，我直接先上代码，有兴趣的同学，可以暂停到这里，看看这段代码中的 subclass.display() 这行代码，究竟是怎么执行的：
-```
+```python
 class Displayer():
     def display(self, message):
         print(message)
@@ -65,7 +65,7 @@ subclass.display("This string will be shown and logged in subclasslog.txt")
 
 也就是说，我们的 MySubClass.display() 调用，触发了是这么一系列的行为：
 
-```
+```python
 1. MySubClass.display() is resolved to LoggerMixin.display().
 MySubClass.display() 方法被解析为 LoggerMixin.display() 方法的调用。这应该还是比较好理解的。因为对于 MySubClass 类来说，在继承链上的两个父类，LoggerMixin 和 Displayer 来说，LoggerMixin 是最近的，因此调用它的 display() 方法。
 
